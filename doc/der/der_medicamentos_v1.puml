@@ -1,0 +1,64 @@
+@startuml
+
+skinparam linetype ortho
+
+entity "medicamentos" as mdc{
+    *mdc_id: bigint <<generated>> <<PK>>
+    *mdc_nombre varchar(255)
+}
+
+entity "tipos_meds" as tmd{
+    *tmd_id: bigint <<generated>> <<PK>>
+    *tmd_nombre varchar(255)
+}
+
+entity "unidades_medidas" as umd{
+    *umd_id: bigint <<generated>> <<PK>>
+    *umd_nombre varchar(255)
+}
+
+entity "tipos_presentaciones" as tpt{
+    *tpt_id: bigint <<generated>> <<PK>>
+    *tpt_nombre: bigint <<FK>>
+}
+
+entity "presentaciones_meds" as pst{
+    *pst_id: bigint <<generated>> <<PK>>
+    *pst_tpt_id: bigint <<FK>>
+    *pst_cantidad: int
+}
+
+entity "medicamentos_tipos_links" as mtm{
+    *mtm_mdc_id: bigint <<FK>>
+    *mtm_tmd_id: bigint <<FK>>
+}
+
+entity "medicamentos _tipos_meds_presentaciones_links" as mtp{
+
+}
+
+entity "medicamentos_tipos_medidas_links" as mtu{
+
+}
+
+entity "historias_medicamentos_especificaciones" as hme{
+    *hme_hta_id: bigint <<FK>>
+    *hme_mdc_id: bigint <<FK>>
+}
+
+hme -- mdc
+
+mdc -- mtm
+tmd -up- mtm
+
+mdc -- mtu
+tmd -- mtu
+umd -- mtu
+
+mdc -- mtp
+tmd -- mtp
+pst -- mtp
+
+pst -up- tpt
+
+@enduml

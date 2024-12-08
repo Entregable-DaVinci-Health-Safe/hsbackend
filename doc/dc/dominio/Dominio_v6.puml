@@ -1,0 +1,229 @@
+@startuml HistoriaMedica
+skinparam linetype ortho
+class Localidad{
+    -provincias: List<Provincia>
+}
+
+class Provincia{
+    -nombre: String
+}
+
+class Configuracion{
+    homeComponentes: List<Componentes>
+}
+
+abstract Usuario{
+    -nombre: String
+    -apellido: String
+    -tipo: String
+    -mail: String
+    -mailRecover: String
+    -fechaNacimiento: Date
+    -telefono: Integer
+    -direccion: String
+    -localidad: Localidad 
+    -estado: Boolean
+    -autorizaciones: List<AutorizacionComponent>
+
+}
+
+abstract AutorizacionComponent{
+    -estado: Boolean
+}
+
+class AutorizacionComposite{
+    -autorizaciones: List<AutorizacionComponent>
+}
+
+class Grupo{
+    -codigo: String
+    -descripcion: String
+    -permisos: List<Permiso>
+    -roles: List<Rol>
+}
+
+class Rol{
+    -codigo: String
+    -descripcion: String
+    -permisos: List<Permiso>
+}
+
+class Permiso{
+    -codigo: String
+    -descripcion: String
+}
+
+class HistoriaMedica{
+    -paciente: Paciente
+    -documentos: List<Documento>
+    -visitasMedicas: List<VisitaMedica>
+}
+
+class Paciente{
+    -obraSocial: ObraSocial
+}
+
+class ObraSocial{
+    -nombre: String
+}
+
+class VisitaMedica{
+    -fechaVisita: Date
+    -centroSalud: CentroSaludComposite
+    -profesional: ServidorComponent
+    -atencionVirtual: Boolean
+    -diagnostico: Diagnostico
+    -documentos: List<Documento>
+    -prescripciones: List<Prescripcion>
+}
+
+class CentroSaludComposite{
+	-nombre: String
+ 	-profesionales: Profesional
+    
+}
+
+class Adjunto{
+    -ruta: String
+}
+
+class Profesional{
+    -especialidades: List<Especialidad>
+}
+
+Enum Especialidad{
+    ...
+    ...
+}
+
+class Diagnostico{
+    -nombre: String
+    -descripcion: String
+}
+
+class Prescripcion{
+    -nombre: String
+    -factory: PrescripcionComponentFactory
+    -recetas: List<Receta>
+    -estudios: List<Estudio>
+    -pais: PaisPrescripcion
+}
+
+class ArgFactory{}
+
+interface PrescripcionComponentFactory{
+    +crearReceta(): Receta
+    +crearEstudio(): Estudio
+}
+
+enum PaisPrescripcion{
+    ARGENTINA
+}
+
+class ArgReceta{
+    -fechaEmision: Date
+    -medicamentoDescripcion: String
+    -estudioDescripcion: String
+    -indicacionMedica: String
+    -strategy: ArgRecetaStrategy
+    -adjunto: Adjunto
+    -tipo: TipoArgReceta
+}
+
+class ArgEstudio{
+    -strategy: ArgEstudioStrategy
+    -adjunto: Adjunto
+    -tipo: TipoArgEstudio
+}
+
+interface ArgRecetaStrategy{}
+
+interface ArgEstudioStrategy{}
+
+abstract Receta{}
+
+abstract Estudio{}
+
+enum TipoArgEstudio{
+...
+...
+}
+
+Enum TipoArgReceta{
+    ...
+    ...
+}
+
+interface ServidorComponent {}
+
+ServidorComponent <|.. CentroSaludComposite
+ServidorComponent <|.left. Profesional
+CentroSaludComposite o-- ServidorComponent
+
+HistoriaMedica o-left- Paciente
+HistoriaMedica o-- VisitaMedica
+
+VisitaMedica o-- ServidorComponent
+VisitaMedica o-- CentroSaludComposite
+VisitaMedica o-right- Diagnostico
+VisitaMedica o-- Prescripcion
+
+Prescripcion o-- PrescripcionComponentFactory
+Prescripcion o-- Receta
+Prescripcion o-- Estudio
+Prescripcion o-- PaisPrescripcion
+
+PrescripcionComponentFactory <|.. ArgFactory
+PrescripcionComponentFactory <|.. OtraFactory
+
+ArgFactory o-- ArgReceta
+ArgFactory o-- ArgEstudio
+
+OtraFactory o-- OtraReceta
+OtraFactory o-- OtroEstudio
+
+Receta <|.. ArgReceta
+Receta <|.. OtraReceta
+
+Estudio <|.. OtroEstudio
+Estudio <|.. ArgEstudio
+
+ArgReceta o-left- TipoArgReceta
+ArgReceta o-- Adjunto
+ArgReceta o-- ArgRecetaStrategy
+
+ArgRecetaStrategy <|.. ArgReceta1
+ArgRecetaStrategy <|.. ArgReceta2
+ArgRecetaStrategy <|.. ArgReceta3
+
+ArgEstudio o-right- TipoArgEstudio
+ArgEstudio o-- Adjunto
+ArgEstudio o-- ArgEstudioStrategy
+
+ArgEstudioStrategy <|.. Estudio1
+ArgEstudioStrategy <|.. Estudio2
+ArgEstudioStrategy <|.. Estudio3
+
+Profesional o-right- Especialidad
+
+Usuario <|.. Paciente
+Usuario <|.. Profesional
+Usuario o-- Localidad
+Usuario o-right- AutorizacionComposite
+
+AutorizacionComposite o-- AutorizacionComponent
+AutorizacionComponent <|.. AutorizacionComposite
+AutorizacionComponent <|.. Grupo
+AutorizacionComponent <|.. Permiso
+AutorizacionComponent <|.. Rol
+
+Grupo o-- Permiso
+Grupo o-- Rol
+
+Rol o-- Permiso
+
+Localidad o-- Provincia
+
+Paciente o-down- ObraSocial
+
+@enduml

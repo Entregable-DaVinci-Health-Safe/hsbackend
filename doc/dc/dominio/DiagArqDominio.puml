@@ -1,0 +1,146 @@
+@startuml Package de Usuario
+skinparam linetype ortho
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+}
+
+package Domain{
+    package Usuario{
+    abstract Usuario<<Entity>>{}
+    abstract AutorizacionComponent
+    class Paciente <<Entity>>{}
+    class Profesional <<Entity>>{}
+    class UsuarioDireccion <<Entity>>{}
+    class UsuarioContacto <<Entity>>{}
+    class Localidad <<Entity>>{}
+    class Provincia <<Entity>>{}
+    class AutorizacionComposite{}
+    class Grupo <<Entity>>{}
+    class Rol <<Entity>>{}
+    class Permiso <<Entity>>{}
+    class ObraSocial<<Entity>>{}
+    enum Especialidad{}
+}
+
+package Prescripcion{
+    class Prescripcion <<Entity>>{}
+    class ArgFactory{}
+    class OtraFactory{}
+    class ArgReceta<<Entity>>{}
+    class ArgEstudio<<Entity>>{}
+    class Adjunto <<Entity>>{}
+    class OtraReceta<<Entity>>{}
+    class OtroEstudio<<Entity>>{}
+    class Receta1{}
+    class Receta2{}
+    class Receta3{}
+    class Estudio1{}
+    class Estudio2{}
+    class Estudio3{}
+    enum PaisPrescripcion{}
+    enum TipoArgReceta{}
+    enum TipoArgEstudio{}
+    interface PrescripcionComponentFactory{}
+    interface ArgRecetaStrategy{}
+    interface ArgEstudioStrategy{}
+    abstract Receta <<Entity>>{}
+    abstract Estudio <<Entity>>{}
+}
+
+package HistoriaMedica{
+    class HistoriaMedica<<Entity>>{}
+    class VisitaMedica<<Entity>>{}
+    class CentroSaludComposite{}
+    class Diagnostico<<Entity>>{}
+    interface ServidorComponent {}
+
+}
+}
+
+
+
+
+HistoriaMedica o-- Paciente
+ServidorComponent <|.. Profesional 
+VisitaMedica o-- Prescripcion
+
+
+
+
+Usuario <|.up. Paciente
+Usuario <|.. Profesional
+Usuario o-left- UsuarioDireccion
+Usuario o-up- UsuarioContacto
+Usuario o-right- AutorizacionComposite
+
+UsuarioDireccion o-- Localidad
+UsuarioDireccion o-- Provincia
+
+Provincia o-- Localidad
+
+Profesional o-- Especialidad
+
+Paciente o-- ObraSocial
+
+AutorizacionComposite o-- AutorizacionComponent
+
+AutorizacionComponent <|.. AutorizacionComposite
+AutorizacionComponent <|.. Grupo
+AutorizacionComponent <|.. Rol
+AutorizacionComponent <|.. Permiso
+
+Grupo o-- Rol
+Grupo o-- Permiso
+
+Permiso o-- Rol
+
+
+
+Prescripcion o-- PrescripcionComponentFactory
+Prescripcion o-left- PaisPrescripcion
+Prescripcion o-- Receta
+Prescripcion o-- Estudio
+
+PrescripcionComponentFactory <|.. ArgFactory
+PrescripcionComponentFactory <|.. OtraFactory
+
+ArgFactory o-- ArgEstudio
+ArgFactory o-- ArgReceta
+
+OtraFactory o-- OtraReceta
+OtraFactory o-- OtroEstudio
+
+ArgEstudio o-left- TipoArgEstudio
+ArgEstudio o-- Adjunto
+ArgEstudio o-- ArgEstudioStrategy
+
+ArgReceta o-left- TipoArgReceta
+ArgReceta o-- Adjunto
+ArgReceta o-- ArgRecetaStrategy
+
+Receta <|.. ArgReceta
+Receta <|.. OtraReceta
+
+Estudio <|.. ArgEstudio
+Estudio <|.. OtroEstudio
+
+ArgRecetaStrategy <|.. Receta1
+ArgRecetaStrategy <|.. Receta2
+ArgRecetaStrategy <|.. Receta3
+
+ArgEstudioStrategy <|.. Estudio1
+ArgEstudioStrategy <|.. Estudio2
+ArgEstudioStrategy <|.. Estudio3
+
+
+
+HistoriaMedica o-- VisitaMedica
+VisitaMedica o-left- Diagnostico
+VisitaMedica o-- CentroSaludComposite
+VisitaMedica o-- ServidorComponent
+
+CentroSaludComposite o-- ServidorComponent
+ServidorComponent <|.. CentroSaludComposite
+
+@enduml

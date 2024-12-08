@@ -1,0 +1,78 @@
+@startuml Package de Usuario
+skinparam linetype ortho
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+}
+
+package domain{
+    abstract Usuario<<Entity>>{}
+    class UsuarioPaciente <<Entity>>{}
+    class UsuarioProfesional <<Entity>>{}
+    class Contacto <<Entity>>{}
+    class Profesional <<Entity>>{}
+    class Especialidad <<Entity>>{}
+    class VerificacionCuenta <<Entity>>{}
+    enum Genero{}
+}
+
+package repository{
+    interface UsuarioRepository{}
+    interface UsuarioPacienteRepository{}
+    interface UsuarioProfesionalRepository{}
+    interface ContactoRepository{}
+    interface DireccionRepository{}
+    interface VerificacionCuentaRepository{}
+}
+
+
+package service{
+    interface UsuarioService{}
+    class UsuarioServiceImpl{}
+
+    interface ContactoService{}
+    class ContactoServiceImpl{}
+
+    interface DireccionService{}
+    class DireccionServiceImpl{}
+
+    interface VerificacionCuentaService{}
+    class VerificacionCuentaServiceImpl{}
+}
+
+package controller{
+    class UsuarioController{}
+}
+
+Usuario o-- VerificacionCuenta
+
+Usuario <|.up. UsuarioPaciente
+Usuario <|.. UsuarioProfesional
+Usuario o-right- Genero
+
+Especialidad -up-o Profesional
+
+Usuario o-- Contacto
+Contacto --o Profesional
+
+UsuarioServiceImpl o-- UsuarioRepository
+UsuarioServiceImpl o-- UsuarioPacienteRepository
+UsuarioServiceImpl o-- UsuarioProfesionalRepository
+VerificacionCuentaServiceImpl o-- VerificacionCuentaRepository
+ContactoServiceImpl o-- ContactoRepository
+DireccionServiceImpl o-- DireccionRepository
+
+
+UsuarioService <|.. UsuarioServiceImpl
+UsuarioServiceImpl o-- DireccionService
+UsuarioServiceImpl o-- ContactoService
+UsuarioServiceImpl o-- VerificacionCuentaService
+
+ContactoService <|.. ContactoServiceImpl
+DireccionService <|.. DireccionServiceImpl
+
+VerificacionCuentaService <|.. VerificacionCuentaServiceImpl
+
+UsuarioController o-- UsuarioService
+
+@enduml

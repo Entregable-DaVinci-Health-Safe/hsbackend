@@ -1,0 +1,150 @@
+@startuml
+
+abstract Usuario{
+    -nombre: String
+    -apellido: String
+    -tipo: String
+    -mail: String
+    -fechaNacimiento: Date
+    -telefono: Integer
+    -direccion: String
+    -localidad: Localidad 
+    -perfiles: List<Perfil>
+    -estado: Boolean
+}
+
+class Localidad{
+    -provincias: List<Provincia>
+}
+
+class Provincia{
+    -nombre: String
+}
+
+class Perfil{
+    -nombre
+    -permisos: List<Permiso>
+}
+
+class Permiso{
+    -codigo: String
+}
+
+class HistoriaMedica{
+    -paciente: Paciente
+    -documentos: List<Documento>
+    -visitasMedicas: List<VisitaMedica>
+}
+
+class Paciente{
+    -obraSocial: ObraSocial
+}
+
+class ObraSocial{
+    -nombre: String
+}
+
+class VisitaMedica{
+    -fechaVisita: Date
+    -centroSalud: CentroSaludComposite
+    -profesional: ServidorComponent
+    -atencionVirtual: Boolean
+    -diagnostico: diagnostico
+    -documentos: List<Documento>
+}
+
+class CentroSaludCompisite{
+	-nombre: String
+ 	-profesionales: Profesional
+    
+}
+
+class Adjunto{
+    -ruta: String
+}
+
+class Profesional{
+    -especialidades: List<Especialidad>
+}
+
+Enum Especialidad{
+    ...
+    ...
+}
+
+class Diagnostico{
+    -nombre: String
+    -descripcion: String
+    -prescripciones: List<Prescripcion>
+}
+
+class Prescripcion{
+    -nombre: String
+    -tipoPrescripcion: TipoPrescripcion
+}
+
+Enum TipoReceta{
+    ...
+    ...
+}
+
+class Receta{
+    -fechaEmision: Date
+    -medicamentoDescripcion: String
+    -estudioDescripcion: String
+    -indicacionMedica: String
+}
+
+
+
+enum TipoEstudio{
+...
+...
+}
+
+interface ServidorComponent {
+}
+
+
+ServidorComponent <|-- CentroSaludCompisite
+ServidorComponent <|-- Profesional
+CentroSaludCompisite o-- ServidorComponent
+
+HistoriaMedica o-right- Paciente
+HistoriaMedica o-- VisitaMedica
+
+VisitaMedica o-- ServidorComponent
+VisitaMedica o-left- CentroSaludCompisite
+VisitaMedica o-right- Diagnostico
+VisitaMedica o-- Prescripcion
+
+
+Prescripcion o-- RecetaStrategy
+RecetaStrategy <|-- Receta
+RecetaStrategy <|-- Receta1
+
+Prescripcion o-- EstudioStrategy
+EstudioStrategy <|--  Estudio1
+EstudioStrategy <|--  Estudio2
+EstudioStrategy <|--  Estudio3
+
+
+EstudioStrategy o-- Adjunto
+RecetaStrategy o-- Adjunto
+
+RecetaStrategy o-- TipoReceta
+EstudioStrategy o-- TipoEstudio
+
+Profesional o-left- Especialidad
+
+Usuario <|-- Paciente
+Usuario <|-- Profesional
+Usuario o-right- Perfil
+Usuario o-- Localidad
+
+Localidad o-- Provincia
+Perfil o-right- Permiso
+
+Paciente o-right- ObraSocial
+
+@enduml

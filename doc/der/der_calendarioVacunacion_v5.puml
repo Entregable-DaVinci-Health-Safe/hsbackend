@@ -1,0 +1,91 @@
+@startuml
+
+skinparam linetype ortho
+
+entity "calendarios" as cld{
+    *cld_id: bigint <<generated>> <<PK>>
+    *cld_hta_id: bigint <<FK>>
+    *cld_tcl_id: varchar(255) NOT NULL <<FK>>
+}
+
+entity "calendario_N" as cnn{
+    *cld_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "tipo_calendarios" as tcl{
+    *tcl: varchar(50) <<PK>>
+}
+
+entity "calendarios_edades_vacunas" as cev{
+    *cev_id: bigint <<generated>> <<PK>>
+    *cev_cld_id: bigint <<FK>>
+    *cev_ede_id: bigint <<FK>>
+    *cev_vcp_id: bigint <<FK>>
+}
+
+entity "vacunas" as vcn{
+    *vcn_id: bigint <<generated>> <<PK>>
+    *vcn_nombre: varchar(255) NOT NULL
+    *vcn_descripcion: varchar(255) NOT NULL
+    *vcn_obligatorio: varchar(255) NOT NULL
+    *vcn_cantidad_dosis: int NULL
+}
+
+entity "rango_edades" as ede{
+    *ede_id: bigint <<generated>> <<PK>>
+    *ede_nombre: varchar(255) NOT NULL
+}
+
+entity "edades_tipo_calendarios" as etc{
+    *etc_id: bigint <<generated>> <<PK>>
+    *etc_ede_id: bigint <<FK>>
+    *etc_tcl_id: varchar(255) <<FK>>
+}
+
+entity "vacunas_tipo_calendarios" as vap{
+    *vtc_id: bigint <<generated>> <<PK>>
+    *vtc_tcl_id: varchar(50) <<FK>>
+    *vtc_vcn_id: bigint <<FK>>
+}
+
+entity "vacunas_edades" as vcd{
+    *vcd_id: bigint <<generated>> <<PK>>
+    *vcd_vcn_id: bigint <<FK>>
+    *vcd_ede_id: bigint <<FK>>
+}
+
+entity "vacunas_aplicadas" as vcp{
+    *vcp_id: bigint <<generated>> <<PK>>
+    *vcp_fecha: bigint NULL
+    *vcp_aplicada: varchar NOT NULL
+    *vcp_nro_dosis: int NULL
+    *vcp_vcn_id: bigint <<FK>>
+}
+
+entity "calendarios_edades" as cle{
+    *cle_id: bigint <<generated>> <<PK>>
+    *cle_cld_id: bigint <<FK>>
+    *cle_ede_id: bigint <<FK>>
+}
+
+cld ||-up-|| cnn
+cld ||-down-|| tcl
+
+tcl ||--{ etc
+ede ||--{ etc
+
+cev ||--|| ede
+cev ||--|| vcp
+cev ||--|| cld
+
+vap }--|| vcn
+tcl ||--{ vap
+
+vcn ||--|| vcp
+vcn ||-left-{ vcd
+ede ||--{ vcd
+
+cld ||--{ cle
+ede ||--{ cle
+
+@enduml

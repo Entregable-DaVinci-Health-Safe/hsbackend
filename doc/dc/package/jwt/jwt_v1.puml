@@ -1,0 +1,104 @@
+@startuml
+skinparam linetype ortho
+
+package {
+    class SecurityConfiguration{
+        + PasswordEncoder passwordEncoder()
+        + SecurityFilterChain filterChain(HttpSecurity)
+        + AuthenticationManager authenticationManager(AuthenticationConfiguration)
+    }
+}
+
+package request{
+    class UsuarioLoginRequest{}
+    abstract UsuarioRequest{}
+    class PacienteRequest{}
+    class ProfesionalRequest{}
+}
+
+package response{
+    class JwtResponse{}
+    abstract UsuarioResponse{}
+    class PacienteResponse{}
+    class ProfesionalResponse{}
+}
+
+package controllerRest{
+    class HistorialMedicoAppRest{}
+
+    class JwtControllerRest{
+        + ResponseEntity<Object> createAuthenticationToken(UsuarioLoginRequest)
+    }
+
+    class UsuarioControllerRest{
+        + ResponseEntity<Object> createPaciente(PacienteRequest)
+        + ResponseEntity<Object> createProfesional(ProfesionalRequest)
+    }
+}
+
+package jwtutils{
+    class JwtAuthenticationEntryPoint{
+        + commence(HttpServletRequest, HttpServletResponse)
+    }
+
+    class JwtFilter{
+        # void doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain)
+    }
+
+    class JwtTokenManager{
+        + String generateToken(UserDetails)
+        + String getMailFromToken(String)
+        + Boolean validateJwtToken(String, UserDetails)
+    }
+}
+
+package service{
+    class JwtUserDetailsServiceImpl{
+        + UserDetails loadUserByUsername(String)
+    }
+}
+
+package repository{
+    interface UsuarioRepository{
+        + Optional<Usuario> findByMail(String)
+    }
+}
+
+interface UserDetailsService
+interface AuthenticationEntryPoint
+interface OncePerRequestFilter
+interface AuthenticationManager
+
+HistorialMedicoAppRest <|.. JwtControllerRest
+HistorialMedicoAppRest <|.left. UsuarioControllerRest
+
+SecurityConfiguration o-- JwtAuthenticationEntryPoint
+SecurityConfiguration o-- JwtFilter
+
+JwtControllerRest o-- JwtUserDetailsServiceImpl
+JwtControllerRest o-- JwtTokenManager
+JwtControllerRest o-- AuthenticationManager
+JwtControllerRest o-up- UsuarioLoginRequest
+JwtControllerRest o-- JwtResponse
+
+UsuarioControllerRest o-- PacienteRequest
+UsuarioControllerRest o-- ProfesionalRequest
+UsuarioControllerRest o-up- PacienteResponse
+UsuarioControllerRest o-- ProfesionalResponse
+
+AuthenticationEntryPoint <|.. JwtAuthenticationEntryPoint
+
+OncePerRequestFilter <|.. JwtFilter
+
+JwtFilter o-left- JwtUserDetailsServiceImpl
+JwtFilter o-- JwtTokenManager
+
+UserDetailsService <|.. JwtUserDetailsServiceImpl
+JwtUserDetailsServiceImpl o-- UsuarioRepository
+
+UsuarioRequest <|.right. PacienteRequest
+UsuarioRequest <|.up. ProfesionalRequest
+
+UsuarioResponse <|.. PacienteResponse
+UsuarioResponse <|.. ProfesionalResponse
+@enduml

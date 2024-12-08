@@ -1,0 +1,416 @@
+@startuml
+
+skinparam linetype ortho
+
+entity "autorizaciones_componentes" as acp {
+    *acp_id: bigint <<generated>> <<PK>>
+}
+
+entity "grupos" as grp {
+    *acp_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "permisos" as prm {
+    *acp_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "roles" as rol {
+    *acp_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "grupos_permisos" as gpr{
+    *gpr_id: bigint <<generated>> <<PK>>
+    *gpr_grp_id: bigint <<FK>>
+    *gpr_prm_id: bigint <<FK>>
+}
+
+entity "roles_grupos" as rgp{
+    *rgp_id: bigint <<generated>> <<PK>>
+    *rgp_rol_id: bigint <<FK>>
+    *rgp_grp_id: bigint <<FK>>
+}
+
+entity "roles_permisos" as rpr{
+    *rpr_id: bigint <<generated>> <<PK>>
+    *rpr_rol_id: bigint <<FK>>
+    *rpr_prm_id: bigint <<FK>>
+}
+
+entity "autorizaciones" as aut {
+    *acp_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "autorizaciones_composiciones" as acm{
+    *acm_id: bigint <<generated>> <<PK>>
+    *acm_aut_id: bigint <<FK>>
+    *acm_acp_id: bigint <<FK>>
+}
+
+entity "usuarios" as usr{
+    *usr_id: bigint <<generated>> <<PK>>
+}
+
+entity "usuario_pacientes" as usr_pte {
+    *usr_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "usuario_profesionales" as usr_pfl {
+    *usr_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "usuarios_autorizaciones_componentes" as uac{
+    *uac_id: bigint <<generated>> <<PK>>
+    *uac_usr_id: bigint <<FK>>
+    *uac_acp_id: bigint <<FK>>
+}
+
+entity "verificaciones_cuentas" as vfc{
+    *vfc_id: bigint <<generated>> <<PK>>
+    *vfc_usr_id: bigint <<FK>>
+}
+
+entity "grupos_familiares" as gfm{
+    *gfm_id: bigint <<generated>> <<PK>>
+}
+
+entity "historias_medicas" as hta{
+    *hta_id: bigint <<generated>> <<PK>>
+    *hta_usr_id: bigint <<FK>>
+}
+
+entity "historias_familiares" as htf{
+    *htf_id: bigint  <<generated>> <<PK>>
+    *htf_hta_id: bigint <<FK>>
+    *htf_gfm_id: bigint <<FK>>
+}
+
+entity "admins_grupos_familiares" as adg{
+    *adg_id: bigint <<generated>> <<PK>>
+    *adg_gfm_id: bigint <<FK>>
+    *adg_usr_id: bigint <<FK>>
+}
+
+entity "usuarios_grupos_familiares" as ugf{
+    *ugf_id: bigint <<generated>> <<PK>>
+    *ugf_gfm_id: bigint <<FK>>
+    *ugf_usr_id: bigint <<FK>>
+}
+
+entity "grupos_notificaciones" as gnt{
+    *gnt_id: bigint <<generated>> <<PK>>
+    *gnt_gfm_id: bigint <<FK>>
+    *gnt_usr_id: bigint <<FK>>
+}
+
+entity "direcciones" as dir{
+    *dir_id: bigint <<generated>> <<PK>>
+}
+
+entity "direcciones_instituciones_salud" as dit{
+    *dir_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "instituciones_salud" as itc{
+    *itc_id: bigint <<generated>> <<PK>>
+    *itc_hta_id: bigint <<FK>>
+    *itc_dir_id: bigint <<FK>>
+}
+
+entity "profesionales" as pfl{
+    *pfl_id: bigint <<generated>> <<PK>>>
+    *pfl_hta_id: bigint <<FK>>
+}
+
+entity "especialidades" as epc{
+    *epc_id: bigint <<generated>> <<PK>>>
+}
+
+entity "profesional_especialidades" as pep{
+    *pep_id: bigint <<generated>> <<PK>>>
+    *pep_pfl_id: bigint <<FK>>
+    *pep_epc_id: bigint <<FK>>
+}
+
+entity "instituciones_profesionales" as ipf{
+    *ipf_id: bigint <<generated>> <<PK>>>
+    *ipf_pfl_id: bigint <<FK>>
+    *ipf_itc_id: bigint <<FK>>
+}
+
+entity "direcciones_usuarios" as dus{
+    *dir_id: bigint <<generated>> <<PK>> <<FK>>
+    *dir_usr_id: bigint <<FK>>
+}
+
+entity "direcciones_profesionales" as dpr{
+    *dir_id: bigint <<generated>> <<PK>> <<FK>>
+    *dir_pfl_id: bigint <<FK>>
+}
+
+entity "diagnosticos" as dgt{
+    *dgt_id: bigint <<generated>> <<PK>>>
+}
+
+entity "turnos" as trn{
+    *trn_id: bigint <<generated>> <<PK>>>
+    *trn_hta_id: bigint <<FK>>
+}
+
+entity "visitas_medicas" as vta{
+    *vta_id: bigint <<generated>> <<PK>>>
+    *vta_hta_id: bigint <<FK>>
+    *vta_pfl_id: bigint <<FK>>
+    vta_itc_id: bigint <<FK>>
+    *vta_epc_id: bigint <<FK>>
+    *vta_dgt_id: bigint <<FK>>
+}
+
+entity "prescripciones" as pcp{
+    *pcp_id: bigint <<generated>> <<PK>>
+    *pcp_vta_id: bigint <<FK>>
+}
+
+entity "recetas" as rta{
+    *rta_id: bigint <<generated>> <<PK>>
+    *rta_pcp_id: bigint <<FK>>
+}
+
+entity "estudios" as esd{
+    *esd_id: bigint <<generated>> <<PK>>
+    *esd_pcp_id: bigint <<FK>>
+} 
+
+entity "argentina_recetas" as arg_rta{
+    *rta_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "argentina_estudios" as arg_esd{
+    *esd_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "adjuntos" as adj{
+    *adj_id: bigint <<generated>> <<PK>>
+}
+
+entity "contactos" as ctc{
+    *ctc_id: bigint <<generated>> <<PK>>
+}
+
+entity "contactos_usuarios" as cus{
+    *ctc_id: bigint <<generated>> <<PK>> <<FK>>
+    *ctc_usr_id: bigint <<FK>>
+}
+
+entity "contactos_profesionales" as cpr{
+    *ctc_id: bigint <<generated>> <<PK>> <<FK>>
+    *ctc_pfl_id: bigint <<FK>>
+}
+
+entity "contactos_instituciones_salud" as cic{
+    *cic_id: bigint <<generated>> <<PK>> <<FK>>
+    *cic_cis_id: bigint <<FK>>
+}
+
+entity "tipo_calendarios" as tcl{
+    *tcl: varchar(50) <<PK>>
+}
+
+entity "calendarios" as cld{
+    *cld_id: bigint <<generated>> <<PK>>
+    *cld_tcl_id: varchar(255) NOT NULL <<FK>>
+    *cld_hta_id: bigint <<FK>>
+}
+
+entity "calendario_N" as cln{
+    *cld_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "vacunas" as vcn{
+    *vcn_id: bigint <<generated>> <<PK>>
+}
+
+entity "vacunas_aplicadas" as vcp{
+    *vcp_id: bigint <<generated>> <<PK>>
+    *vcp_vcn_id: bigint <<FK>>
+}
+
+entity "vacunas_tipo_calendarios" as vtc{
+    *vtc_id: bigint <<generated>> <<PK>>
+    *vtc_tcl_id: bigint <<FK>>
+    *vtc_vcn_id: bigint <<FK>>
+}
+
+entity "rango_edades" as ede{
+    *ede_id: bigint <<generated>> <<PK>>
+}
+
+entity "vacunas_edades" as vcd{
+    *vcd_id: bigint <<generated>> <<PK>>
+    *vcd_vcn_id: bigint <<FK>>
+    *vcd_ede_id: bigint <<FK>>
+}
+
+entity "calendarios_edades" as cle{
+    *cle_id: bigint <<generated>> <<PK>>
+    *cle_cld_id: bigint <<FK>>
+    *cle_ede_id: bigint <<FK>>
+}
+
+entity "edades_tipo_calendarios" as etc{
+    *etc_id: bigint <<generated>> <<PK>>
+    *etc_ede_id: bigint <<FK>>
+    *etc_tcl_id: varchar(50) <<FK>>
+}
+
+entity "calendarios_edades_vacunas" as cev{
+    *cev_id: bigint <<generated>> <<PK>>
+    *cev_cld_id: bigint <<FK>>
+    *cev_ede_id: bigint <<FK>>
+    *cev_vcn_id: bigint <<FK>>
+}
+
+entity "medicamentos" as mdc{
+    *mdc_id: bigint <<generated>> <<PK>>
+}
+
+entity "medicamentos_productos" as mpt{
+    *mpt_id: bigint <<generated>> <<PK>>
+    *mpt_mdc_id: bigint <<FK>>
+}
+
+entity "medicamentos_recordatorios" as mrc{
+    *mrc_id: bigint <<generated>> <<PK>>
+}
+
+entity "historias_medicamentos" as htm{
+    *htm_id: bigint <<generated>> <<PK>>
+    *htm_hta_id: bigint<<FK>>
+    *htm_mpt_id: bigint <<FK>>
+    htm_mrc_id: bigint <<FK>>
+}
+
+entity "tipos_signos_vitales" as tsv{
+    *tsv_id: bigint <<generated>> <<PK>>
+}
+
+entity "signos_vitales_customs" as svc{
+    *svc_id: bigint <<generated>> <<PK>>
+    *svc_tsv_id: bigint <<FK>>
+    *svc_hta_id: bigint <<FK>>
+}
+
+entity "signos_vitales_pacientes" as svp{
+    *svp_id: bigint <<generated>> <<PK>>
+    *svp_hta_id: bigint <<FK>>
+    *svp_svc_id: bigint <<FK>>
+}
+
+usr_pte ||--|| usr
+usr_pfl ||--|| usr
+usr ||-right-{ vfc
+
+usr ||--{ gnt
+gfm ||-up-{ gnt
+
+gfm }--|| adg
+usr }--|| adg
+
+hta }--|| htf
+gfm }--|| htf
+
+gfm }--|| ugf
+usr }--|| ugf
+usr ||--{ dus
+
+hta ||--|| usr_pte
+hta ||--{ pfl
+hta ||--{ itc
+hta ||-up-{ htm
+hta ||-- svc
+hta ||--{ svp
+hta ||--{ cld
+hta ||--{ trn
+
+/'AUTORIZACIONES'/
+acp ||--|| prm
+acp ||--|| grp
+acp ||--|| rol
+acp ||--|| aut
+
+rol ||--{ rgp
+grp ||--{ rgp
+
+rol ||--{ rpr
+prm ||--{ rpr
+
+grp ||--{ gpr
+prm ||--{ gpr
+
+aut ||--{ acm
+acp ||--{ acm
+
+usr }--|| uac
+acp }-up-|| uac
+
+/'CALENDARIOS'/
+cld ||--|| cln
+cld ||--|| tcl
+cld ||--{ cle
+ede ||--{ cle
+tcl ||--{ etc
+ede ||--{ etc
+cev ||--|| ede
+cev ||--|| vcn
+cev ||--|| cld
+vcn ||--{ vcp
+vcn ||--{ vcd
+vcn ||--{ vtc
+ede ||--{ vcd
+tcl ||--{ vtc
+
+/'DIRECCIONES'/
+dir ||--|| dit
+dir ||--|| dus
+dir ||--|| dpr
+
+/'PRESCRIPCIONES'/
+vta ||-up-{ pcp
+pcp ||-left-{ rta
+pcp ||-right-{ esd
+arg_rta ||--|| rta
+arg_esd ||--|| esd
+
+/'PROFESIONALES'/
+pfl ||--{ pep
+pfl ||--{ dpr
+epc ||--{ pep
+pfl ||--{ ipf
+
+/'INSTITUCION SALUD'/
+itc ||--|| dit
+itc ||--{ ipf
+
+/'VISITAS MEDICAS'/
+vta }--|| hta
+vta }-left-|| pfl
+vta }--|| itc
+vta }-left-|| epc
+vta }-right-|| dgt
+
+/'CONTACTOS'/
+ctc ||--|| cus
+ctc ||--|| cpr
+ctc ||--|| cic
+cic ||-{ itc
+usr ||--{ cus
+pfl ||--{ cpr
+
+/'MEDICACION'/
+mpt ||-left-{ htm
+mrc ||--{ htm
+mdc ||--{ mpt
+
+/'SIGNOS VITALES'/
+svc ||-right-{ tsv
+svc ||-up-{ svp
+

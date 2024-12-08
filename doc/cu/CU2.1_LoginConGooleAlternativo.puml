@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+package Login_Alternativo {
+    usecase "CU_1-Login" as CU_1
+    (Error) as ER
+    ' CU_1 --> (Home)
+
+    actor Paciente as PA
+    actor Admin as AD
+
+    AD -- CU_1
+    PA -- CU_1
+
+    CU_1 --> ER
+    ER --> CU_1 
+
+}
+@enduml

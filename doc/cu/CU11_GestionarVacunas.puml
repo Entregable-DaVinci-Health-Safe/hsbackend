@@ -1,0 +1,9 @@
+@startuml
+left to right direction
+
+actor Paciente
+Paciente -- (CU_11-GestionarVacuna)
+(CU_11-GestionarVacuna) .right--> (Aplicada)
+(CU_11-GestionarVacuna) .left--> (No Aplicada)
+(CU_11-GestionarVacuna) .down-> (CU_10-VisualizarCalendarioDeVacunacion) : require
+@enduml

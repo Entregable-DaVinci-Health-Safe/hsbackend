@@ -1,0 +1,187 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity "Configuraciones" as Config{
+    *cfg_id: BIGINT <<generated>>
+    *cfg_usr_id: <<FK>>
+    *cfg_HomeComponentes: <<FK>>
+    cfg_tema: VARCHAR(50)
+}
+
+entity "HomeComponentes" as HComp{
+    *hcp_id: BIGINT <<generated>>
+    *hcp_cfg_id: <<FK>>
+    *hcp_cpt_id: <<FK>>
+}
+
+entity "Usuarios" as Usuarios {
+    *usr_id: BIGINT <<generated>>
+    *usr_tipo: VARCHAR (50)
+    *usr_cfg_id: <<FK>>
+    *usr_ubc_id: <<FK>>
+    --
+    *usr_nombres: VARCHAR (250)
+    *usr_apellidos: VARCHAR (250)
+    usr_diagnostico: INT
+    *usr_mail: VARCHAR (45)
+    usr_mailRecover: VARCHAR (50)
+    *usr_fecha_nacimiento: VARCHAR (45)
+    *usr_tipo VARCHAR (45)
+    usr_telefono: DATE ("dd-MM-yyyy")
+    usr_direccion: VARCHAR (250)
+    usr_estado:  TINYINT(1)
+
+}
+
+entity "CirculoUsuarios" as CS {
+
+    cus_id BIGINT:BIGINT <<generated>>
+    *cus_usr_id_main: <<FK>>
+    *cus_usr_id: <<FK>>
+    '*autorizacion <<FK>>
+
+}
+
+entity "Permisos" as Permisos {
+
+    *prm_id BIGINT: BIGINT <<generated>>
+
+    prm_codigo: VARCHAR (45)
+    prm_descripcion: VARCHAR (45)
+}
+
+entity "Roles" as Roles {
+
+    *rol_id: BIGINT <<generated>>
+
+    rol_codigo: VARCHAR (45)
+    rol_descripcion: VARCHAR (45)
+
+}
+
+entity "Grupos" as Grupos {
+
+    *grp_id: BIGINT <<generated>>
+
+    grp_codigo: VARCHAR (45)
+    grp_descripcion: VARCHAR (45)
+}
+
+entity "RolesGrupos" as RG {
+
+    rgp_id: BIGINT <<generated>> <<PK>>
+
+    *rgp_rol_id BIGINT <<UK>><<FK>>
+    *rgp_grp_id BIGINT <<UK>><<FK>>
+
+}
+
+entity "GruposPermisos" as GP {
+
+    gpr_id: BIGINT <<generated>> <<PK>>
+
+    *gpr_grp_id BIGINT <<UK>><<FK>>
+    *gpr_prm_id BIGINT <<UK>><<FK>>
+
+}
+
+entity "RolesPermisos" as RP {
+
+    rpr_id: BIGINT <<generated>> <<PK>>
+
+    *rpr_rol_id BIGINT <<UK>><<FK>>
+    *rpr_prm_id BIGINT <<UK>><<FK>>
+
+}
+
+entity "Autorizaciones" as Autorizacion {
+
+    aut_id: BIGINT <<PK>>
+
+    aut_usr_id: <<FK>>
+    aut_estado
+
+}
+
+entity "AutorizacionComposicion" as AutorizacionComposicion {
+
+    acm_id: BIGINT <<PK>>
+    --
+    acm_aut_id BIGINT <<UK>><<FK>>
+    acm_grp_id BIGINT <<UK>><<FK>>
+    acm_rol_id BIGINT <<UK>><<FK>>
+    acm_prm_id BIGINT <<UK>><<FK>>
+
+}
+
+entity "Componentes" as CF {
+    cpt_id: BIGINT <<generated>>
+    *cpt_nombre: VARCHAR (45)
+}
+
+entity "Provincias" as Provincias {
+    *prv_id: BIGINT <<generated>>
+    --
+    prv_nombre: VARCHAR (45)
+}
+
+entity "Localidades" as Localidades {
+    *lcd_id: BIGINT <<generated>>
+    --
+    lcd_nombre: VARCHAR (45)
+}
+
+entity "Ubicaciones" as Ubicacion {
+    *ubc_id: BIGINT <<generated>>
+    --
+    ubc_prv_id: <<FK>>
+    ubc_lcd_id: <<FK>>
+}
+
+entity "Pacientes" as Paciente {
+    *pte_id BIGINT <<generated>>
+    --
+    pce_obs_id: <<FK>>
+}
+
+entity "ObrasSociales" as ObrasSociales{
+    obs_id BIGINT <<generated>>
+}
+
+entity "Admin" as Admin {
+    *adm_id BIGINT <<generated>>
+    --
+}
+
+Usuarios --{ Autorizacion
+Usuarios  ||--|| Ubicacion
+
+Paciente ||--{  Usuarios
+Paciente ||--|| ObrasSociales
+Admin ||--{  Usuarios
+
+Ubicacion ||--|| Provincias
+Ubicacion ||--|| Localidades
+
+Usuarios ||--|| Config
+Config ||--{ HComp
+HComp ||--{ CF
+
+Roles -up-{ RP
+Roles -up-{ RG
+
+Permisos -up-{ RP    
+Permisos }-up- GP
+
+Grupos --{  RG
+Grupos -up-{ GP
+
+Autorizacion --{ AutorizacionComposicion
+
+AutorizacionComposicion }-- Grupos
+AutorizacionComposicion }-- Roles 
+AutorizacionComposicion }-- Permisos
+
+@enduml
+

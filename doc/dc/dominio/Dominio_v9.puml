@@ -1,0 +1,225 @@
+@startuml HistoriaMedica
+skinparam linetype ortho
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+BackgroundColor<<SinUso>> LightPink
+BorderColor<<SinUso>> Red
+ArrowColor SeaGreen
+
+}
+
+
+package domain{
+
+    package autorizacion{
+        abstract AutorizacionComponent{}
+        class Autorizacion{}
+        class Grupo{}
+        class Permiso{}
+        class Rol{}
+    }
+
+    package usuario{
+        class Usuario{}
+        class UsuarioPaciente{}
+        class UsuarioProfesional{}
+        class VerificacionCuenta{}
+        class Especialidad{}
+        class Profesional{}
+        enum TipoMatricula{}
+        enum Genero{}
+    }
+
+    package calendario{
+        class CalendarioDirector{}
+        interface CalendarioBuilder{}
+        class CalendarioNBuilder{}
+        abstract Calendario{}
+        class CalendarioN{}
+        class RangoEdad{} 
+        class CalendarioEdadVacunaLink{}
+        class TipoCalendario{}
+        class Vacuna{}
+        enum VacunaAplicada{}
+        class VacunaUsuario{}
+    }
+
+    package contacto{
+        abstract Contacto{}
+        class ContactoN{}
+    }
+
+    package direccion{
+        abstract Direccion{}
+        class DireccionN{}
+    }
+
+    package historia{
+        class Diagnostico{}
+        class GrupoFamiliar{}
+        class GrupoNotificacion{}
+        class HistoriaMedica{}
+        class InstitucionSalud{}
+        class MailSmptpDetails{}
+        enum TipoEntidad{}
+        class Turno{}
+        class VisitaMedica{}
+    }
+
+    package medicamento{
+        class HistoriaMedicamento{}
+        class Medicamento{}
+        class MedicamentoProducto{}
+        class MedicamentoRecordatorio{}
+        enum TipoFrecuencia{}
+        enum TipoPresentacion{}
+    }
+
+    package prescripcion{
+        class Prescripcion{}
+        class ArgFactory{}
+        class OtraFactory{}
+        class ArgReceta{}
+        class ArgEstudio{}
+        class Adjunto{}
+        class OtraReceta{}
+        class OtroEstudio{}
+        class Receta1{}
+        class Receta2{}
+        class Receta3{}
+        class Estudio1{}
+        class Estudio2{}
+        class Estudio3{}
+        enum PaisPrescripcion{}
+        enum TipoArgReceta{}
+        enum TipoArgEstudio{}
+        interface PrescripcionComponentFactory{}
+        interface ArgRecetaStrategy{}
+        interface ArgEstudioStrategy{}
+        abstract Receta{}
+        abstract Estudio{}
+    }
+
+    package signovital{
+        enum ResultadoSignoVital{}
+        class SignoVitalCustom{}
+        class SignoVitalPaciente{}
+        class TipoSignoVital{}
+    }
+} 
+
+/'AUTORIZACION'/
+AutorizacionComponent <|.. Autorizacion
+AutorizacionComponent <|.. Grupo
+AutorizacionComponent <|.. Rol
+AutorizacionComponent <|.. Permiso
+Autorizacion o-- AutorizacionComponent
+Grupo o-- Rol
+Grupo o-- Permiso
+Permiso o-- Rol
+
+/'CALENDARIO'/
+CalendarioDirector o-- CalendarioBuilder
+CalendarioBuilder <|.. CalendarioNBuilder
+CalendarioNBuilder o-- CalendarioN
+Calendario <|.. CalendarioN
+Calendario o-- RangoEdad
+Calendario o-- CalendarioEdadVacunaLink
+CalendarioEdadVacunaLink o-- VacunaUsuario
+CalendarioEdadVacunaLink o-- RangoEdad
+RangoEdad o-- TipoCalendario
+VacunaUsuario o-- VacunaAplicada
+VacunaUsuario o-- Vacuna
+
+/'CONTACTO'/
+Contacto <|.. ContactoN
+
+/'DIRECCION'/
+Direccion <|.. DireccionN
+
+/'SIGNOVITAL'/
+SignoVitalCustom o-- TipoSignoVital
+SignoVitalCustom o-- SignoVitalPaciente
+SignoVitalPaciente o-- ResultadoSignoVital
+
+
+/'HISTORIA'/
+HistoriaMedica o-- HistoriaMedicamento
+HistoriaMedica o-- VisitaMedica
+HistoriaMedica o-- InstitucionSalud
+HistoriaMedica o-- GrupoFamiliar
+HistoriaMedica o-- Turno
+HistoriaMedica o-- Calendario
+HistoriaMedica o-- SignoVitalCustom
+HistoriaMedica o-- SignoVitalPaciente
+HistoriaMedica o-- UsuarioPaciente
+HistoriaMedica o-- Profesional
+
+InstitucionSalud o-- ContactoN
+InstitucionSalud o-- DireccionN
+InstitucionSalud o-- Profesional
+
+VisitaMedica o-- Diagnostico
+VisitaMedica o-- Prescripcion
+VisitaMedica o-- Profesional
+VisitaMedica o-- Especialidad
+
+GrupoFamiliar o-- GrupoNotificacion
+GrupoFamiliar o-- Usuario
+GrupoNotificacion o-- Usuario
+
+/'MEDICAMENTO'/
+HistoriaMedicamento o-- TipoPresentacion
+HistoriaMedicamento o-- MedicamentoRecordatorio
+HistoriaMedicamento o-- MedicamentoProducto
+MedicamentoRecordatorio o-- TipoFrecuencia
+Medicamento o-- MedicamentoProducto
+
+/'USUARIO'/
+Usuario <|.up. UsuarioPaciente
+Usuario <|.. UsuarioProfesional
+Usuario o-- AutorizacionComponent
+Usuario o-- VerificacionCuenta
+Usuario o-- Genero
+Usuario o-- ContactoN
+Usuario o-- DireccionN
+
+Profesional o-- Especialidad
+Profesional o-- TipoMatricula
+
+/'PRESCRIPCION'/
+Prescripcion o-- PrescripcionComponentFactory
+Prescripcion o-left- PaisPrescripcion
+Prescripcion o-- Receta
+Prescripcion o-- Estudio
+
+PrescripcionComponentFactory <|.. ArgFactory
+PrescripcionComponentFactory <|.. OtraFactory
+
+ArgFactory o-- ArgEstudio
+ArgFactory o-- ArgReceta
+
+OtraFactory o-- OtraReceta
+OtraFactory o-- OtroEstudio
+
+ArgEstudio o-left- TipoArgEstudio
+ArgEstudio o-- ArgEstudioStrategy
+
+ArgReceta o-left- TipoArgReceta
+ArgReceta o-- ArgRecetaStrategy
+
+Receta <|.. ArgReceta
+Receta <|.. OtraReceta
+
+Estudio <|.. ArgEstudio
+Estudio <|.. OtroEstudio
+
+ArgRecetaStrategy <|.. Receta1
+ArgRecetaStrategy <|.. Receta2
+ArgRecetaStrategy <|.. Receta3
+
+ArgEstudioStrategy <|.. Estudio1
+ArgEstudioStrategy <|.. Estudio2
+ArgEstudioStrategy <|.. Estudio3
+@enduml

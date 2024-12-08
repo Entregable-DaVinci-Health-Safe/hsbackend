@@ -1,0 +1,92 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity "verificaciones_cuentas" as vfc{
+    *vfc_id: bigint <<generated>> <<PK>>
+    vfc_codigo: bigint
+    vfc_generado: bigint
+    vfc_validado: bigint
+    vfc_usr_id: bigint <<FK>>
+
+}
+
+entity "usuarios" as usr {
+    *usr_id: BIGINT <<generated>>
+    *usr_acp_id: BIGINT <<FK>>
+}
+
+entity "usuarios_pacientes" as usr_pte{
+    *usr_id: bigint <<generated>> <<PK>>
+    *usr_id: bigint <<FK>>
+}
+
+entity "usuarios_profesionales" as usr_pfl{
+    *usr_id: bigint <<generated>> <<PK>>
+    *usr_id: bigint <<FK>>
+}
+
+entity "contactos" as ctc{
+    *ctc_id: bigint <<generated>> <<PK>>
+}
+
+entity "contactos_usuarios" as cus{
+    *ctc_id: bigint <<generated>> <<PK>> <<FK>>
+    *ctc_usr_id: bigint <<FK>>
+}
+
+entity "direcciones" as dir{
+    *dir_id: bigint <<generated>> <<PK>>
+}
+
+entity "direcciones_usuarios" as dus{
+    *dir_id: bigint <<generated>> <<PK>> <<FK>>
+    *dir_usr_id: bigint <<FK>>
+}
+
+entity "autorizaciones_componentes" as acp {
+    *acp_id: bigint <<generated>> <<PK>>
+}
+
+entity "admins_grupos_familiares" as adg{
+    *adg_id: bigint <<generated>> <<PK>>
+    *adg_gfm_id: bigint <<FK>>
+    *adg_usr_id: bigint <<FK>>
+}
+
+entity "usuarios_grupos_familiares" as ugf{
+    *ugf_id: bigint <<generated>> <<PK>>
+    *ugf_gfm_id: bigint <<FK>>
+    *ugf_usr_id: bigint <<FK>>
+}
+
+entity "grupos_notificaciones" as gnt{
+    *gnt_id: bigint <<PK>>
+    *gnt_fecha: bigint
+    *gnt_vista: TINYINT(1)
+    *gnt_aceptada: TINYINT(1)
+    *gnt_gfm_id: bigint <<FK>>
+    *gnt_usr_id: bigint <<FK>>
+
+}
+
+
+usr ||--{ vfc
+
+usr_pte ||--|| usr
+usr_pfl ||--|| usr
+
+usr ||--{ dus
+dir ||--|| dus
+
+ctc ||-up-|| cus
+usr ||--{ cus
+
+usr ||--{ acp
+
+usr }-right-|| adg
+usr }-up-|| ugf
+usr ||-left-{ gnt
+
+@enduml
+

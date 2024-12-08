@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+package Login {
+    usecase "CU_1-Login" AS CU_1
+    usecase "CU_2-Login con Google" AS CU_2
+
+    actor Paciente AS PA
+    actor Admin AS AD
+
+    AD -- CU_1
+    PA -- CU_1
+    CU_1 --> CU_2
+}
+@enduml

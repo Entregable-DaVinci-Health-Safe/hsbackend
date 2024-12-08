@@ -1,0 +1,237 @@
+@startuml controllers
+skinparam linetype ortho
+
+package request{
+    package autorizacion{
+        abstract AutorizacionComponentRequest{}
+        class AutorizacionComponentsIdsRequest{}
+        class AutorizacionRequest{}
+        class GrupoRequest{}
+        class PermisoRequest{}
+        class RolRequest{}
+    }
+
+    package calendario{
+        class CalendarioVacunaRequest{}
+        class RemoveVacunaUsuarioRequest{}
+        class VacunaRequest{}
+    }
+
+    package contacto{
+        class ContactoIdRequest{}
+        class ContactoRequest{}
+    }
+
+    package grupofamiliar{
+        class GrupoFamiliarAdminRequest{}
+        class GrupoFamiliarCompartirRequest{}
+        class GrupoFamiliarIngresarRequest{}
+        class GrupoFamiliarRemoveUsuarioRequest{}
+        class GrupoFamiliarRequest{}
+        class GrupoFamiliarUpdateRequest{}
+    }
+
+    package institucionsalud{
+        class InstitucionSaludProfesionalesRequest{}
+        class InstitucionSaludRequest{}
+        class InstitucionSaludUpdateRequest{}
+    }
+
+    package medicamento{
+        class HistoriaMedicamentoRequest{}
+        class MedicamentoRecordatorioRequest{}
+        class HistoriaMedicamentoUpdateRequest{}
+    }
+
+    package prescripcion{
+        class PrescripcionRequest{}
+        class RecetaRequest{}
+        class EstudioRequest{}
+        class EstudioDeleteRequest{}
+    }
+
+    package profesional{
+        class ProfesionalUpdateRequest{}
+        class ProfesionalRequest{}
+        class ProfesionalEspecialidadesRequest{}
+        class EspecialidadRequest{}
+    }
+
+    package signovital{
+        class SignoVitalPacienteUpdateRequest{}
+        class SignoVitalPacienteRequest{}
+        class SignoVitalCustomUpdateRequest{}
+        class SignoVitalCustomRequest{}
+    }
+
+    package ubicacion{
+        class DireccionRequest{}
+        class DireccionIdRequest{}
+    }
+
+    package usuario{
+        class UsuarioGoogleLoginRequest{}
+        class UsuarioLoginRequest{}
+        class VerificacionCodigoRequest{}
+        class UsuarioUpdateRequest{}
+        class UsuarioUpdatePasswordRequest{}
+        class UsuarioUpdateImagenRequest{}
+        class UsuarioResetPasswordRequest{}
+        class UsuarioMailRequest{}
+        abstract UsuarioRequest{}
+        class UsuarioNRequest{}
+    }
+
+    package visitamedica{
+        class VisitaMedicaRequest{}
+        class VisitaMedicaRangoTiempo{}
+    }
+
+    class GoogleCalendarioPostRequest{}
+    class GoogleCalendarioGetListRequest{}
+    class TurnoRequest{}
+    class TurnoUpdateRequest{}
+    class HistoriaMedicaRequest{}
+}
+
+package response{
+    package autorizacion{
+        abstract AutorizacionComponentResponse{}
+        class AutorizacionResponse{}
+        class GrupoResponse{}
+        class PermisoResponse{}
+        class RolResponse{}
+    }
+
+    package calendario{
+        abstract CalendarioResponse{}
+        class CalendarioNResponse{}
+        class RangoEdadResponse{}
+        class RangoEdadVacunaResponse{}
+        class VacunaResponse{}
+        class VacunaUsuarioResponse{}
+    }
+
+    package medicamento{
+        class HistoriaMedicamentoResponse{}
+        class MedicamentoProductoResponse{}
+        class MedicamentoRecordatorioResponse{}
+        class MedicamentoResponse{}
+        class MedicamentoWithProductoResponse{}
+    }
+
+    package prescripcion{
+        class PrescripcionResponse{}
+        class EstudioResponse{}
+        class RecetaResponse{}
+    }
+
+    package profesional{
+        class EspecialidadResponse{}
+        class ProfesionalResponse{}
+        class ProfesionalEspecialidadResponse{}
+    }
+
+    package signovital{
+        class SignoVitalCustomResponse{}
+        class SignoVitalPacienteResponse{}
+    }
+
+    package direccion{
+        class DireccionResponse{}
+    }
+
+    package usuario{
+        class UsuarioImagenPerfilResponse{}
+        abstract UsuarioResponse{}
+        class UsuarioPacienteResponse{}
+        class UsuarioProfesionalResponse{}
+    }
+
+    package visitamedica{
+        class VisitaMedicaResponse{}
+        class VisitaMedicaWithDocumentsResponse{}
+    }
+
+    class ContactoResponse{}
+    class DiagnosticoResponse{}
+    class ErrorResponse{}
+    class ExceptionResponse{}
+    class GrupoFamiliarResponse{}
+    class GrupoNotificacionResponse{}
+    class HistoriaMedicaResponse{}
+    class TurnoResponse{}
+    class JwtResponse{}
+    class InstitucionSaludResponse{}
+}
+
+/'REQUEST'/
+AutorizacionComponentRequest <|.. AutorizacionRequest
+AutorizacionComponentRequest <|.. GrupoRequest
+AutorizacionComponentRequest <|.. PermisoRequest
+AutorizacionComponentRequest <|.. RolRequest
+
+UsuarioRequest <|.. UsuarioNRequest
+
+InstitucionSaludRequest o-- DireccionRequest
+/'RESPONSE'/
+AutorizacionComponentResponse <|.. AutorizacionResponse
+AutorizacionComponentResponse <|.. GrupoResponse
+AutorizacionComponentResponse <|.. PermisoResponse
+AutorizacionComponentResponse <|.. RolResponse
+
+AutorizacionResponse o-- AutorizacionComponentResponse
+GrupoResponse o-- PermisoResponse
+GrupoResponse o-- RolResponse
+RolResponse o-- PermisoResponse
+
+CalendarioResponse <|.. CalendarioNResponse
+CalendarioResponse o-- RangoEdadVacunaResponse
+RangoEdadVacunaResponse o-- VacunaUsuarioResponse
+
+HistoriaMedicamentoResponse o-- MedicamentoRecordatorioResponse
+HistoriaMedicamentoResponse o-- MedicamentoWithProductoResponse
+MedicamentoResponse o-- MedicamentoProductoResponse
+MedicamentoWithProductoResponse o-- MedicamentoProductoResponse
+
+PrescripcionResponse o-- EstudioResponse
+PrescripcionResponse o-- RecetaResponse
+
+ProfesionalEspecialidadResponse o-- EspecialidadResponse
+ProfesionalResponse o-- EspecialidadResponse
+ProfesionalResponse o-- DireccionResponse
+ProfesionalResponse o-- ContactoResponse
+
+SignoVitalCustomResponse o-- SignoVitalPacienteResponse
+
+UsuarioResponse <|.. UsuarioPacienteResponse
+UsuarioResponse <|.. UsuarioProfesionalResponse
+UsuarioResponse o-- DireccionResponse
+UsuarioResponse o-- ContactoResponse
+UsuarioResponse o-- AutorizacionComponentResponse
+
+VisitaMedicaWithDocumentsResponse o-- PrescripcionResponse
+VisitaMedicaResponse o-- InstitucionSaludResponse
+VisitaMedicaResponse o-- ProfesionalResponse
+VisitaMedicaResponse o-- EspecialidadResponse
+VisitaMedicaResponse o-- DiagnosticoResponse
+VisitaMedicaResponse o-- PrescripcionResponse
+
+GrupoFamiliarResponse o-- HistoriaMedicaResponse
+GrupoFamiliarResponse o-- UsuarioResponse
+GrupoFamiliarResponse o-- GrupoNotificacionResponse
+
+HistoriaMedicaResponse o-- VisitaMedicaResponse
+HistoriaMedicaResponse o-- ProfesionalResponse
+HistoriaMedicaResponse o-- InstitucionSaludResponse
+HistoriaMedicaResponse o-- CalendarioResponse
+HistoriaMedicaResponse o-- HistoriaMedicamentoResponse
+HistoriaMedicaResponse o-- SignoVitalCustomResponse
+HistoriaMedicaResponse o-- SignoVitalPacienteResponse
+HistoriaMedicaResponse o-- TurnoResponse
+HistoriaMedicaResponse o-- UsuarioPacienteResponse
+
+InstitucionSaludResponse o-- ProfesionalResponse
+InstitucionSaludResponse o-- DireccionResponse
+InstitucionSaludResponse o-- ContactoResponse
+@enduml

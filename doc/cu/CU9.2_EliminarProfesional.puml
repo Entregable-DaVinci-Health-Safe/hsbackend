@@ -1,0 +1,7 @@
+@startuml
+left to right direction
+
+ actor Paciente
+  Paciente -- (CU_9.1-EditarProfesional)  
+
+@enduml

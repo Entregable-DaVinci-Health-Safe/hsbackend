@@ -1,0 +1,60 @@
+@startuml
+skinparam linetype ortho
+
+entity "usuarios_pacientes" as usr_pte{
+    *usr_id: bigint <<generated>> <<PK>>
+    *usr_id: bigint <<FK>>
+}
+
+entity "historias_medicas" as hta{
+    *hta_id: bigint <<generated>> <<PK>>
+    *hta_usr_id: bigint <<FK>>
+    hta_gfm_id: bigint <<FK>>
+}
+
+entity "signos_vitales_pacientes" as svp{
+    *svp_id: bigint <<generated>> <<PK>>
+    *svp_hta_id: bigint <<FK>>
+    *svp_fecha_ingresado: date
+    *svp_valor: int
+    svp_segundo_valor: decimal(6,2)
+    *svp_resultado: varchar(10)
+    *svp_svc_id: bigint <<FK>>
+    *svp_minimo: decimal(6,2)
+    *svp_maximo: decimal(6,2)
+	svp_segundo_minimo: decimal(6,2)
+    svp_segundo_maximo: decimal(6,2)
+    svp_comentario: varchar(255)
+}
+
+
+entity "signos_vitales_customs" as svc{
+    *svc_id: bigint <<generated>> <<PK>>
+    *svc_minimo: int
+    *svc_maximo: int
+    svc_segundo_minimo: decimal(6,2),
+    svc_segundo_maximo: decimal(6,2),
+    *svc_hta_id: bigint <<FK>>
+    *svc_tsv_id: bigint <<FK>>
+}
+
+entity "tipos_signos_vitales" as tsv{
+    *tsv_id: bigint <<generated>> <<PK>>
+    *tsv_nombre: varchar(20)
+    *tsv_medida: varchar(20)
+    *tsv_cantidad_valores: int
+} 
+
+
+
+usr_pte ||--|| hta
+hta ||--{ svp
+hta ||--{ svc
+
+svp ||-left-|| svc
+
+svc ||--|| tsv
+
+
+
+@enduml

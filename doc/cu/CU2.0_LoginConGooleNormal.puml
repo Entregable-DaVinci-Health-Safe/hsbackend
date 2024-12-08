@@ -1,0 +1,13 @@
+@startuml
+left to right direction
+package LoginNormal {
+    usecase "CU_1-Login" AS CU_1
+    CU_1 --> (HOME)
+
+    actor Paciente AS PA
+    actor Admin AS AD
+
+    AD -- CU_1
+    PA -- CU_1
+}
+@enduml

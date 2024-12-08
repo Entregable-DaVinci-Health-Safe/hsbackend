@@ -1,0 +1,120 @@
+@startuml
+
+skinparam linetype ortho
+
+entity "calendarios" as cld{
+    *cld_id: bigint <<generated>> <<PK>>
+    *cld_tcl_id: varchar(255) NOT NULL <<FK>>
+}
+
+entity "calendario_infante" as cnñ{
+    *cld_id: bigint <<generated>> <<PK>>
+    *cld_id: bigint <<FK>>
+}
+
+entity "calendario_adultos" as cdt{
+    *cld_id: bigint <<generated>> <<PK>>
+    *cld_id: bigint <<FK>>
+}
+
+entity "calendario_embarazadas" as cbz{
+    *cld_id: bigint <<generated>> <<PK>>
+    *cld_id: bigint <<FK>>
+}
+
+entity "calendario_personales_salud" as cps{
+    *cld_id: bigint <<generated>> <<PK>>
+    *cld_id: bigint <<FK>>
+}
+
+entity "tipo_calendarios" as tcl{
+    *tcl: varchar(50) <<PK>>
+}
+
+entity "calendarios_edades_vacunas" as cev{
+    *cev_id: bigint <<generated>> <<PK>>
+    *cev_cld_id: bigint <<FK>>
+    *cev_ede_id: bigint <<FK>>
+    *cev_vcn_id: bigint <<FK>>
+    *cev_nro_dosis: int NULL
+    *cev_fecha_aplicada: bigint NULL
+    *cev_aplicada: varchar NOT NULL
+}
+
+entity "vacunas" as vcn{
+    *vcn_id: bigint <<generated>> <<PK>>
+    *vcn_nombre: varchar(255) NOT NULL
+    *vcn_descripcion: varchar(255) NOT NULL
+    *vcn_obligatorio: varchar(255) NOT NULL
+    *vcn_cantidad_dosis: int NULL
+}
+
+entity "rango_edades" as ede{
+    *ede_id: bigint <<generated>> <<PK>>
+    *ede_nombre: varchar(255) NOT NULL
+}
+
+entity "edades_tipo_calendarios" as etc{
+    *etc_id: bigint <<generated>> <<PK>>
+    *etc_ede_id: bigint <<FK>>
+    *etc_tcl_id: varchar(255) <<FK>>
+}
+
+entity "calendarios_edades" as cle{
+    *cle_id: bigint <<generated>> <<PK>>
+    *cle_cld_id: bigint <<FK>>
+    *cle_ede_id: bigint <<FK>>
+}
+
+entity "vacunas_tipo_calendarios" as vap{
+    *vtc_id: bigint <<generated>> <<PK>>
+    *vtc_tcl_id: bigint <<FK>>
+    *vtc_vcn_id: bigint <<FK>>
+}
+
+entity "calendarios_vacunas" as clv{
+    *clv_id: bigint <<generated>> <<PK>>
+    *clv_vcn_id: bigint <<FK>>
+    *clv_cld_id: bigint <<FK>>
+}
+
+entity "vacunas_edades" as vcd{
+    *vcd_id: bigint <<generated>> <<PK>>
+    *vcd_vcn_id: bigint <<FK>>
+    *vcd_ede_id: bigint <<FK>>
+}
+
+cld ||-up-|| cnñ
+cld ||-up-|| cdt
+cld ||-up-|| cbz
+cld ||-up-|| cps
+cld ||-down-|| tcl
+
+cld ||--{ cle
+ede ||--{ cle
+
+tcl ||--{ etc
+ede ||--{ etc
+
+cev ||--|| ede
+cev ||--|| vcn
+cev ||--|| cld
+
+vap }--|| vcn
+tcl ||--{ vap
+
+clv }--|| vcn
+clv }-left-|| cld
+
+vcn ||--{ vcd
+ede ||--{ vcd
+
+@enduml
+
+calendarios infantes {
+    "vacunas": [{},{},{}],
+    "rangoEdades": [{}],{{"vacunas":[{"aplicada": "SIN INFORMAR"}, 
+                                    {"aplicada": "NO APLICADA"}
+                                    ]
+                        },{{"vacunas":[{}]}]
+}

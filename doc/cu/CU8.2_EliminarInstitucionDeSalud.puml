@@ -1,0 +1,7 @@
+@startuml
+left to right direction
+
+ actor Paciente
+  Paciente -- (CU8.2_EliminarInstitucionDeSalud )  
+
+@enduml

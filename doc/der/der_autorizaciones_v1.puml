@@ -1,0 +1,90 @@
+@startuml
+skinparam linetype ortho
+
+entity "Permisos" as Permisos {
+
+    *prm_id BIGINT: BIGINT <<generated>>
+
+    prm_codigo: VARCHAR (45)
+    prm_descripcion: VARCHAR (45)
+}
+
+entity "Roles" as Roles {
+
+    *rol_id: BIGINT <<generated>>
+    rol_codigo: VARCHAR (45)
+    rol_descripcion: VARCHAR (45)
+}
+
+entity "Grupos" as Grupos {
+
+    *grp_id: BIGINT <<generated>>
+
+    grp_codigo: VARCHAR (45)
+    grp_descripcion: VARCHAR (45)
+}
+
+entity "RolesGrupos" as RG {
+
+    rgp_id: BIGINT <<generated>> <<PK>>
+
+    *rgp_rol_id BIGINT <<UK>><<FK>>
+    *rgp_grp_id BIGINT <<UK>><<FK>>
+
+}
+
+entity "GruposPermisos" as GP {
+
+    gpr_id: BIGINT <<generated>> <<PK>>
+
+    *gpr_grp_id BIGINT <<UK>><<FK>>
+    *gpr_prm_id BIGINT <<UK>><<FK>>
+
+}
+
+entity "RolesPermisos" as RP {
+
+    rpr_id: BIGINT <<generated>> <<PK>>
+
+    *rpr_rol_id BIGINT <<UK>><<FK>>
+    *rpr_prm_id BIGINT <<UK>><<FK>>
+
+}
+
+entity "Autorizaciones" as Autorizacion {
+
+    aut_id: BIGINT <<PK>>
+
+    aut_usr_id: <<FK>>
+    aut_estado
+
+}
+
+entity "AutorizacionComposicion" as AutorizacionComposicion {
+
+    acm_id: BIGINT <<PK>>
+    --
+    acm_aut_id BIGINT <<UK>><<FK>>
+    acm_grp_id BIGINT <<UK>><<FK>>
+    acm_rol_id BIGINT <<UK>><<FK>>
+    acm_prm_id BIGINT <<UK>><<FK>>
+
+}
+
+
+Roles -up-{ RP
+Roles -up-{ RG
+
+Permisos -up-{ RP    
+Permisos }-up- GP
+
+Grupos --{  RG
+Grupos -up-{ GP
+
+Autorizacion --{ AutorizacionComposicion
+
+AutorizacionComposicion }-- Grupos
+AutorizacionComposicion }-- Roles 
+AutorizacionComposicion }-- Permisos
+
+@enduml

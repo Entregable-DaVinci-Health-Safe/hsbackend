@@ -1,0 +1,35 @@
+@startuml
+skinparam linetype ortho
+package "Front" {
+    component Frontend [Frontend
+                        *React
+                        *Html
+                        *Css]
+
+    component Mobile [Mobile 
+                    *TypeScript 
+                    *JSX]
+}
+
+package "Server" {
+    component Backend [Backend
+                    *Springboot]
+}
+
+package "Externo"{
+    [Google]
+}
+
+
+database "MySql" {
+
+}
+
+
+MySql -- [Backend]
+[Backend] -- [Frontend]
+[Backend] -- [Mobile]
+[Frontend] -- [Google]
+[Mobile] -- [Google]
+
+@enduml

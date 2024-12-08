@@ -1,0 +1,125 @@
+@startuml Package del Calendario
+skinparam linetype ortho
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+}
+
+package domain{
+    class HistoriaMedica <<Entity>>{
+        - calendarios: List<Calendario>
+
+    }
+
+    class CalendarioDirector{
+        - builder: CalendarioBuilder
+    }
+
+    interface CalendarioBuilder{
+        + reset()
+        + setRangoEdades()
+        + getCalendario()
+    }
+    class CalendarioInfanteBuilder{
+        - calendario: CalendarioInfante
+    }
+    class CalendarioAdultoBuilder{
+        - calendario: CalendarioAdulto
+    }
+    class CalendarioEmbarazadaBuilder{
+        - calendario: CalendarioEmbarazada
+    }
+
+    abstract Calendario <<Entity>>{
+        - id: Long
+        - rangoEdades: List<RangoEdad>
+    }
+    class CalendarioInfante <<Entity>>{}
+    class CalendarioAdulto <<Entity>>{}
+    class CalendarioEmbarazada <<Entity>>{}
+
+    class RangoEdad <<Entity>>{}
+    class Vacuna <<Entity>>{} 
+
+    class CalendarioEdadVacunaLink <<Entity>>{}
+    class TipoCalendario <<Entity>>{}
+}
+
+package repository{
+    interface CalendarioRepository{}
+    interface CalendarioInfanteRepository{}
+    interface CalendarioAdultoRepository{}
+    interface CalendarioEmbarazadaRepository{}
+    interface RangoEdadRepository{}
+    interface VacunaRepository{}
+    interface CalendarioEdadVacunaLinkRepository{}
+    interface TipoCalendarioRepository{}
+}
+
+package service{
+    interface CalendarioService{}
+    class CalendarioServiceImpl{}
+
+    interface RangoEdadService{}
+    class RangoEdadServiceImpl{}
+
+    interface VacunaService{}
+    class VacunaServiceImpl{}
+
+    interface CalendarioEdadVacunaLinkService{}
+    class CalendarioEdadVacunaLinkServiceImpl{}
+
+    interface HistoriaMedicaService{}
+    class HistoriaMedicaServiceImpl{}
+}
+
+package controllerRest{
+    class CalendarioControllerRest{}
+}
+
+HistoriaMedica o-up- Calendario
+
+CalendarioDirector o-- CalendarioBuilder
+
+CalendarioBuilder <|.. CalendarioInfanteBuilder
+CalendarioBuilder <|.. CalendarioAdultoBuilder
+CalendarioBuilder <|.. CalendarioEmbarazadaBuilder
+
+CalendarioInfanteBuilder o-- CalendarioInfante
+CalendarioAdultoBuilder o-- CalendarioAdulto
+CalendarioEmbarazadaBuilder o-- CalendarioEmbarazada
+
+Calendario <|.up. CalendarioInfante
+Calendario <|.up. CalendarioAdulto
+Calendario <|.up. CalendarioEmbarazada
+
+Calendario o-- RangoEdad
+
+CalendarioEdadVacunaLink o-- Vacuna
+CalendarioEdadVacunaLink o-- RangoEdad
+CalendarioEdadVacunaLink o-- Calendario
+
+RangoEdad o-- TipoCalendario
+
+CalendarioServiceImpl o-- CalendarioRepository
+CalendarioServiceImpl o-- CalendarioInfanteRepository
+CalendarioServiceImpl o-- CalendarioAdultoRepository
+CalendarioServiceImpl o-- CalendarioEmbarazadaRepository
+CalendarioEdadVacunaLinkServiceImpl o-- CalendarioEdadVacunaLinkRepository
+RangoEdadServiceImpl o-- RangoEdadRepository
+VacunaServiceImpl o-- VacunaRepository
+
+CalendarioService <|.. CalendarioServiceImpl
+RangoEdadService <|.. RangoEdadServiceImpl
+VacunaService <|.. VacunaServiceImpl
+CalendarioEdadVacunaLinkService <|.. CalendarioEdadVacunaLinkServiceImpl
+HistoriaMedicaService <|.. HistoriaMedicaServiceImpl
+
+CalendarioServiceImpl o-- RangoEdadService
+CalendarioServiceImpl o-- VacunaService
+CalendarioServiceImpl o--  CalendarioEdadVacunaLinkService
+CalendarioServiceImpl o-left- CalendarioDirector
+HistoriaMedicaServiceImpl o-left- CalendarioService
+
+CalendarioControllerRest o-- CalendarioService
+@enduml

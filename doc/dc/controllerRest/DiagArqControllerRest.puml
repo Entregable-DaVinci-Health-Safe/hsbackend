@@ -1,0 +1,45 @@
+@startuml controllers
+skinparam linetype ortho
+
+package ControllerRest{
+    abstract HistorialMedicoAppRest{}
+    class AutorizacionControllerRest{}
+    class CalendarioControlerRest{}
+    class DiagnosticoControllerRest{}
+    class GrupoFamiliarControllerRest{}
+    class HistoriaMedicaControllerRest{}
+    class HistoriaMedicamentoControllerRest{}
+    class InstitucionSaludControllerRest{}
+    class JwtControllerRest{}
+    class MailControllerRest{}
+    class MedicamentoControllerRest{}
+    class MedicamentoRecordatorioControllerRest{}
+    class PrescripcionControllerRest{}
+    class ProfesionalControllerRest{}
+    class SignoVitalPacienteControllerRest{}
+    class TurnoControllerRest{}
+    class UsuarioControllerRest{}
+    class VacunaControllerRest{}
+    class VisitaMedicaControllerRest{}
+}
+
+HistorialMedicoAppRest <|.up. AutorizacionControllerRest
+HistorialMedicoAppRest <|.up. CalendarioControlerRest
+HistorialMedicoAppRest <|.up. DiagnosticoControllerRest
+HistorialMedicoAppRest <|.up. GrupoFamiliarControllerRest
+HistorialMedicoAppRest <|.up. HistoriaMedicaControllerRest
+HistorialMedicoAppRest <|.right. HistoriaMedicamentoControllerRest
+HistorialMedicoAppRest <|.right. InstitucionSaludControllerRest
+HistorialMedicoAppRest <|.right. JwtControllerRest
+HistorialMedicoAppRest <|.right. MailControllerRest
+HistorialMedicoAppRest <|.left. MedicamentoControllerRest
+HistorialMedicoAppRest <|.left. MedicamentoRecordatorioControllerRest
+HistorialMedicoAppRest <|.left. PrescripcionControllerRest
+HistorialMedicoAppRest <|.left. ProfesionalControllerRest
+HistorialMedicoAppRest <|.. SignoVitalPacienteControllerRest
+HistorialMedicoAppRest <|.. TurnoControllerRest
+HistorialMedicoAppRest <|.. UsuarioControllerRest
+HistorialMedicoAppRest <|.. VacunaControllerRest
+HistorialMedicoAppRest <|.. VisitaMedicaControllerRest
+
+@enduml

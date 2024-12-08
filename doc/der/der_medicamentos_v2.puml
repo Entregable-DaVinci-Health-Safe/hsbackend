@@ -1,0 +1,35 @@
+@startuml
+
+skinparam linetype ortho
+
+entity "medicamentos" as mdc{
+    *mdc_id: bigint <<generated>> <<PK>>
+}
+
+entity "medicamentos_productos" as mpt{
+    *mpt_id: bigint <<generated>> <<PK>>
+    *mpt_mdc_id: bigint <<FK>>
+}
+
+entity "medicamentos_recordatorios" as mrc{
+    *mrc_id: bigint <<generated>> <<PK>>
+}
+
+entity "historias_medicamentos" as htm{
+    *htm_id: bigint <<generated>> <<PK>>
+    *htm_hta_id: bigint<<FK>>
+    *htm_mpt_id: bigint <<FK>>
+    htm_mrc_id: bigint <<FK>>
+}
+
+entity "historias_medicas" as hta{
+    *hta_id: bigint <<generated>> <<PK>>
+    *hta_usr_id: bigint <<FK>>
+}
+
+hta }--{ htm
+mpt }--{ htm
+mdc ||--{ mpt
+mrc ||--{ htm
+
+@enduml

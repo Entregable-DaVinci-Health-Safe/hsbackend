@@ -1,0 +1,76 @@
+@startuml Service
+skinparam linetype ortho
+
+package service{
+    package UsuarioServices{
+        interface UsuarioService{}
+        class UsuarioServiceImpl{}
+
+        interface UsuarioContactoService{}
+        class UsuarioContactoServiceImpl{}
+
+        interface UsuarioDireccionService{}
+        class UsuarioDireccionServiceImpl{}
+
+        interface ObraSocialService{}
+        class ObraSocialServiceImpl{}
+
+        interface GrupoService{}
+        class GrupoServiceImpl{}
+
+        interface RolService{}
+        class RolServiceImpl{}
+
+        interface PermisoService{}
+        class PermisoServiceImpl{}
+    }
+
+    package PrescripcionServices{
+        interface PrescripcionService{}
+        interface RecetaService{}
+        interface EstudioService{}
+        interface AdjuntoService{}
+        class PrescripcionServiceImpl{}
+        class RecetaServiceImpl{}
+        class EstudioServiceImpl{}
+        class AdjuntoServiceImpl{}
+    }
+    
+}
+
+UsuarioService <|.. UsuarioServiceImpl
+UsuarioServiceImpl o-right- UsuarioDireccionService
+UsuarioServiceImpl o-left- UsuarioContactoService
+UsuarioServiceImpl o-- ObraSocialService
+UsuarioServiceImpl o-- GrupoService
+UsuarioServiceImpl o-- RolService
+UsuarioServiceImpl o-- PermisoService
+
+UsuarioContactoService <|.. UsuarioContactoServiceImpl
+UsuarioDireccionService <|.. UsuarioDireccionServiceImpl
+ObraSocialService <|.. ObraSocialServiceImpl
+
+PermisoService <|.. PermisoServiceImpl
+RolService <|.. RolServiceImpl
+GrupoService <|.. GrupoServiceImpl
+
+GrupoServiceImpl o-- RolService
+GrupoServiceImpl o-- PermisoService
+
+
+PrescripcionService <|.. PrescripcionServiceImpl
+
+RecetaService <|.. RecetaServiceImpl
+
+EstudioService <|.. EstudioServiceImpl
+
+AdjuntoService <|.. AdjuntoServiceImpl
+
+PrescripcionServiceImpl o-left- EstudioService
+PrescripcionServiceImpl o-right- RecetaService
+
+EstudioServiceImpl o-- AdjuntoService
+
+RecetaServiceImpl o-- AdjuntoService
+
+@enduml

@@ -1,0 +1,5510 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /api/visitasMedicas/{id}/agregarProfesional/{profesionalId}:
+    put:
+      tags:
+      - visita-medica-controller-rest
+      operationId: setProfesionalInVisitaMedica
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: profesionalId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VisitaMedicaResponse'
+  /api/visitasMedicas/{id}/agregarCentroSalud/{centroSaludId}:
+    put:
+      tags:
+      - visita-medica-controller-rest
+      operationId: setCentroSaludInVisitaMedica
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: centroSaludId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VisitaMedicaResponse'
+  /api/usuarios/{id}/verificarCuenta:
+    put:
+      tags:
+      - usuario-controller-rest
+      operationId: setVerificacion
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerificacionCodigoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/usuarios/{id}/desactivar:
+    put:
+      tags:
+      - usuario-controller-rest
+      operationId: updateEstadoUsuario
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+  /api/usuarios/{id}/cambiarPassword:
+    put:
+      tags:
+      - usuario-controller-rest
+      operationId: updatePassword
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioUpdatePasswordRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/usuarios/recuperarCuenta:
+    put:
+      tags:
+      - usuario-controller-rest
+      operationId: getNewPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioMailRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/usuarios/profesionales/{id}:
+    put:
+      tags:
+      - usuario-controller-rest
+      operationId: updateProfesional
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioUpdateRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UsuarioResponse'
+  /api/usuarios/pacientes/{id}:
+    put:
+      tags:
+      - usuario-controller-rest
+      operationId: updatePaciente
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioUpdateRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UsuarioResponse'
+  /api/updateEventos/{eventoId}:
+    put:
+      tags:
+      - google-calendar-controller-rest
+      operationId: updateGoogleMeetingHandler
+      parameters:
+      - name: eventoId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCalendarioPostRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/profesionales/{id}/removerEspecialidades:
+    put:
+      tags:
+      - profesional-controller-rest
+      operationId: removeEspecialidadesInProfesional
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfesionalEspecialidadesRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/profesionales/{id}/removerEspecialidad/{especialidadId}:
+    put:
+      tags:
+      - profesional-controller-rest
+      operationId: removeEspecialidadInProfesional
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: especialidadId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfesionalResponse'
+  /api/profesionales/{id}/agregarEspecialidades:
+    put:
+      tags:
+      - profesional-controller-rest
+      operationId: addEspecialidadesInProfesional
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfesionalEspecialidadesRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/profesionales/{id}/agregarEspecialidad/{especialidadId}:
+    put:
+      tags:
+      - profesional-controller-rest
+      operationId: addEspecialidadInProfesional
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: especialidadId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfesionalResponse'
+  /api/gruposFamiliares/removeHistoriaMedica:
+    put:
+      tags:
+      - grupo-familiar-controller-rest
+      operationId: salirGrupoFamiliar
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/gruposFamiliares/ingresar:
+    put:
+      tags:
+      - grupo-familiar-controller-rest
+      operationId: ingresarGrupoFamiliar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrupoFamiliarIngresarRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/centrosSalud/{id}/removerProfesionales/{profesionalId}:
+    put:
+      tags:
+      - centro-salud-controller-rest
+      operationId: removeProfesionalInCentroSalud
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: profesionalId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CentroSaludResponse'
+  /api/centrosSalud/{id}/agregarProfesionales/{profesionalId}:
+    put:
+      tags:
+      - centro-salud-controller-rest
+      operationId: addProfesionalInCentroSalud
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: profesionalId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CentroSaludResponse'
+  /api/calendarios/{id}/vacunas:
+    put:
+      tags:
+      - calendario-controller-rest
+      operationId: removeVacunaInCalendario
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarioVacunaRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CalendarioResponse'
+    post:
+      tags:
+      - calendario-controller-rest
+      operationId: addVacunaInCalendario
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarioVacunaRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CalendarioResponse'
+  /api/visitasMedicas:
+    post:
+      tags:
+      - visita-medica-controller-rest
+      operationId: createVisitaMedica
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VisitaMedicaRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VisitaMedicaResponse'
+  /api/vacunas:
+    get:
+      tags:
+      - vacuna-controller-rest
+      operationId: getListAll_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VacunaResponse'
+    post:
+      tags:
+      - vacuna-controller-rest
+      operationId: createVacuna
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VacunaRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VacunaResponse'
+  /api/usuarios/{id}/nuevoContacto:
+    post:
+      tags:
+      - usuario-controller-rest
+      operationId: addContacto
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UsuarioResponse'
+  /api/usuarios/{id}/nuevaDireccion:
+    post:
+      tags:
+      - usuario-controller-rest
+      operationId: addDireccion
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DireccionRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UsuarioResponse'
+  /api/sendMail:
+    post:
+      tags:
+      - mail-controller-rest
+      operationId: sendMail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MailSmtpDetails'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/roles:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: createRol
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RolRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/roles/{id}/removerPermisos:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: removePermisosInRol
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutorizacionComponentsIdsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/roles/{id}/agregarPermisos:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: addPermisosInRol
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutorizacionComponentsIdsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/register/profesionales:
+    post:
+      tags:
+      - usuario-controller-rest
+      operationId: createProfesional
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioProfesionalRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/register/pacientes:
+    post:
+      tags:
+      - usuario-controller-rest
+      operationId: createPaciente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioPacienteRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/profesionales:
+    get:
+      tags:
+      - profesional-controller-rest
+      operationId: getList_2
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/Pageable'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageProfesionalResponse'
+    post:
+      tags:
+      - profesional-controller-rest
+      operationId: createProfesional_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfesionalRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfesionalResponse'
+  /api/profesionales/{id}/nuevoContacto:
+    post:
+      tags:
+      - profesional-controller-rest
+      operationId: addContacto_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfesionalResponse'
+  /api/profesionales/{id}/nuevaDireccion:
+    post:
+      tags:
+      - profesional-controller-rest
+      operationId: addDireccion_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DireccionRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfesionalResponse'
+  /api/prescripciones:
+    get:
+      tags:
+      - prescripcion-controller-rest
+      operationId: getList_3
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/Pageable'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PagePrescripcionResponse'
+    post:
+      tags:
+      - prescripcion-controller-rest
+      operationId: createPrescricpion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrescripcionRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PrescripcionResponse'
+  /api/prescripcion/{id}/crearReceta:
+    post:
+      tags:
+      - prescripcion-controller-rest
+      operationId: addReceta
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecetaRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PrescripcionResponse'
+  /api/prescripcion/{id}/crearEstudio:
+    post:
+      tags:
+      - prescripcion-controller-rest
+      operationId: addEstudio
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstudioRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PrescripcionResponse'
+  /api/permisos:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: createPermiso
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermisoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/login:
+    post:
+      tags:
+      - jwt-controller-rest
+      operationId: createAuthenticationToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioLoginRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/historiasMedicas:
+    post:
+      tags:
+      - historia-medica-controller-rest
+      operationId: createHistoriaMedica
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HistoriaMedicaRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/historiasMedicas/agregarMedicamentos:
+    post:
+      tags:
+      - historia-medicamento-controller-rest
+      operationId: addMedicamentoInHistoria
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HistoriaMedicamentoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HistoriaMedicamentoResponse'
+  /api/grupos:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: createGrupo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrupoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/gruposFamiliares:
+    post:
+      tags:
+      - grupo-familiar-controller-rest
+      operationId: createGrupoFamiliar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrupoFamiliarRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/grupos/{id}/removerRoles:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: removeRolesInGrupo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutorizacionComponentsIdsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/grupos/{id}/removerPermisos:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: removePermisosInGrupo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutorizacionComponentsIdsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/grupos/{id}/agregarRoles:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: addRolesInGrupo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutorizacionComponentsIdsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/grupos/{id}/agregarPermisos:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: addPermisosInGrupo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutorizacionComponentsIdsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/especialidades:
+    post:
+      tags:
+      - profesional-controller-rest
+      operationId: createEspecialidad
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EspecialidadRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EspecialidadResponse'
+  /api/centrosSalud:
+    post:
+      tags:
+      - centro-salud-controller-rest
+      operationId: createCentroSalud
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CentroSaludRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CentroSaludResponse'
+  /api/centrosSalud/{id}/nuevoContacto:
+    post:
+      tags:
+      - centro-salud-controller-rest
+      operationId: addContacto_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CentroSaludResponse'
+  /api/centrosSalud/{id}/nuevaDireccion:
+    post:
+      tags:
+      - centro-salud-controller-rest
+      operationId: addDireccion_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DireccionRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CentroSaludResponse'
+  /api/autorizaciones:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: createAutorizacion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutorizacionRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/autorizaciones/{id}/removerComponentes:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: removeComponentesInAutorizacion
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutorizacionComponentsIdsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/autorizaciones/{id}/agregarComponentes:
+    post:
+      tags:
+      - autorizacion-controller-rest
+      operationId: addComponentesInAutorizacion
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutorizacionComponentsIdsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/addEventos:
+    post:
+      tags:
+      - google-calendar-controller-rest
+      operationId: createGoogleMeetingHandler
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCalendarioPostRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/visitasMedicas/all:
+    get:
+      tags:
+      - visita-medica-controller-rest
+      operationId: getListAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VisitaMedica'
+  /api/usuarios:
+    get:
+      tags:
+      - usuario-controller-rest
+      operationId: getList
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/Pageable'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageUsuarioResponse'
+  /api/usuarios/{id}:
+    get:
+      tags:
+      - usuario-controller-rest
+      operationId: getUsuarioById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    delete:
+      tags:
+      - usuario-controller-rest
+      operationId: deleteUsuario
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+  /api/usuarios/profesionales:
+    get:
+      tags:
+      - usuario-controller-rest
+      operationId: getListProfesionales
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/Pageable'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageUsuarioProfesionalResponse'
+  /api/usuarios/profesionales/all:
+    get:
+      tags:
+      - usuario-controller-rest
+      operationId: getProfesional
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UsuarioProfesional'
+  /api/usuarios/pacientes:
+    get:
+      tags:
+      - usuario-controller-rest
+      operationId: getListPaciente
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/Pageable'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageUsuarioPacienteResponse'
+  /api/usuarios/pacientes/all:
+    get:
+      tags:
+      - usuario-controller-rest
+      operationId: getPacientes
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UsuarioPaciente'
+  /api/usuarios/all:
+    get:
+      tags:
+      - usuario-controller-rest
+      operationId: getList_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usuario'
+  /api/roles/all:
+    get:
+      tags:
+      - autorizacion-controller-rest
+      operationId: getListRolesAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rol'
+  /api/provincias/{id}/localidades:
+    get:
+      tags:
+      - geo-ubicacion-controller-rest
+      operationId: getLocalidadesFromProvincia
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DireccionLocalidad'
+  /api/provincias/all:
+    get:
+      tags:
+      - geo-ubicacion-controller-rest
+      operationId: listUbiciones
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DireccionProvincia'
+  /api/profesionales/{id}/especialidades:
+    get:
+      tags:
+      - profesional-controller-rest
+      operationId: getEspecialidadesByProfesional
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/profesionales/all:
+    get:
+      tags:
+      - profesional-controller-rest
+      operationId: getListProfesionales_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Profesional'
+  /api/prescripciones/{id}:
+    get:
+      tags:
+      - prescripcion-controller-rest
+      operationId: getPrescripcionById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    delete:
+      tags:
+      - prescripcion-controller-rest
+      operationId: deletePrescripciones
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+  /api/prescripciones/all:
+    get:
+      tags:
+      - prescripcion-controller-rest
+      operationId: getListAll_2
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prescripcion'
+  /api/permisos/all:
+    get:
+      tags:
+      - autorizacion-controller-rest
+      operationId: getListPermisosAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Permiso'
+  /api/medicamentos/all:
+    get:
+      tags:
+      - medicamento-controller-rest
+      operationId: getListMedicamentos
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MedicamentoResponse'
+  /api/logout:
+    get:
+      tags:
+      - jwt-controller-rest
+      operationId: expireToken
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/login/google:
+    get:
+      tags:
+      - google-calendar-controller-rest
+      operationId: googleConnectionStatusHandler_1
+      parameters:
+      - name: code
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                oneOf:
+                - type: object
+                - $ref: '#/components/schemas/RedirectView'
+  /api/historiasMedicas/{id}:
+    get:
+      tags:
+      - historia-medica-controller-rest
+      operationId: getHistoriaMedicaById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/historiasMedicas/{id}/profesionales:
+    get:
+      tags:
+      - profesional-controller-rest
+      operationId: getProfesionalesByHistoriaMedica
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/historiasMedicas/{id}/calendarios:
+    get:
+      tags:
+      - historia-medica-controller-rest
+      operationId: getCalendariosByHistoriaMedica
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/historiasMedicas/usuarios/{id}:
+    get:
+      tags:
+      - historia-medica-controller-rest
+      operationId: getHistoriaMedicaByPaciente
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/historiasMedicas/all:
+    get:
+      tags:
+      - historia-medica-controller-rest
+      operationId: getListAll_3
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HistoriaMedica'
+  /api/gruposFamiliares/{id}:
+    get:
+      tags:
+      - grupo-familiar-controller-rest
+      operationId: getGrupoFamilir
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/gruposFamiliares/compartirCodigo:
+    get:
+      tags:
+      - grupo-familiar-controller-rest
+      operationId: shareCodigo
+      parameters:
+      - name: compartirData
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/GrupoFamiliarCompartirRequest'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/grupos/all:
+    get:
+      tags:
+      - autorizacion-controller-rest
+      operationId: getListGruposAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Grupo'
+  /api/getListEventos:
+    get:
+      tags:
+      - google-calendar-controller-rest
+      operationId: getListCalendarEventsHandler
+      parameters:
+      - name: datosListEventos
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/GoogleCalendarioGetListRequest'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+  /api/getEventos/{eventoId}:
+    get:
+      tags:
+      - google-calendar-controller-rest
+      operationId: getCalendarEventHandler
+      parameters:
+      - name: eventoId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/generos:
+    get:
+      tags:
+      - usuario-controller-rest
+      operationId: getGeneros
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - MASCULINO
+                  - FEMENINO
+  /api/especialidades/all:
+    get:
+      tags:
+      - profesional-controller-rest
+      operationId: getListEspecialidades
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Especialidad'
+  /api/diagnosticos/all:
+    get:
+      tags:
+      - diagnostico-controller-rest
+      operationId: getListAll_4
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Diagnostico'
+  /api/centrosSalud/all:
+    get:
+      tags:
+      - centro-salud-controller-rest
+      operationId: getListAll_5
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CentroSalud'
+  /api/autorizaciones/all:
+    get:
+      tags:
+      - autorizacion-controller-rest
+      operationId: getListAutorizacionesAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Autorizacion'
+  /api/deleteEventos/{eventoId}:
+    delete:
+      tags:
+      - google-calendar-controller-rest
+      operationId: deleteGoogleMeetingHandler
+      parameters:
+      - name: eventoId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  classInfo:
+                    $ref: '#/components/schemas/ClassInfo'
+                  anyoneCanAddSelf:
+                    type: boolean
+                  attachments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EventAttachment'
+                  attendees:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EventAttendee'
+                  attendeesOmitted:
+                    type: boolean
+                  colorId:
+                    type: string
+                  conferenceData:
+                    type: object
+                    properties:
+                      classInfo:
+                        $ref: '#/components/schemas/ClassInfo'
+                      conferenceId:
+                        type: string
+                      conferenceSolution:
+                        type: object
+                        properties:
+                          classInfo:
+                            $ref: '#/components/schemas/ClassInfo'
+                          iconUri:
+                            type: string
+                          key:
+                            type: object
+                            properties:
+                              classInfo:
+                                $ref: '#/components/schemas/ClassInfo'
+                              type:
+                                type: string
+                              factory:
+                                $ref: '#/components/schemas/JsonFactory'
+                              unknownKeys:
+                                type: object
+                                additionalProperties:
+                                  type: object
+                              empty:
+                                type: boolean
+                            additionalProperties:
+                              type: object
+                          name:
+                            type: string
+                          factory:
+                            $ref: '#/components/schemas/JsonFactory'
+                          unknownKeys:
+                            type: object
+                            additionalProperties:
+                              type: object
+                          empty:
+                            type: boolean
+                        additionalProperties:
+                          type: object
+                      createRequest:
+                        type: object
+                        properties:
+                          classInfo:
+                            $ref: '#/components/schemas/ClassInfo'
+                          conferenceSolutionKey:
+                            type: object
+                            properties:
+                              classInfo:
+                                $ref: '#/components/schemas/ClassInfo'
+                              type:
+                                type: string
+                              factory:
+                                $ref: '#/components/schemas/JsonFactory'
+                              unknownKeys:
+                                type: object
+                                additionalProperties:
+                                  type: object
+                              empty:
+                                type: boolean
+                            additionalProperties:
+                              type: object
+                          requestId:
+                            type: string
+                          status:
+                            type: object
+                            properties:
+                              classInfo:
+                                $ref: '#/components/schemas/ClassInfo'
+                              statusCode:
+                                type: string
+                              factory:
+                                $ref: '#/components/schemas/JsonFactory'
+                              unknownKeys:
+                                type: object
+                                additionalProperties:
+                                  type: object
+                              empty:
+                                type: boolean
+                            additionalProperties:
+                              type: object
+                          factory:
+                            $ref: '#/components/schemas/JsonFactory'
+                          unknownKeys:
+                            type: object
+                            additionalProperties:
+                              type: object
+                          empty:
+                            type: boolean
+                        additionalProperties:
+                          type: object
+                      entryPoints:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/EntryPoint'
+                      notes:
+                        type: string
+                      parameters:
+                        type: object
+                        properties:
+                          classInfo:
+                            $ref: '#/components/schemas/ClassInfo'
+                          addOnParameters:
+                            type: object
+                            properties:
+                              classInfo:
+                                $ref: '#/components/schemas/ClassInfo'
+                              parameters:
+                                type: object
+                                additionalProperties:
+                                  type: string
+                              factory:
+                                $ref: '#/components/schemas/JsonFactory'
+                              unknownKeys:
+                                type: object
+                                additionalProperties:
+                                  type: object
+                              empty:
+                                type: boolean
+                            additionalProperties:
+                              type: object
+                          factory:
+                            $ref: '#/components/schemas/JsonFactory'
+                          unknownKeys:
+                            type: object
+                            additionalProperties:
+                              type: object
+                          empty:
+                            type: boolean
+                        additionalProperties:
+                          type: object
+                      signature:
+                        type: string
+                      factory:
+                        $ref: '#/components/schemas/JsonFactory'
+                      unknownKeys:
+                        type: object
+                        additionalProperties:
+                          type: object
+                      empty:
+                        type: boolean
+                    additionalProperties:
+                      type: object
+                  created:
+                    $ref: '#/components/schemas/DateTime'
+                  creator:
+                    type: object
+                    properties:
+                      classInfo:
+                        $ref: '#/components/schemas/ClassInfo'
+                      displayName:
+                        type: string
+                      email:
+                        type: string
+                      id:
+                        type: string
+                      self:
+                        type: boolean
+                      factory:
+                        $ref: '#/components/schemas/JsonFactory'
+                      unknownKeys:
+                        type: object
+                        additionalProperties:
+                          type: object
+                      empty:
+                        type: boolean
+                    additionalProperties:
+                      type: object
+                  description:
+                    type: string
+                  end:
+                    type: object
+                    properties:
+                      classInfo:
+                        $ref: '#/components/schemas/ClassInfo'
+                      date:
+                        $ref: '#/components/schemas/DateTime'
+                      dateTime:
+                        $ref: '#/components/schemas/DateTime'
+                      timeZone:
+                        type: string
+                      factory:
+                        $ref: '#/components/schemas/JsonFactory'
+                      unknownKeys:
+                        type: object
+                        additionalProperties:
+                          type: object
+                      empty:
+                        type: boolean
+                    additionalProperties:
+                      type: object
+                  endTimeUnspecified:
+                    type: boolean
+                  etag:
+                    type: string
+                  eventType:
+                    type: string
+                  extendedProperties:
+                    type: object
+                    properties:
+                      classInfo:
+                        $ref: '#/components/schemas/ClassInfo'
+                      shared:
+                        type: object
+                        additionalProperties:
+                          type: string
+                      private:
+                        type: object
+                        additionalProperties:
+                          type: string
+                      factory:
+                        $ref: '#/components/schemas/JsonFactory'
+                      unknownKeys:
+                        type: object
+                        additionalProperties:
+                          type: object
+                      empty:
+                        type: boolean
+                    additionalProperties:
+                      type: object
+                  gadget:
+                    type: object
+                    properties:
+                      classInfo:
+                        $ref: '#/components/schemas/ClassInfo'
+                      display:
+                        type: string
+                      height:
+                        type: integer
+                        format: int32
+                      iconLink:
+                        type: string
+                      link:
+                        type: string
+                      preferences:
+                        type: object
+                        additionalProperties:
+                          type: string
+                      title:
+                        type: string
+                      type:
+                        type: string
+                      width:
+                        type: integer
+                        format: int32
+                      factory:
+                        $ref: '#/components/schemas/JsonFactory'
+                      unknownKeys:
+                        type: object
+                        additionalProperties:
+                          type: object
+                      empty:
+                        type: boolean
+                    additionalProperties:
+                      type: object
+                  guestsCanInviteOthers:
+                    type: boolean
+                  guestsCanModify:
+                    type: boolean
+                  guestsCanSeeOtherGuests:
+                    type: boolean
+                  hangoutLink:
+                    type: string
+                  htmlLink:
+                    type: string
+                  id:
+                    type: string
+                  kind:
+                    type: string
+                  location:
+                    type: string
+                  locked:
+                    type: boolean
+                  organizer:
+                    type: object
+                    properties:
+                      classInfo:
+                        $ref: '#/components/schemas/ClassInfo'
+                      displayName:
+                        type: string
+                      email:
+                        type: string
+                      id:
+                        type: string
+                      self:
+                        type: boolean
+                      factory:
+                        $ref: '#/components/schemas/JsonFactory'
+                      unknownKeys:
+                        type: object
+                        additionalProperties:
+                          type: object
+                      empty:
+                        type: boolean
+                    additionalProperties:
+                      type: object
+                  originalStartTime:
+                    type: object
+                    properties:
+                      classInfo:
+                        $ref: '#/components/schemas/ClassInfo'
+                      date:
+                        $ref: '#/components/schemas/DateTime'
+                      dateTime:
+                        $ref: '#/components/schemas/DateTime'
+                      timeZone:
+                        type: string
+                      factory:
+                        $ref: '#/components/schemas/JsonFactory'
+                      unknownKeys:
+                        type: object
+                        additionalProperties:
+                          type: object
+                      empty:
+                        type: boolean
+                    additionalProperties:
+                      type: object
+                  privateCopy:
+                    type: boolean
+                  recurrence:
+                    type: array
+                    items:
+                      type: string
+                  recurringEventId:
+                    type: string
+                  reminders:
+                    type: object
+                    properties:
+                      classInfo:
+                        $ref: '#/components/schemas/ClassInfo'
+                      overrides:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/EventReminder'
+                      useDefault:
+                        type: boolean
+                      factory:
+                        $ref: '#/components/schemas/JsonFactory'
+                      unknownKeys:
+                        type: object
+                        additionalProperties:
+                          type: object
+                      empty:
+                        type: boolean
+                    additionalProperties:
+                      type: object
+                  sequence:
+                    type: integer
+                    format: int32
+                  source:
+                    type: object
+                    properties:
+                      classInfo:
+                        $ref: '#/components/schemas/ClassInfo'
+                      title:
+                        type: string
+                      url:
+                        type: string
+                      factory:
+                        $ref: '#/components/schemas/JsonFactory'
+                      unknownKeys:
+                        type: object
+                        additionalProperties:
+                          type: object
+                      empty:
+                        type: boolean
+                    additionalProperties:
+                      type: object
+                  start:
+                    type: object
+                    properties:
+                      classInfo:
+                        $ref: '#/components/schemas/ClassInfo'
+                      date:
+                        $ref: '#/components/schemas/DateTime'
+                      dateTime:
+                        $ref: '#/components/schemas/DateTime'
+                      timeZone:
+                        type: string
+                      factory:
+                        $ref: '#/components/schemas/JsonFactory'
+                      unknownKeys:
+                        type: object
+                        additionalProperties:
+                          type: object
+                      empty:
+                        type: boolean
+                    additionalProperties:
+                      type: object
+                  status:
+                    type: string
+                  summary:
+                    type: string
+                  transparency:
+                    type: string
+                  updated:
+                    $ref: '#/components/schemas/DateTime'
+                  visibility:
+                    type: string
+                  icalUID:
+                    type: string
+                  factory:
+                    $ref: '#/components/schemas/JsonFactory'
+                  unknownKeys:
+                    type: object
+                    additionalProperties:
+                      type: object
+                  empty:
+                    type: boolean
+                additionalProperties:
+                  type: object
+components:
+  schemas:
+    CentroSaludResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        razonSocial:
+          type: string
+        profesionales:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfesionalResponse'
+        direccion:
+          $ref: '#/components/schemas/DireccionResponse'
+        contactos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactoResponse'
+    ContactoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        mailAlternativo:
+          type: string
+        telefono:
+          type: string
+    DiagnosticoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+    DireccionResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        direccion:
+          type: string
+        piso:
+          type: integer
+          format: int32
+        departamento:
+          type: string
+        referencia:
+          type: string
+        provincia:
+          type: string
+        localidad:
+          type: string
+    EspecialidadResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+    EstudioResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        tipo:
+          type: string
+    PrescripcionResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        pais:
+          type: string
+        estudios:
+          type: array
+          items:
+            $ref: '#/components/schemas/EstudioResponse'
+        recetas:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecetaResponse'
+    ProfesionalResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        direcciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/DireccionResponse'
+        contactos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactoResponse'
+        especialidades:
+          type: array
+          items:
+            $ref: '#/components/schemas/EspecialidadResponse'
+    RecetaResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        tipo:
+          type: string
+    VisitaMedicaResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        fechaVisita:
+          type: string
+        atencionVirtual:
+          type: boolean
+        centroSalud:
+          $ref: '#/components/schemas/CentroSaludResponse'
+        profesional:
+          $ref: '#/components/schemas/ProfesionalResponse'
+        diagnostico:
+          $ref: '#/components/schemas/DiagnosticoResponse'
+        prescripciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrescripcionResponse'
+    VerificacionCodigoRequest:
+      type: object
+      properties:
+        codigo:
+          type: string
+    UsuarioUpdatePasswordRequest:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+    UsuarioMailRequest:
+      type: object
+      properties:
+        mail:
+          type: string
+    UsuarioUpdateRequest:
+      type: object
+      properties:
+        nombre:
+          type: string
+        apellido:
+          type: string
+        mail:
+          type: string
+        fechaNacimiento:
+          type: string
+    AutorizacionComponentResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        codigo:
+          type: string
+        descripcion:
+          type: string
+        estado:
+          type: boolean
+    UsuarioResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellido:
+          type: string
+        fechaNacimiento:
+          type: string
+        mail:
+          type: string
+        genero:
+          type: string
+        estado:
+          type: boolean
+        direcciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/DireccionResponse'
+        contactos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactoResponse'
+        autorizacion:
+          $ref: '#/components/schemas/AutorizacionComponentResponse'
+    GoogleCalendarioPostRequest:
+      type: object
+      properties:
+        summary:
+          type: string
+        location:
+          type: string
+        description:
+          type: string
+        attendees:
+          type: array
+          items:
+            type: string
+        startTime:
+          type: string
+        endTime:
+          type: string
+    ProfesionalEspecialidadesRequest:
+      type: object
+      properties:
+        especialidadesIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    GrupoFamiliarIngresarRequest:
+      type: object
+      properties:
+        codigo:
+          type: string
+        historiaMedicaId:
+          type: integer
+          format: int64
+    CalendarioVacunaRequest:
+      type: object
+      properties:
+        rangoEdadId:
+          type: integer
+          format: int64
+        vacunaId:
+          type: integer
+          format: int64
+    CalendarioResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        tipo:
+          type: string
+        rangoEdades:
+          type: array
+          items:
+            $ref: '#/components/schemas/RangoEdadVacunaResponse'
+    RangoEdadVacunaResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        vacunas:
+          type: array
+          items:
+            $ref: '#/components/schemas/VacunaResponse'
+    VacunaResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        obligatoria:
+          type: boolean
+    VisitaMedicaRequest:
+      type: object
+      properties:
+        fechaVisita:
+          type: string
+        atencionVirtual:
+          type: boolean
+        profesionalId:
+          type: integer
+          format: int64
+        centroSaludId:
+          type: integer
+          format: int64
+        diagnosticoId:
+          type: integer
+          format: int64
+        historiaMedicaId:
+          type: integer
+          format: int64
+    VacunaRequest:
+      type: object
+      properties:
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        obligatoria:
+          type: boolean
+    ContactoRequest:
+      type: object
+      properties:
+        telefono:
+          type: string
+        mailAlternativo:
+          type: string
+    DireccionRequest:
+      type: object
+      properties:
+        direccion:
+          type: string
+        piso:
+          type: integer
+          format: int32
+        departamento:
+          type: string
+        referencia:
+          type: string
+        idProvincia:
+          type: integer
+          format: int64
+        idLocalidad:
+          type: integer
+          format: int64
+    MailSmtpDetails:
+      type: object
+      properties:
+        recipient:
+          type: string
+        msgBody:
+          type: string
+        subject:
+          type: string
+        attachment:
+          type: string
+    RolRequest:
+      type: object
+      properties:
+        codigo:
+          type: string
+        descripcion:
+          type: string
+    AutorizacionComponentsIdsRequest:
+      type: object
+      properties:
+        componentsIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    UsuarioProfesionalRequest:
+      type: object
+      properties:
+        nombre:
+          type: string
+        apellido:
+          type: string
+        mail:
+          type: string
+        fechaNacimiento:
+          type: string
+        genero:
+          type: string
+        password:
+          type: string
+        matricula:
+          type: string
+    UsuarioPacienteRequest:
+      type: object
+      properties:
+        nombre:
+          type: string
+        apellido:
+          type: string
+        mail:
+          type: string
+        fechaNacimiento:
+          type: string
+        genero:
+          type: string
+        password:
+          type: string
+    ProfesionalRequest:
+      type: object
+      properties:
+        nombre:
+          type: string
+        idHistoriaMedica:
+          type: integer
+          format: int64
+    PrescripcionRequest:
+      type: object
+      properties:
+        nombre:
+          type: string
+        pais:
+          type: string
+        idVisitaMedica:
+          type: integer
+          format: int64
+    RecetaRequest:
+      type: object
+      properties:
+        tipo:
+          type: string
+    EstudioRequest:
+      type: object
+      properties:
+        tipo:
+          type: string
+    PermisoRequest:
+      type: object
+      properties:
+        codigo:
+          type: string
+        descripcion:
+          type: string
+    UsuarioLoginRequest:
+      type: object
+      properties:
+        mail:
+          type: string
+        password:
+          type: string
+    HistoriaMedicaRequest:
+      type: object
+      properties:
+        idPaciente:
+          type: integer
+          format: int64
+    HistoriaMedicamentoRequest:
+      type: object
+      properties:
+        nombre:
+          type: string
+        cantidad:
+          type: integer
+          format: int32
+        historiaMedicaId:
+          type: integer
+          format: int64
+        medicamentoProductoId:
+          type: integer
+          format: int64
+    HistoriaMedicamentoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        cantidad:
+          type: integer
+          format: int32
+        medicamentoProducto:
+          type: string
+    GrupoRequest:
+      type: object
+      properties:
+        codigo:
+          type: string
+        descripcion:
+          type: string
+    GrupoFamiliarRequest:
+      type: object
+      properties:
+        nombre:
+          type: string
+        historiaMedicaId:
+          type: integer
+          format: int64
+    EspecialidadRequest:
+      type: object
+      properties:
+        nombre:
+          type: string
+    CentroSaludRequest:
+      type: object
+      properties:
+        nombre:
+          type: string
+        razonSocial:
+          type: string
+        idHistoriaMedica:
+          type: integer
+          format: int64
+    AutorizacionRequest:
+      type: object
+      properties:
+        codigo:
+          type: string
+        descripcion:
+          type: string
+    AutorizacionComponent:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        codigo:
+          type: string
+        descripcion:
+          type: string
+        estado:
+          type: boolean
+    Calendario:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        historiaMedica:
+          $ref: '#/components/schemas/HistoriaMedica'
+        rangoEdades:
+          type: array
+          items:
+            $ref: '#/components/schemas/RangoEdad'
+        calendarioEdadVacunaLinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/CalendarioEdadVacunaLink'
+    CalendarioEdadVacunaLink:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        calendario:
+          $ref: '#/components/schemas/Calendario'
+        rangoEdad:
+          $ref: '#/components/schemas/RangoEdad'
+        vacuna:
+          $ref: '#/components/schemas/Vacuna'
+    CentroSalud:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        razonSocial:
+          type: string
+        historiaMedica:
+          $ref: '#/components/schemas/HistoriaMedica'
+        profesionales:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profesional'
+        direccion:
+          $ref: '#/components/schemas/Direccion'
+        contactos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacto'
+    Contacto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        mailAlternativo:
+          type: string
+        telefono:
+          type: string
+        tipoEntidad:
+          type: string
+          enum:
+          - CENTRO_SALUD
+          - USUARIO
+          - PROFESIONAL
+        usuario:
+          $ref: '#/components/schemas/Usuario'
+        profesional:
+          $ref: '#/components/schemas/Profesional'
+        centroSalud:
+          $ref: '#/components/schemas/CentroSalud'
+    Diagnostico:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+    Direccion:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        direccion:
+          type: string
+        piso:
+          type: integer
+          format: int32
+        departamento:
+          type: string
+        referencia:
+          type: string
+        tipoEntidad:
+          type: string
+          enum:
+          - CENTRO_SALUD
+          - USUARIO
+          - PROFESIONAL
+        usuario:
+          $ref: '#/components/schemas/Usuario'
+        profesional:
+          $ref: '#/components/schemas/Profesional'
+        provincia:
+          type: string
+        localidad:
+          type: string
+    Especialidad:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+    Estudio:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        prescripcion:
+          $ref: '#/components/schemas/Prescripcion'
+    HistoriaMedica:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        visitasMedicas:
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaMedica'
+        profesionales:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profesional'
+        centrosSalud:
+          type: array
+          items:
+            $ref: '#/components/schemas/CentroSalud'
+        calendarios:
+          type: array
+          items:
+            $ref: '#/components/schemas/Calendario'
+        historiaMedicamentos:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoriaMedicamento'
+        nombreCompletoPaciente:
+          type: string
+    HistoriaMedicamento:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        cantidad:
+          type: integer
+          format: int32
+        historiaMedica:
+          $ref: '#/components/schemas/HistoriaMedica'
+        medicamento:
+          $ref: '#/components/schemas/MedicamentoProducto'
+    Medicamento:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        productos:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicamentoProducto'
+    MedicamentoProducto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        medicamento:
+          $ref: '#/components/schemas/Medicamento'
+        historiaMedicamentos:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoriaMedicamento'
+    Prescripcion:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        paisPrescripcion:
+          type: string
+          enum:
+          - ARGENTINA
+        recetas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Receta'
+        estudios:
+          type: array
+          items:
+            $ref: '#/components/schemas/Estudio'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedica'
+    Profesional:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        historiaMedica:
+          $ref: '#/components/schemas/HistoriaMedica'
+        centroSalud:
+          $ref: '#/components/schemas/CentroSalud'
+        especialidades:
+          type: array
+          items:
+            $ref: '#/components/schemas/Especialidad'
+        direcciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/Direccion'
+        contactos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacto'
+    RangoEdad:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        calendarioEdadVacunaLinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/CalendarioEdadVacunaLink'
+    Receta:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        prescripcion:
+          $ref: '#/components/schemas/Prescripcion'
+    Usuario:
+      required:
+      - apellido
+      - fechaNacimiento
+      - mail
+      - nombre
+      - password
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellido:
+          type: string
+        fechaNacimiento:
+          type: integer
+          format: int64
+        mail:
+          type: string
+        password:
+          type: string
+        genero:
+          type: string
+          enum:
+          - MASCULINO
+          - FEMENINO
+        estado:
+          type: boolean
+        autorizacion:
+          $ref: '#/components/schemas/AutorizacionComponent'
+        contactos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacto'
+        direcciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/Direccion'
+        verificaciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/VerificacionCuenta'
+    Vacuna:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        obligatoria:
+          type: boolean
+    VerificacionCuenta:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        codigo:
+          type: string
+        fechaGenerado:
+          type: integer
+          format: int64
+        fechaValidado:
+          type: integer
+          format: int64
+        usuario:
+          $ref: '#/components/schemas/Usuario'
+    VisitaMedica:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        fechaVisita:
+          type: integer
+          format: int64
+        atencionVirtual:
+          type: boolean
+        prescripciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prescripcion'
+        historiaMedica:
+          $ref: '#/components/schemas/HistoriaMedica'
+        centroSalud:
+          $ref: '#/components/schemas/CentroSalud'
+        profesional:
+          $ref: '#/components/schemas/Profesional'
+        diagnostico:
+          $ref: '#/components/schemas/Diagnostico'
+    Pageable:
+      type: object
+      properties:
+        page:
+          minimum: 0
+          type: integer
+          format: int32
+        size:
+          minimum: 1
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            type: string
+    PageUsuarioResponse:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsuarioResponse'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        last:
+          type: boolean
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/Sort'
+        pageSize:
+          type: integer
+          format: int32
+        pageNumber:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+    Sort:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+    PageUsuarioProfesionalResponse:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsuarioProfesionalResponse'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        last:
+          type: boolean
+        empty:
+          type: boolean
+    UsuarioProfesionalResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellido:
+          type: string
+        fechaNacimiento:
+          type: string
+        mail:
+          type: string
+        genero:
+          type: string
+        estado:
+          type: boolean
+        direcciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/DireccionResponse'
+        contactos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactoResponse'
+        autorizacion:
+          $ref: '#/components/schemas/AutorizacionComponentResponse'
+        matricula:
+          type: string
+    UsuarioProfesional:
+      required:
+      - apellido
+      - fechaNacimiento
+      - mail
+      - nombre
+      - password
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellido:
+          type: string
+        fechaNacimiento:
+          type: integer
+          format: int64
+        mail:
+          type: string
+        password:
+          type: string
+        genero:
+          type: string
+          enum:
+          - MASCULINO
+          - FEMENINO
+        estado:
+          type: boolean
+        autorizacion:
+          $ref: '#/components/schemas/AutorizacionComponent'
+        contactos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacto'
+        direcciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/Direccion'
+        verificaciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/VerificacionCuenta'
+        matricula:
+          type: string
+    PageUsuarioPacienteResponse:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsuarioPacienteResponse'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        last:
+          type: boolean
+        empty:
+          type: boolean
+    UsuarioPacienteResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellido:
+          type: string
+        fechaNacimiento:
+          type: string
+        mail:
+          type: string
+        genero:
+          type: string
+        estado:
+          type: boolean
+        direcciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/DireccionResponse'
+        contactos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactoResponse'
+        autorizacion:
+          $ref: '#/components/schemas/AutorizacionComponentResponse'
+    UsuarioPaciente:
+      required:
+      - apellido
+      - fechaNacimiento
+      - mail
+      - nombre
+      - password
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellido:
+          type: string
+        fechaNacimiento:
+          type: integer
+          format: int64
+        mail:
+          type: string
+        password:
+          type: string
+        genero:
+          type: string
+          enum:
+          - MASCULINO
+          - FEMENINO
+        estado:
+          type: boolean
+        autorizacion:
+          $ref: '#/components/schemas/AutorizacionComponent'
+        contactos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contacto'
+        direcciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/Direccion'
+        verificaciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/VerificacionCuenta'
+    Rol:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        codigo:
+          type: string
+        descripcion:
+          type: string
+        estado:
+          type: boolean
+    DireccionLocalidad:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        provincia:
+          $ref: '#/components/schemas/DireccionProvincia'
+    DireccionProvincia:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+    PageProfesionalResponse:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfesionalResponse'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        last:
+          type: boolean
+        empty:
+          type: boolean
+    PagePrescripcionResponse:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrescripcionResponse'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        last:
+          type: boolean
+        empty:
+          type: boolean
+    Permiso:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        codigo:
+          type: string
+        descripcion:
+          type: string
+        estado:
+          type: boolean
+    MedicamentoProductoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+    MedicamentoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        productos:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicamentoProductoResponse'
+    ApplicationContext:
+      type: object
+      properties:
+        parent:
+          $ref: '#/components/schemas/ApplicationContext'
+        id:
+          type: string
+        displayName:
+          type: string
+        startupDate:
+          type: integer
+          format: int64
+        applicationName:
+          type: string
+        autowireCapableBeanFactory:
+          $ref: '#/components/schemas/AutowireCapableBeanFactory'
+        environment:
+          $ref: '#/components/schemas/Environment'
+        beanDefinitionCount:
+          type: integer
+          format: int32
+        beanDefinitionNames:
+          type: array
+          items:
+            type: string
+        parentBeanFactory:
+          $ref: '#/components/schemas/BeanFactory'
+        classLoader:
+          type: object
+          properties:
+            parent:
+              type: object
+              properties:
+                defaultAssertionStatus:
+                  type: boolean
+                  writeOnly: true
+            defaultAssertionStatus:
+              type: boolean
+              writeOnly: true
+    AutowireCapableBeanFactory:
+      type: object
+    BeanFactory:
+      type: object
+    Environment:
+      type: object
+      properties:
+        activeProfiles:
+          type: array
+          items:
+            type: string
+        defaultProfiles:
+          type: array
+          items:
+            type: string
+    RedirectView:
+      type: object
+      properties:
+        applicationContext:
+          $ref: '#/components/schemas/ApplicationContext'
+        servletContext:
+          type: object
+          properties:
+            classLoader:
+              type: object
+              properties:
+                parent:
+                  type: object
+                  properties:
+                    defaultAssertionStatus:
+                      type: boolean
+                      writeOnly: true
+                defaultAssertionStatus:
+                  type: boolean
+                  writeOnly: true
+            majorVersion:
+              type: integer
+              format: int32
+            initParameterNames:
+              type: object
+            effectiveMajorVersion:
+              type: integer
+              format: int32
+            attributeNames:
+              type: object
+            servletContextName:
+              type: string
+            effectiveMinorVersion:
+              type: integer
+              format: int32
+            jspConfigDescriptor:
+              type: object
+              properties:
+                jspPropertyGroups:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      buffer:
+                        type: string
+                      defaultContentType:
+                        type: string
+                      urlPatterns:
+                        type: array
+                        items:
+                          type: string
+                      scriptingInvalid:
+                        type: string
+                      errorOnUndeclaredNamespace:
+                        type: string
+                      includePreludes:
+                        type: array
+                        items:
+                          type: string
+                      trimDirectiveWhitespaces:
+                        type: string
+                      deferredSyntaxAllowedAsLiteral:
+                        type: string
+                      includeCodas:
+                        type: array
+                        items:
+                          type: string
+                      pageEncoding:
+                        type: string
+                      isXml:
+                        type: string
+                      elIgnored:
+                        type: string
+                taglibs:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      taglibLocation:
+                        type: string
+                      taglibURI:
+                        type: string
+            sessionCookieConfig:
+              type: object
+              properties:
+                name:
+                  type: string
+                path:
+                  type: string
+                domain:
+                  type: string
+                comment:
+                  type: string
+                secure:
+                  type: boolean
+                httpOnly:
+                  type: boolean
+                maxAge:
+                  type: integer
+                  format: int32
+            effectiveSessionTrackingModes:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+                enum:
+                - COOKIE
+                - URL
+                - SSL
+            virtualServerName:
+              type: string
+            responseCharacterEncoding:
+              type: string
+            sessionTimeout:
+              type: integer
+              format: int32
+            requestCharacterEncoding:
+              type: string
+            filterRegistrations:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  urlPatternMappings:
+                    type: array
+                    items:
+                      type: string
+                  servletNameMappings:
+                    type: array
+                    items:
+                      type: string
+                  name:
+                    type: string
+                  className:
+                    type: string
+                  initParameters:
+                    type: object
+                    additionalProperties:
+                      type: string
+            sessionTrackingModes:
+              uniqueItems: true
+              type: array
+              writeOnly: true
+              items:
+                type: string
+                enum:
+                - COOKIE
+                - URL
+                - SSL
+            servletRegistrations:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  mappings:
+                    type: array
+                    items:
+                      type: string
+                  runAsRole:
+                    type: string
+                  name:
+                    type: string
+                  className:
+                    type: string
+                  initParameters:
+                    type: object
+                    additionalProperties:
+                      type: string
+            defaultSessionTrackingModes:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+                enum:
+                - COOKIE
+                - URL
+                - SSL
+            contextPath:
+              type: string
+            serverInfo:
+              type: string
+            minorVersion:
+              type: integer
+              format: int32
+            servletNames:
+              type: object
+              deprecated: true
+            servlets:
+              type: object
+              deprecated: true
+          writeOnly: true
+        contentType:
+          type: string
+        requestContextAttribute:
+          type: string
+        staticAttributes:
+          type: object
+          additionalProperties:
+            type: object
+        exposePathVariables:
+          type: boolean
+        exposeContextBeansAsAttributes:
+          type: boolean
+          writeOnly: true
+        exposedContextBeanNames:
+          type: array
+          writeOnly: true
+          items:
+            type: string
+        beanName:
+          type: string
+        url:
+          type: string
+        contextRelative:
+          type: boolean
+          writeOnly: true
+        http10Compatible:
+          type: boolean
+          writeOnly: true
+        exposeModelAttributes:
+          type: boolean
+          writeOnly: true
+        encodingScheme:
+          type: string
+          writeOnly: true
+        statusCode:
+          type: string
+          writeOnly: true
+          enum:
+          - 100 CONTINUE
+          - 101 SWITCHING_PROTOCOLS
+          - 102 PROCESSING
+          - 103 CHECKPOINT
+          - 200 OK
+          - 201 CREATED
+          - 202 ACCEPTED
+          - 203 NON_AUTHORITATIVE_INFORMATION
+          - 204 NO_CONTENT
+          - 205 RESET_CONTENT
+          - 206 PARTIAL_CONTENT
+          - 207 MULTI_STATUS
+          - 208 ALREADY_REPORTED
+          - 226 IM_USED
+          - 300 MULTIPLE_CHOICES
+          - 301 MOVED_PERMANENTLY
+          - 302 FOUND
+          - 302 MOVED_TEMPORARILY
+          - 303 SEE_OTHER
+          - 304 NOT_MODIFIED
+          - 305 USE_PROXY
+          - 307 TEMPORARY_REDIRECT
+          - 308 PERMANENT_REDIRECT
+          - 400 BAD_REQUEST
+          - 401 UNAUTHORIZED
+          - 402 PAYMENT_REQUIRED
+          - 403 FORBIDDEN
+          - 404 NOT_FOUND
+          - 405 METHOD_NOT_ALLOWED
+          - 406 NOT_ACCEPTABLE
+          - 407 PROXY_AUTHENTICATION_REQUIRED
+          - 408 REQUEST_TIMEOUT
+          - 409 CONFLICT
+          - 410 GONE
+          - 411 LENGTH_REQUIRED
+          - 412 PRECONDITION_FAILED
+          - 413 PAYLOAD_TOO_LARGE
+          - 413 REQUEST_ENTITY_TOO_LARGE
+          - 414 URI_TOO_LONG
+          - 414 REQUEST_URI_TOO_LONG
+          - 415 UNSUPPORTED_MEDIA_TYPE
+          - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+          - 417 EXPECTATION_FAILED
+          - 418 I_AM_A_TEAPOT
+          - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+          - 420 METHOD_FAILURE
+          - 421 DESTINATION_LOCKED
+          - 422 UNPROCESSABLE_ENTITY
+          - 423 LOCKED
+          - 424 FAILED_DEPENDENCY
+          - 425 TOO_EARLY
+          - 426 UPGRADE_REQUIRED
+          - 428 PRECONDITION_REQUIRED
+          - 429 TOO_MANY_REQUESTS
+          - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+          - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+          - 500 INTERNAL_SERVER_ERROR
+          - 501 NOT_IMPLEMENTED
+          - 502 BAD_GATEWAY
+          - 503 SERVICE_UNAVAILABLE
+          - 504 GATEWAY_TIMEOUT
+          - 505 HTTP_VERSION_NOT_SUPPORTED
+          - 506 VARIANT_ALSO_NEGOTIATES
+          - 507 INSUFFICIENT_STORAGE
+          - 508 LOOP_DETECTED
+          - 509 BANDWIDTH_LIMIT_EXCEEDED
+          - 510 NOT_EXTENDED
+          - 511 NETWORK_AUTHENTICATION_REQUIRED
+        expandUriTemplateVariables:
+          type: boolean
+          writeOnly: true
+        propagateQueryParams:
+          type: boolean
+          writeOnly: true
+        hosts:
+          type: array
+          items:
+            type: string
+        redirectView:
+          type: boolean
+        propagateQueryProperties:
+          type: boolean
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+          writeOnly: true
+        attributesMap:
+          type: object
+          additionalProperties:
+            type: object
+        attributesCSV:
+          type: string
+          writeOnly: true
+    GrupoFamiliarCompartirRequest:
+      type: object
+      properties:
+        mail:
+          type: string
+        codigo:
+          type: string
+    Grupo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        codigo:
+          type: string
+        descripcion:
+          type: string
+        estado:
+          type: boolean
+    GoogleCalendarioGetListRequest:
+      type: object
+      properties:
+        startDate:
+          type: string
+        endDate:
+          type: string
+    ClassInfo:
+      type: object
+      properties:
+        ignoreCase:
+          type: boolean
+        names:
+          type: array
+          items:
+            type: string
+        enum:
+          type: boolean
+        fieldInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldInfo'
+    DateTime:
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int64
+        dateOnly:
+          type: boolean
+        timeZoneShift:
+          type: integer
+          format: int32
+    EntryPoint:
+      type: object
+      properties:
+        classInfo:
+          $ref: '#/components/schemas/ClassInfo'
+        accessCode:
+          type: string
+        entryPointFeatures:
+          type: array
+          items:
+            type: string
+        entryPointType:
+          type: string
+        label:
+          type: string
+        meetingCode:
+          type: string
+        passcode:
+          type: string
+        password:
+          type: string
+        pin:
+          type: string
+        regionCode:
+          type: string
+        uri:
+          type: string
+        factory:
+          $ref: '#/components/schemas/JsonFactory'
+        unknownKeys:
+          type: object
+          additionalProperties:
+            type: object
+        empty:
+          type: boolean
+      additionalProperties:
+        type: object
+    Event:
+      type: object
+      properties:
+        classInfo:
+          $ref: '#/components/schemas/ClassInfo'
+        anyoneCanAddSelf:
+          type: boolean
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventAttachment'
+        attendees:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventAttendee'
+        attendeesOmitted:
+          type: boolean
+        colorId:
+          type: string
+        conferenceData:
+          type: object
+          properties:
+            classInfo:
+              $ref: '#/components/schemas/ClassInfo'
+            conferenceId:
+              type: string
+            conferenceSolution:
+              type: object
+              properties:
+                classInfo:
+                  $ref: '#/components/schemas/ClassInfo'
+                iconUri:
+                  type: string
+                key:
+                  type: object
+                  properties:
+                    classInfo:
+                      $ref: '#/components/schemas/ClassInfo'
+                    type:
+                      type: string
+                    factory:
+                      $ref: '#/components/schemas/JsonFactory'
+                    unknownKeys:
+                      type: object
+                      additionalProperties:
+                        type: object
+                    empty:
+                      type: boolean
+                  additionalProperties:
+                    type: object
+                name:
+                  type: string
+                factory:
+                  $ref: '#/components/schemas/JsonFactory'
+                unknownKeys:
+                  type: object
+                  additionalProperties:
+                    type: object
+                empty:
+                  type: boolean
+              additionalProperties:
+                type: object
+            createRequest:
+              type: object
+              properties:
+                classInfo:
+                  $ref: '#/components/schemas/ClassInfo'
+                conferenceSolutionKey:
+                  type: object
+                  properties:
+                    classInfo:
+                      $ref: '#/components/schemas/ClassInfo'
+                    type:
+                      type: string
+                    factory:
+                      $ref: '#/components/schemas/JsonFactory'
+                    unknownKeys:
+                      type: object
+                      additionalProperties:
+                        type: object
+                    empty:
+                      type: boolean
+                  additionalProperties:
+                    type: object
+                requestId:
+                  type: string
+                status:
+                  type: object
+                  properties:
+                    classInfo:
+                      $ref: '#/components/schemas/ClassInfo'
+                    statusCode:
+                      type: string
+                    factory:
+                      $ref: '#/components/schemas/JsonFactory'
+                    unknownKeys:
+                      type: object
+                      additionalProperties:
+                        type: object
+                    empty:
+                      type: boolean
+                  additionalProperties:
+                    type: object
+                factory:
+                  $ref: '#/components/schemas/JsonFactory'
+                unknownKeys:
+                  type: object
+                  additionalProperties:
+                    type: object
+                empty:
+                  type: boolean
+              additionalProperties:
+                type: object
+            entryPoints:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntryPoint'
+            notes:
+              type: string
+            parameters:
+              type: object
+              properties:
+                classInfo:
+                  $ref: '#/components/schemas/ClassInfo'
+                addOnParameters:
+                  type: object
+                  properties:
+                    classInfo:
+                      $ref: '#/components/schemas/ClassInfo'
+                    parameters:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    factory:
+                      $ref: '#/components/schemas/JsonFactory'
+                    unknownKeys:
+                      type: object
+                      additionalProperties:
+                        type: object
+                    empty:
+                      type: boolean
+                  additionalProperties:
+                    type: object
+                factory:
+                  $ref: '#/components/schemas/JsonFactory'
+                unknownKeys:
+                  type: object
+                  additionalProperties:
+                    type: object
+                empty:
+                  type: boolean
+              additionalProperties:
+                type: object
+            signature:
+              type: string
+            factory:
+              $ref: '#/components/schemas/JsonFactory'
+            unknownKeys:
+              type: object
+              additionalProperties:
+                type: object
+            empty:
+              type: boolean
+          additionalProperties:
+            type: object
+        created:
+          $ref: '#/components/schemas/DateTime'
+        creator:
+          type: object
+          properties:
+            classInfo:
+              $ref: '#/components/schemas/ClassInfo'
+            displayName:
+              type: string
+            email:
+              type: string
+            id:
+              type: string
+            self:
+              type: boolean
+            factory:
+              $ref: '#/components/schemas/JsonFactory'
+            unknownKeys:
+              type: object
+              additionalProperties:
+                type: object
+            empty:
+              type: boolean
+          additionalProperties:
+            type: object
+        description:
+          type: string
+        end:
+          type: object
+          properties:
+            classInfo:
+              $ref: '#/components/schemas/ClassInfo'
+            date:
+              $ref: '#/components/schemas/DateTime'
+            dateTime:
+              $ref: '#/components/schemas/DateTime'
+            timeZone:
+              type: string
+            factory:
+              $ref: '#/components/schemas/JsonFactory'
+            unknownKeys:
+              type: object
+              additionalProperties:
+                type: object
+            empty:
+              type: boolean
+          additionalProperties:
+            type: object
+        endTimeUnspecified:
+          type: boolean
+        etag:
+          type: string
+        eventType:
+          type: string
+        extendedProperties:
+          type: object
+          properties:
+            classInfo:
+              $ref: '#/components/schemas/ClassInfo'
+            shared:
+              type: object
+              additionalProperties:
+                type: string
+            private:
+              type: object
+              additionalProperties:
+                type: string
+            factory:
+              $ref: '#/components/schemas/JsonFactory'
+            unknownKeys:
+              type: object
+              additionalProperties:
+                type: object
+            empty:
+              type: boolean
+          additionalProperties:
+            type: object
+        gadget:
+          type: object
+          properties:
+            classInfo:
+              $ref: '#/components/schemas/ClassInfo'
+            display:
+              type: string
+            height:
+              type: integer
+              format: int32
+            iconLink:
+              type: string
+            link:
+              type: string
+            preferences:
+              type: object
+              additionalProperties:
+                type: string
+            title:
+              type: string
+            type:
+              type: string
+            width:
+              type: integer
+              format: int32
+            factory:
+              $ref: '#/components/schemas/JsonFactory'
+            unknownKeys:
+              type: object
+              additionalProperties:
+                type: object
+            empty:
+              type: boolean
+          additionalProperties:
+            type: object
+        guestsCanInviteOthers:
+          type: boolean
+        guestsCanModify:
+          type: boolean
+        guestsCanSeeOtherGuests:
+          type: boolean
+        hangoutLink:
+          type: string
+        htmlLink:
+          type: string
+        id:
+          type: string
+        kind:
+          type: string
+        location:
+          type: string
+        locked:
+          type: boolean
+        organizer:
+          type: object
+          properties:
+            classInfo:
+              $ref: '#/components/schemas/ClassInfo'
+            displayName:
+              type: string
+            email:
+              type: string
+            id:
+              type: string
+            self:
+              type: boolean
+            factory:
+              $ref: '#/components/schemas/JsonFactory'
+            unknownKeys:
+              type: object
+              additionalProperties:
+                type: object
+            empty:
+              type: boolean
+          additionalProperties:
+            type: object
+        originalStartTime:
+          type: object
+          properties:
+            classInfo:
+              $ref: '#/components/schemas/ClassInfo'
+            date:
+              $ref: '#/components/schemas/DateTime'
+            dateTime:
+              $ref: '#/components/schemas/DateTime'
+            timeZone:
+              type: string
+            factory:
+              $ref: '#/components/schemas/JsonFactory'
+            unknownKeys:
+              type: object
+              additionalProperties:
+                type: object
+            empty:
+              type: boolean
+          additionalProperties:
+            type: object
+        privateCopy:
+          type: boolean
+        recurrence:
+          type: array
+          items:
+            type: string
+        recurringEventId:
+          type: string
+        reminders:
+          type: object
+          properties:
+            classInfo:
+              $ref: '#/components/schemas/ClassInfo'
+            overrides:
+              type: array
+              items:
+                $ref: '#/components/schemas/EventReminder'
+            useDefault:
+              type: boolean
+            factory:
+              $ref: '#/components/schemas/JsonFactory'
+            unknownKeys:
+              type: object
+              additionalProperties:
+                type: object
+            empty:
+              type: boolean
+          additionalProperties:
+            type: object
+        sequence:
+          type: integer
+          format: int32
+        source:
+          type: object
+          properties:
+            classInfo:
+              $ref: '#/components/schemas/ClassInfo'
+            title:
+              type: string
+            url:
+              type: string
+            factory:
+              $ref: '#/components/schemas/JsonFactory'
+            unknownKeys:
+              type: object
+              additionalProperties:
+                type: object
+            empty:
+              type: boolean
+          additionalProperties:
+            type: object
+        start:
+          type: object
+          properties:
+            classInfo:
+              $ref: '#/components/schemas/ClassInfo'
+            date:
+              $ref: '#/components/schemas/DateTime'
+            dateTime:
+              $ref: '#/components/schemas/DateTime'
+            timeZone:
+              type: string
+            factory:
+              $ref: '#/components/schemas/JsonFactory'
+            unknownKeys:
+              type: object
+              additionalProperties:
+                type: object
+            empty:
+              type: boolean
+          additionalProperties:
+            type: object
+        status:
+          type: string
+        summary:
+          type: string
+        transparency:
+          type: string
+        updated:
+          $ref: '#/components/schemas/DateTime'
+        visibility:
+          type: string
+        icalUID:
+          type: string
+        factory:
+          $ref: '#/components/schemas/JsonFactory'
+        unknownKeys:
+          type: object
+          additionalProperties:
+            type: object
+        empty:
+          type: boolean
+      additionalProperties:
+        type: object
+    EventAttachment:
+      type: object
+      properties:
+        classInfo:
+          $ref: '#/components/schemas/ClassInfo'
+        fileId:
+          type: string
+        fileUrl:
+          type: string
+        iconLink:
+          type: string
+        mimeType:
+          type: string
+        title:
+          type: string
+        factory:
+          $ref: '#/components/schemas/JsonFactory'
+        unknownKeys:
+          type: object
+          additionalProperties:
+            type: object
+        empty:
+          type: boolean
+      additionalProperties:
+        type: object
+    EventAttendee:
+      type: object
+      properties:
+        classInfo:
+          $ref: '#/components/schemas/ClassInfo'
+        additionalGuests:
+          type: integer
+          format: int32
+        comment:
+          type: string
+        displayName:
+          type: string
+        email:
+          type: string
+        id:
+          type: string
+        optional:
+          type: boolean
+        organizer:
+          type: boolean
+        resource:
+          type: boolean
+        responseStatus:
+          type: string
+        self:
+          type: boolean
+        factory:
+          $ref: '#/components/schemas/JsonFactory'
+        unknownKeys:
+          type: object
+          additionalProperties:
+            type: object
+        empty:
+          type: boolean
+      additionalProperties:
+        type: object
+    EventReminder:
+      type: object
+      properties:
+        classInfo:
+          $ref: '#/components/schemas/ClassInfo'
+        method:
+          type: string
+        minutes:
+          type: integer
+          format: int32
+        factory:
+          $ref: '#/components/schemas/JsonFactory'
+        unknownKeys:
+          type: object
+          additionalProperties:
+            type: object
+        empty:
+          type: boolean
+      additionalProperties:
+        type: object
+    FieldInfo:
+      type: object
+      properties:
+        field:
+          type: object
+          properties:
+            name:
+              type: string
+            modifiers:
+              type: integer
+              format: int32
+            annotations:
+              type: array
+              items:
+                type: object
+            declaredAnnotations:
+              type: array
+              items:
+                type: object
+            synthetic:
+              type: boolean
+            annotatedType:
+              type: object
+              properties:
+                type:
+                  type: object
+                  properties:
+                    typeName:
+                      type: string
+                annotations:
+                  type: array
+                  items:
+                    type: object
+                declaredAnnotations:
+                  type: array
+                  items:
+                    type: object
+            genericType:
+              type: object
+              properties:
+                typeName:
+                  type: string
+            enumConstant:
+              type: boolean
+            accessible:
+              type: boolean
+        name:
+          type: string
+        primitive:
+          type: boolean
+        genericType:
+          type: object
+          properties:
+            typeName:
+              type: string
+        final:
+          type: boolean
+        classInfo:
+          $ref: '#/components/schemas/ClassInfo'
+        tersMethodForField:
+          type: array
+          writeOnly: true
+          items:
+            type: object
+            properties:
+              parameters:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    modifiers:
+                      type: integer
+                      format: int32
+                    declaredAnnotations:
+                      type: array
+                      items:
+                        type: object
+                    annotations:
+                      type: array
+                      items:
+                        type: object
+                    synthetic:
+                      type: boolean
+                    annotatedType:
+                      type: object
+                      properties:
+                        type:
+                          type: object
+                          properties:
+                            typeName:
+                              type: string
+                        annotations:
+                          type: array
+                          items:
+                            type: object
+                        declaredAnnotations:
+                          type: array
+                          items:
+                            type: object
+                    declaringExecutable:
+                      type: object
+                      properties:
+                        declaredAnnotations:
+                          type: array
+                          items:
+                            type: object
+                        modifiers:
+                          type: integer
+                          format: int32
+                        name:
+                          type: string
+                        typeParameters:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              bounds:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    typeName:
+                                      type: string
+                              annotatedBounds:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    type:
+                                      type: object
+                                      properties:
+                                        typeName:
+                                          type: string
+                                    annotations:
+                                      type: array
+                                      items:
+                                        type: object
+                                    declaredAnnotations:
+                                      type: array
+                                      items:
+                                        type: object
+                              genericDeclaration:
+                                type: object
+                              typeName:
+                                type: string
+                              annotations:
+                                type: array
+                                items:
+                                  type: object
+                              declaredAnnotations:
+                                type: array
+                                items:
+                                  type: object
+                        synthetic:
+                          type: boolean
+                        annotatedParameterTypes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              type:
+                                type: object
+                                properties:
+                                  typeName:
+                                    type: string
+                              annotations:
+                                type: array
+                                items:
+                                  type: object
+                              declaredAnnotations:
+                                type: array
+                                items:
+                                  type: object
+                        parameterAnnotations:
+                          type: array
+                          items:
+                            type: array
+                            items:
+                              type: object
+                        parameterCount:
+                          type: integer
+                          format: int32
+                        varArgs:
+                          type: boolean
+                        annotatedReturnType:
+                          type: object
+                          properties:
+                            type:
+                              type: object
+                              properties:
+                                typeName:
+                                  type: string
+                            annotations:
+                              type: array
+                              items:
+                                type: object
+                            declaredAnnotations:
+                              type: array
+                              items:
+                                type: object
+                        genericExceptionTypes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              typeName:
+                                type: string
+                        genericParameterTypes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              typeName:
+                                type: string
+                        annotatedExceptionTypes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              type:
+                                type: object
+                                properties:
+                                  typeName:
+                                    type: string
+                              annotations:
+                                type: array
+                                items:
+                                  type: object
+                              declaredAnnotations:
+                                type: array
+                                items:
+                                  type: object
+                        annotatedReceiverType:
+                          type: object
+                          properties:
+                            type:
+                              type: object
+                              properties:
+                                typeName:
+                                  type: string
+                            annotations:
+                              type: array
+                              items:
+                                type: object
+                            declaredAnnotations:
+                              type: array
+                              items:
+                                type: object
+                        annotations:
+                          type: array
+                          items:
+                            type: object
+                        accessible:
+                          type: boolean
+                    parameterizedType:
+                      type: object
+                      properties:
+                        typeName:
+                          type: string
+                    implicit:
+                      type: boolean
+                    namePresent:
+                      type: boolean
+                    varArgs:
+                      type: boolean
+              declaredAnnotations:
+                type: array
+                items:
+                  type: object
+              name:
+                type: string
+              modifiers:
+                type: integer
+                format: int32
+              annotations:
+                type: array
+                items:
+                  type: object
+              parameterAnnotations:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: object
+              typeParameters:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    bounds:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          typeName:
+                            type: string
+                    annotatedBounds:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: object
+                            properties:
+                              typeName:
+                                type: string
+                          annotations:
+                            type: array
+                            items:
+                              type: object
+                          declaredAnnotations:
+                            type: array
+                            items:
+                              type: object
+                    genericDeclaration:
+                      type: object
+                      properties:
+                        parameters:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              modifiers:
+                                type: integer
+                                format: int32
+                              declaredAnnotations:
+                                type: array
+                                items:
+                                  type: object
+                              annotations:
+                                type: array
+                                items:
+                                  type: object
+                              synthetic:
+                                type: boolean
+                              annotatedType:
+                                type: object
+                                properties:
+                                  type:
+                                    type: object
+                                    properties:
+                                      typeName:
+                                        type: string
+                                  annotations:
+                                    type: array
+                                    items:
+                                      type: object
+                                  declaredAnnotations:
+                                    type: array
+                                    items:
+                                      type: object
+                              declaringExecutable:
+                                type: object
+                                properties:
+                                  declaredAnnotations:
+                                    type: array
+                                    items:
+                                      type: object
+                                  modifiers:
+                                    type: integer
+                                    format: int32
+                                  name:
+                                    type: string
+                                  typeParameters:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        name:
+                                          type: string
+                                        bounds:
+                                          type: array
+                                          items:
+                                            type: object
+                                            properties:
+                                              typeName:
+                                                type: string
+                                        annotatedBounds:
+                                          type: array
+                                          items:
+                                            type: object
+                                            properties:
+                                              type:
+                                                type: object
+                                                properties:
+                                                  typeName:
+                                                    type: string
+                                              annotations:
+                                                type: array
+                                                items:
+                                                  type: object
+                                              declaredAnnotations:
+                                                type: array
+                                                items:
+                                                  type: object
+                                        genericDeclaration:
+                                          type: object
+                                        typeName:
+                                          type: string
+                                        annotations:
+                                          type: array
+                                          items:
+                                            type: object
+                                        declaredAnnotations:
+                                          type: array
+                                          items:
+                                            type: object
+                                  synthetic:
+                                    type: boolean
+                                  annotatedParameterTypes:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        type:
+                                          type: object
+                                          properties:
+                                            typeName:
+                                              type: string
+                                        annotations:
+                                          type: array
+                                          items:
+                                            type: object
+                                        declaredAnnotations:
+                                          type: array
+                                          items:
+                                            type: object
+                                  parameterAnnotations:
+                                    type: array
+                                    items:
+                                      type: array
+                                      items:
+                                        type: object
+                                  parameterCount:
+                                    type: integer
+                                    format: int32
+                                  varArgs:
+                                    type: boolean
+                                  annotatedReturnType:
+                                    type: object
+                                    properties:
+                                      type:
+                                        type: object
+                                        properties:
+                                          typeName:
+                                            type: string
+                                      annotations:
+                                        type: array
+                                        items:
+                                          type: object
+                                      declaredAnnotations:
+                                        type: array
+                                        items:
+                                          type: object
+                                  genericExceptionTypes:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        typeName:
+                                          type: string
+                                  genericParameterTypes:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        typeName:
+                                          type: string
+                                  annotatedExceptionTypes:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        type:
+                                          type: object
+                                          properties:
+                                            typeName:
+                                              type: string
+                                        annotations:
+                                          type: array
+                                          items:
+                                            type: object
+                                        declaredAnnotations:
+                                          type: array
+                                          items:
+                                            type: object
+                                  annotatedReceiverType:
+                                    type: object
+                                    properties:
+                                      type:
+                                        type: object
+                                        properties:
+                                          typeName:
+                                            type: string
+                                      annotations:
+                                        type: array
+                                        items:
+                                          type: object
+                                      declaredAnnotations:
+                                        type: array
+                                        items:
+                                          type: object
+                                  annotations:
+                                    type: array
+                                    items:
+                                      type: object
+                                  accessible:
+                                    type: boolean
+                              parameterizedType:
+                                type: object
+                                properties:
+                                  typeName:
+                                    type: string
+                              implicit:
+                                type: boolean
+                              namePresent:
+                                type: boolean
+                              varArgs:
+                                type: boolean
+                        declaredAnnotations:
+                          type: array
+                          items:
+                            type: object
+                        name:
+                          type: string
+                        modifiers:
+                          type: integer
+                          format: int32
+                        annotations:
+                          type: array
+                          items:
+                            type: object
+                        parameterAnnotations:
+                          type: array
+                          items:
+                            type: array
+                            items:
+                              type: object
+                        default:
+                          type: boolean
+                        synthetic:
+                          type: boolean
+                        parameterCount:
+                          type: integer
+                          format: int32
+                        varArgs:
+                          type: boolean
+                        annotatedReturnType:
+                          type: object
+                          properties:
+                            type:
+                              type: object
+                              properties:
+                                typeName:
+                                  type: string
+                            annotations:
+                              type: array
+                              items:
+                                type: object
+                            declaredAnnotations:
+                              type: array
+                              items:
+                                type: object
+                        defaultValue:
+                          type: object
+                        genericExceptionTypes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              typeName:
+                                type: string
+                        genericParameterTypes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              typeName:
+                                type: string
+                        genericReturnType:
+                          type: object
+                          properties:
+                            typeName:
+                              type: string
+                        bridge:
+                          type: boolean
+                        annotatedParameterTypes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              type:
+                                type: object
+                                properties:
+                                  typeName:
+                                    type: string
+                              annotations:
+                                type: array
+                                items:
+                                  type: object
+                              declaredAnnotations:
+                                type: array
+                                items:
+                                  type: object
+                        annotatedExceptionTypes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              type:
+                                type: object
+                                properties:
+                                  typeName:
+                                    type: string
+                              annotations:
+                                type: array
+                                items:
+                                  type: object
+                              declaredAnnotations:
+                                type: array
+                                items:
+                                  type: object
+                        annotatedReceiverType:
+                          type: object
+                          properties:
+                            type:
+                              type: object
+                              properties:
+                                typeName:
+                                  type: string
+                            annotations:
+                              type: array
+                              items:
+                                type: object
+                            declaredAnnotations:
+                              type: array
+                              items:
+                                type: object
+                        accessible:
+                          type: boolean
+                    typeName:
+                      type: string
+                    annotations:
+                      type: array
+                      items:
+                        type: object
+                    declaredAnnotations:
+                      type: array
+                      items:
+                        type: object
+              default:
+                type: boolean
+              synthetic:
+                type: boolean
+              parameterCount:
+                type: integer
+                format: int32
+              varArgs:
+                type: boolean
+              annotatedReturnType:
+                type: object
+                properties:
+                  type:
+                    type: object
+                    properties:
+                      typeName:
+                        type: string
+                  annotations:
+                    type: array
+                    items:
+                      type: object
+                  declaredAnnotations:
+                    type: array
+                    items:
+                      type: object
+              defaultValue:
+                type: object
+              genericExceptionTypes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeName:
+                      type: string
+              genericParameterTypes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeName:
+                      type: string
+              genericReturnType:
+                type: object
+                properties:
+                  typeName:
+                    type: string
+              bridge:
+                type: boolean
+              annotatedParameterTypes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: object
+                      properties:
+                        typeName:
+                          type: string
+                    annotations:
+                      type: array
+                      items:
+                        type: object
+                    declaredAnnotations:
+                      type: array
+                      items:
+                        type: object
+              annotatedExceptionTypes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: object
+                      properties:
+                        typeName:
+                          type: string
+                    annotations:
+                      type: array
+                      items:
+                        type: object
+                    declaredAnnotations:
+                      type: array
+                      items:
+                        type: object
+              annotatedReceiverType:
+                type: object
+                properties:
+                  type:
+                    type: object
+                    properties:
+                      typeName:
+                        type: string
+                  annotations:
+                    type: array
+                    items:
+                      type: object
+                  declaredAnnotations:
+                    type: array
+                    items:
+                      type: object
+              accessible:
+                type: boolean
+    JsonFactory:
+      type: object
+    Autorizacion:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        codigo:
+          type: string
+        descripcion:
+          type: string
+        estado:
+          type: boolean

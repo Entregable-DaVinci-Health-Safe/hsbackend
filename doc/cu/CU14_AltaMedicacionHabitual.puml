@@ -1,0 +1,10 @@
+@startuml
+left to right direction
+
+ actor Paciente
+
+  Paciente -- (CU14_AltaMedicacionHabitual) 
+
+	 (CU14_AltaMedicacionHabitual) .down--> (CU_13_VisordeMedicaciónHabitual) : require
+
+@enduml

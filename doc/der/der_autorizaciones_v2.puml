@@ -1,0 +1,78 @@
+@startuml
+skinparam linetype ortho
+
+entity "permisos" as prm {
+    *acp_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "roles" as rol {
+    *acp_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "grupos" as grp {
+    *acp_id: bigint <<generated>> <<PK>> <<FK>>
+}
+
+entity "rolesGrupos" as rgp {
+    rgp_id: bigint <<generated>> <<PK>>
+    rgp_rol_id: bigint <<FK>>
+    rgp_grp_id: bigint <<FK>>
+
+}
+
+entity "gruposPermisos" as gpr {
+    gpr_id: bigint <<generated>> <<PK>>
+    gpr_grp_id: bigint <<FK>>
+    gpr_prm_id: bigint <<FK>>
+}
+
+entity "rolesPermisos" as rpr {
+    rpr_id: bigint <<generated>> <<PK>>
+    rpr_rol_id: bigint <<FK>>
+    rpr_prm_id: bigint <<FK>>
+}
+
+entity "autorizaciones" as aut {
+    acp_id: bigint <<generated>> <<PK>> <<FK>>
+
+}
+
+entity "autorizacionesComposiciones" as acm {
+    acm_id: bigint <<PK>>
+    acm_aut_id: bigint <<FK>>
+    acm_acp_id: bigint <<FK>>
+}
+
+entity "autorizacionesComponentes" as acp{
+    acp_id: bigint <<PK>>
+    acp_tipo_componente; varchar(255)
+    acp_codigo: varchar(45)
+    acp_descripcion: varchar(255)
+    acp_activo: TINYINT(1)
+}
+
+entity "usuarios" as usr{
+    usr_id: bigint <<PK>>
+    usr_acp_id: bigint <<FK>>
+}
+
+acp ||--|| prm
+acp ||--|| grp
+acp ||--|| rol
+acp ||-up-|| aut
+
+rol ||--{ rgp
+grp ||--{ rgp
+
+rol ||--{ rpr
+prm ||--{ rpr
+
+grp ||--{ gpr
+prm ||--{ gpr
+
+aut ||-left-{ acm
+acp ||--{ acm
+
+usr ||--{ acp
+
+@enduml

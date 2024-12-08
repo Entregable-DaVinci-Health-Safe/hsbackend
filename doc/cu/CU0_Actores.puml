@@ -1,0 +1,13 @@
+@startuml
+package Actores {
+    actor Paciente
+    :Admin:
+
+    package PrestadorDeServicio{
+        actor CentroDeSalud
+        :Profesional:
+    }
+}
+@enduml
+
+

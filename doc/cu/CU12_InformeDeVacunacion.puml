@@ -1,0 +1,10 @@
+@startuml
+left to right direction
+
+actor Paciente
+Paciente -- (CU_12-GenerarInforme)
+
+(CU_12-GenerarInforme) .left--> (CU_10-VisualizarCalendarioDeVacunacion)  : require
+(CU_12-GenerarInforme) .right--> (CU_11-GestionarVacuna) : require
+
+@enduml

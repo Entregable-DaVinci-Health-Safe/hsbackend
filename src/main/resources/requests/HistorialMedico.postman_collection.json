@@ -1,0 +1,5329 @@
+{
+	"info": {
+		"_postman_id": "ccc73db9-93fe-4d12-972e-f7fbb80e6d79",
+		"name": "HistorialMedico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18326380"
+	},
+	"item": [
+		{
+			"name": "POSTS / PUTS / DELETES",
+			"item": [
+				{
+					"name": "Calendario - Vacunas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rangoEdadId\": 1,\r\n    \"vacunaId\": 4,\r\n    \"fechaAplicada\": \"1998-08-31\",\r\n    \"aplicada\": \"Aplicada\",\r\n    \"numeroDosis\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/calendarios/1/vacunas",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"calendarios",
+								"1",
+								"vacunas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calendario - Vacunas Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rangoEdadId\": 1,\r\n    \"vacunaAplicadaId\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/calendarios/1/vacunas",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"calendarios",
+								"1",
+								"vacunas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Google Calendar Add Event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setGlobalVariable(\"googleEventoId\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"summary\": \"Evento 1\",\r\n    \"location\": \"DaVinci\",\r\n    \"description\": \"Evento test\",\r\n    \"attendees\": [\r\n      \"healthsafe2023@gmail.com\"\r\n    ],\r\n    \"startTime\": \"2023-02-27T16:00:00.000-03:00\",\r\n    \"endTime\": \"2023-02-27T17:00:00.000-03:00\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/addEventos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"addEventos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Envio Mail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n    \"recipient\": \"{{mail}}\",\r\n    \"msgBody\": \"endpoint test\",\r\n    \"subject\": \"ENDPOINT TEST\",\r\n    \"attachment\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/sendMail",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"sendMail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Google Calendar Evento",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/deleteEventos/{{googleEventoId}}",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"deleteEventos",
+								"{{googleEventoId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GETS",
+			"item": [
+				{
+					"name": "Calendarios - Historia Medica",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/1/calendarios",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"1",
+								"calendarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Google Calendar Eventos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startDate\": \"2023-02-27T16:00:00.000-03:00\",\r\n\t\"endDate\": \"2023-02-27T17:00:00.000-03:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/getListEventos",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getListEventos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Google Calendar Eventos Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/getEventos/{{googleEventoId}}",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getEventos",
+								"{{googleEventoId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "POSTS",
+					"item": [
+						{
+							"name": "Jwt Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setGlobalVariable(\"JWT\", jsonData.token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mail\": \"mail-1@gmail.com\",\r\n    \"password\": \"TextoPlano\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/login",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Jwt Login Oauth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setGlobalVariable(\"JWT\", jsonData.token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mail\": \"mail-12@gmail.com\",\r\n    \"password\": \"TextoPlano\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/oauth2/token",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"oauth2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario Profesional",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Profesional-1\",\r\n    \"apellido\": \"Profesional-1\",\r\n    \"fechaNacimiento\": \"1998-08-31\",\r\n    \"mail\": \"mail-Profesional\",\r\n    \"password\": \"textoPlano\",\r\n    \"matricula\": \"AAA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/register/profesionales",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"register",
+										"profesionales"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario Paciente",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"documento\": 123456789,\r\n    \"nombre\": \"Paciente-1\",\r\n    \"apellido\": \"Paciente-1\",\r\n    \"fechaNacimiento\": \"1998-08-31\",\r\n    \"mail\": \"mail-1@gmail.com\",\r\n    \"genero\": \"MASCULINO\",\r\n    \"password\": \"TextoPlano\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/register/pacientes",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"register",
+										"pacientes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Direccion",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"direccion\": \"direccion-1\",\r\n    \"localidad\": \"localidad-1\",\r\n    \"provincia\": \"provincia-1\",\r\n    \"barrio\": \"barrio-1\",\r\n    \"piso\": 2,\r\n    \"departamento\": \"D\",\r\n    \"referencia\": \"ref\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/nuevaDireccion",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"nuevaDireccion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Contacto",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"telefono\": \"+541234567\",\r\n    \"mailAlternativo\": \"test@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/nuevoContacto",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"nuevoContacto"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUTS",
+					"item": [
+						{
+							"name": "Paciente",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Gabriel\",\r\n    \"apellido\": \"Paciente-1\",\r\n    \"fechaNacimiento\": \"2023-01-19\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/pacientes",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"pacientes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Desactivar",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/1/desactivar",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"1",
+										"desactivar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Recuperar Cuenta",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mail\": \"mail-1@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/recuperarCuenta",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"recuperarCuenta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset Password",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"codigo\": \"\",\r\n    \"mail\": \"mail-1@gmail.com\",\r\n    \"password\": \"TextoPlano2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/resetPassword",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"resetPassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verificar Cuenta",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mail\": \"mail-1@gmail.com\",\r\n    \"codigo\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/verificarCuenta",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"verificarCuenta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cambiar Password",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"oldPassword\": \"TextoPlano\",\r\n    \"newPassword\": \"Hola\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/cambiarPassword",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"cambiarPassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Direccion",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"direccion\": \"direccion-1-update\",\r\n    \"localidad\": \"localidad-1\",\r\n    \"provincia\": \"provincia-1\",\r\n    \"barrio\": \"barrio-1\",\r\n    \"piso\": 2,\r\n    \"departamento\": \"D\",\r\n    \"referencia\": \"ref\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/actualizarDireccion/1",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"actualizarDireccion",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario Actualizar Imagen",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"imgPerfil\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/actualizarImagen",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"actualizarImagen"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Google Update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"documento\": 123456,\r\n    \"fechaNacimiento\": \"2024-10-31\",\r\n    \"genero\": \"MASCULINO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/googleUpdate",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"googleUpdate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GETS",
+					"item": [
+						{
+							"name": "Usuarios",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/all",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "addTokenTo",
+											"value": "queryParams",
+											"type": "string"
+										},
+										{
+											"key": "client_authentication",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "scope",
+											"value": "profile email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/user.gender.read https://www.googleapis.com/auth/user.birthday.read",
+											"type": "string"
+										},
+										{
+											"key": "authUrl",
+											"value": "https://accounts.google.com/o/oauth2/auth?access_type=offline&prompt=consent",
+											"type": "string"
+										},
+										{
+											"key": "accessTokenUrl",
+											"value": "https://www.googleapis.com/oauth2/v3/token",
+											"type": "string"
+										},
+										{
+											"key": "clientSecret",
+											"value": "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",
+											"type": "string"
+										},
+										{
+											"key": "clientId",
+											"value": "67224328580-2a1nousaluo8fbkqajj4ukp5c8s31ust.apps.googleusercontent.com",
+											"type": "string"
+										},
+										{
+											"key": "tokenName",
+											"value": "google",
+											"type": "string"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://www.getpostman.com/oauth2/callback",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuarios Pacientes",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/pacientes/all",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"pacientes",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuarios Profesionales",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/profesionales/all",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"profesionales",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Generos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{IP}}:8080/api/generos",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"generos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario Imagen Perfil",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/imagenPerfil",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"imagenPerfil"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETES",
+					"item": [
+						{
+							"name": "Contacto",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"contactoId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/eliminarContacto",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"eliminarContacto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Direccion",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"direccionId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/eliminarDireccion",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"eliminarDireccion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Paciente",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/usuarios/pacientes/1",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"pacientes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Autorizacion",
+			"item": [
+				{
+					"name": "POSTS",
+					"item": [
+						{
+							"name": "Autorizacion",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"codigo\": \"AUT-1\",\r\n    \"descripcion\": \"descripcion\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/autorizaciones",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"autorizaciones"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Grupo",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"codigo\": \"Grupo-1\",\r\n    \"descripcion\": \"descripcion\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/grupos",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"grupos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rol",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"codigo\": \"Rol-1\",\r\n    \"descripcion\": \"descripcion\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/roles",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Permiso",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"codigo\": \"Permiso-1\",\r\n    \"descripcion\": \"descripcion\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/permisos",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"permisos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rol - Agregar Permisos",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"componentsIds\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/roles/5/agregarPermisos",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"roles",
+										"5",
+										"agregarPermisos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rol - Remover Permisos",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"componentsIds\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/roles/5/removerPermisos",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"roles",
+										"5",
+										"removerPermisos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Grupo - Agregar Permisos",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"componentsIds\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/grupos/8/agregarPermisos",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"grupos",
+										"8",
+										"agregarPermisos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Grupo - Remover Permisos",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"componentsIds\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/grupos/2/removerPermisos",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"grupos",
+										"2",
+										"removerPermisos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Grupo - Agregar Roles",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"componentsIds\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/grupos/8/agregarRoles",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"grupos",
+										"8",
+										"agregarRoles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Grupo - Remover Roles",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"componentsIds\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/grupos/8/removerRoles",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"grupos",
+										"8",
+										"removerRoles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Autorizacion- Agregar Componentes",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"componentsIds\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/autorizaciones/1/agregarComponentes",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"autorizaciones",
+										"1",
+										"agregarComponentes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Autorizacion- Remover Componentes",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"componentsIds\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/autorizaciones/1/removerComponentes",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"autorizaciones",
+										"1",
+										"removerComponentes"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GETS",
+					"item": [
+						{
+							"name": "Permisos",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/permisos/all",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"permisos",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Roles List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/roles",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Roles",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/roles/all",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"roles",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Grupos",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/grupos/all",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"grupos",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Autorizaciones",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/autorizaciones/all",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"autorizaciones",
+										"all"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Grupo Familiar",
+			"item": [
+				{
+					"name": "Grupo Familiar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Mi Grupo Familiar 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enviar Notificacion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigo\": \"ZLWBR\",\r\n    \"usuarioMail\": \"@gmail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/sendNotificacion",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"sendNotificacion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enviar Invitacion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigo\": \"B2QNJ\",\r\n    \"usuarioMail\": \"mail-2@gmail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/sendInvitacion",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"sendInvitacion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Aceptar Notificacion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/1/aceptarNotificacion/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"1",
+								"aceptarNotificacion",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Notificacion",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/deleteNotificacion/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"deleteNotificacion",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Admin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuarioMail\": \"@gmail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/1/agregarAdmin",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"1",
+								"agregarAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover Admin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuarioMail\": \"@gmail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/1/removerAdmin",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"1",
+								"removerAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuarioMail\": \"@gmail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/1/removerUsuario",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"1",
+								"removerUsuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/1/activar",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"1",
+								"activar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desactivar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/1/desactivar",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"1",
+								"desactivar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Grupo Familiar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Grupo Familiar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Mi Grupo Familiar 1.5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Grupo Familiar",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/gruposFamiliares/1/eliminar",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gruposFamiliares",
+								"1",
+								"eliminar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profesional",
+			"item": [
+				{
+					"name": "POSTS",
+					"item": [
+						{
+							"name": "Profesional",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Gabs\",\r\n    \"tipoMatricula\": \"Mp\",\r\n    \"matricula\": 12345,\r\n    \"idHistoriaMedica\": 2   \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Direccion",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"direccion\": \"direccion-1\",\r\n    \"localidad\": \"localidad-1\",\r\n    \"provincia\": \"provincia-1\",\r\n    \"barrio\": \"barrio-1\",\r\n    \"piso\": 2,\r\n    \"departamento\": \"D\",\r\n    \"referencia\": \"ref\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/nuevaDireccion",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"nuevaDireccion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Contacto",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"telefono\": \"+541234567\",\r\n    \"mailAlternativo\": \"test@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/nuevoContacto",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"nuevoContacto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Especialidad",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Cardiologia\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/especialidades",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"especialidades"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUTS",
+					"item": [
+						{
+							"name": "Agregar Especialidades",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"especialidadesIds\": [1, 2, 3]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/agregarEspecialidades",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"agregarEspecialidades"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remover Especialidades",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"especialidadesIds\": [1, 2, 3]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/removerEspecialidades",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"removerEspecialidades"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remover Especialidad",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/removerEspecialidad/1",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"removerEspecialidad",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Especialidad",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/agregarEspecialidad/1",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"agregarEspecialidad",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Direccion",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"direccion\": \"direccion-1-update\",\r\n    \"localidad\": \"localidad-1\",\r\n    \"provincia\": \"provincia-1\",\r\n    \"barrio\": \"barrio-1\",\r\n    \"piso\": 2,\r\n    \"departamento\": \"D\",\r\n    \"referencia\": \"ref\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/actualizarDireccion/2",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"actualizarDireccion",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Contacto",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"telefono\": \"+547654321\",\r\n    \"mailAlternativo\": \"testUpdate@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/actualizarContacto/4",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"actualizarContacto",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Profesional Desactivar",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/desactivar",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"desactivar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Profesional Activar",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/activar",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"activar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Profesional",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Gabs-update\",\r\n    \"tipoMatricula\": \"mp\",\r\n    \"matricula\": 54321\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GETS",
+					"item": [
+						{
+							"name": "Profesionales",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/all",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Profesionales by Centro Salud",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/centrosSalud/1/profesionales",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"centrosSalud",
+										"1",
+										"profesionales"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Especialidades",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/especialidades/all",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"especialidades",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Profesional - Especialidades",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/especialidades",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"especialidades"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETES",
+					"item": [
+						{
+							"name": "Contacto",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"contactoId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/eliminarContacto",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"eliminarContacto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Direccion",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"direccionId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/eliminarDireccion",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"eliminarDireccion"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Institucion Salud",
+			"item": [
+				{
+					"name": "POSTS",
+					"item": [
+						{
+							"name": "Institucion Salud",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"AAA\",\r\n    \"historiaMedicaId\": 1,\r\n    \"direccion\": {\r\n        \"direccion\": \"direccion-1\",\r\n        \"localidad\": \"localidad-1\",\r\n        \"provincia\": \"provincia-1\",\r\n        \"barrio\": \"barrio-1\",\r\n        \"piso\": 2,\r\n        \"departamento\": \"D\",\r\n        \"referencia\": \"ref\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Contacto",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"telefono\": \"+541234567\",\r\n    \"mailAlternativo\": \"test@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/1/nuevoContacto",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"1",
+										"nuevoContacto"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUTS",
+					"item": [
+						{
+							"name": "Agregar Profesional",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/1/agregarProfesional/1",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"1",
+										"agregarProfesional",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Profesionales",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"profesionalesIds\": [1, 2]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/1/agregarProfesionales",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"1",
+										"agregarProfesionales"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Profesional",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/1/removerProfesional/1",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"1",
+										"removerProfesional",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Profesionales",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"profesionalesIds\": [1, 2]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/1/removerProfesionales",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"1",
+										"removerProfesionales"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Direccion",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"direccion\": \"direccion-1-update\",\r\n    \"localidad\": \"localidad-1\",\r\n    \"provincia\": \"provincia-1\",\r\n    \"barrio\": \"barrio-1\",\r\n    \"piso\": 2,\r\n    \"departamento\": \"D\",\r\n    \"referencia\": \"ref\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/1/actualizarDireccion/1",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"1",
+										"actualizarDireccion",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Contacto",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"telefono\": \"+547654321\",\r\n    \"mailAlternativo\": \"testUpdate@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/1/actualizarContacto/1",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"1",
+										"actualizarContacto",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Institucion Salud",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"BBB\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/1",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Institucion Salud Activar",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/1/activar",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"1",
+										"activar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Institucion Salud Desactivar",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/1/desactivar",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"1",
+										"desactivar"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GETS",
+					"item": [
+						{
+							"name": "Instituciones Salud",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/all",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Instituciones Salud by Profesional",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{IP}}:8080/api/profesionales/1/institucionesSalud",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"profesionales",
+										"1",
+										"institucionesSalud"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETES",
+					"item": [
+						{
+							"name": "Contacto",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"contactoId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{IP}}:8080/api/institucionesSalud/1/eliminarContacto",
+									"host": [
+										"{{IP}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"institucionesSalud",
+										"1",
+										"eliminarContacto"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Visita Medica",
+			"item": [
+				{
+					"name": "Visitas Medicas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/visitasMedicas/all",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"visitasMedicas",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Visita Medica",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fechaVisita\": \"1998-08-31\",\r\n    \"atencionVirtual\": true,\r\n    \"indicaciones\": \"indicaciones\",\r\n    \"institucionSaludId\": 1,\r\n    \"profesionalId\": 1,\r\n    \"especialidadId\": 1, \r\n    \"diagnosticoId\": 1,\r\n    \"historiaMedicaId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/visitasMedicas",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"visitasMedicas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Visita Medica",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fechaVisita\": \"1998-08-31\",\r\n    \"atencionVirtual\": true,\r\n    \"indicaciones\": \"Actualizado\",\r\n    \"institucionSaludId\": 1,\r\n    \"profesionalId\": 1,\r\n    \"especialidadId\": 2, \r\n    \"diagnosticoId\": 4,\r\n    \"historiaMedicaId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/visitasMedicas/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"visitasMedicas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Visita Medica Activar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/visitasMedicas/1/activar",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"visitasMedicas",
+								"1",
+								"activar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Visita Medica Desactivar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/visitasMedicas/1/desactivar",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"visitasMedicas",
+								"1",
+								"desactivar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Visitas Medicas by TimeRange",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/visitasMedicas/timeRange?historiaMedicaId=3&startDate=2016-08-31&lastDate=2050-12-31&giveLatest=true",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"visitasMedicas",
+								"timeRange"
+							],
+							"query": [
+								{
+									"key": "historiaMedicaId",
+									"value": "3"
+								},
+								{
+									"key": "startDate",
+									"value": "2016-08-31"
+								},
+								{
+									"key": "lastDate",
+									"value": "2050-12-31"
+								},
+								{
+									"key": "giveLatest",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Historia Medica",
+			"item": [
+				{
+					"name": "Historia Medica",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mailPaciente\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia Medica - Usuario",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/usuarios/",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"usuarios",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia Medica - Profesionales",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/1/profesionales",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"1",
+								"profesionales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia Medica - Grupos Familiares",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/1/gruposFamiliares",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"1",
+								"gruposFamiliares"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia Medica - Instituciones Salud",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/1/institucionesSalud",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"1",
+								"institucionesSalud"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia Medica - Visitas Medicas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/5/visitasMedicas",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"5",
+								"visitasMedicas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia Medica - Visitas Medicas with Documents",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/1/visitasMedicasWithDocuments",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"1",
+								"visitasMedicasWithDocuments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia Medica - Medicamentos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/1/medicamentos",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"1",
+								"medicamentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia Medica - Signos Vitales Customs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/1/signosVitalesCustoms",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"1",
+								"signosVitalesCustoms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia Medica - Turnos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/1/turnos",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"1",
+								"turnos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historias Medicas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/all",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historai Medica",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia - Calendario Personal Salud",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/1/calendarios/personalSalud",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"1",
+								"calendarios",
+								"personalSalud"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Signo Vital",
+			"item": [
+				{
+					"name": "Tipos Signos Vitales",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/tiposSignosVitales",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tiposSignosVitales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signos Vitales Customs",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"minimo\": 7,\r\n    \"maximo\": 20,\r\n    \"segundoMinimo\":119,\r\n    \"segundoMaximo\": 121,\r\n    \"historiaMedicaId\": 1,\r\n    \"tipoSignoVitalId\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/signosVitalesCustoms",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"signosVitalesCustoms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signos Vitales Pacientes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"valor\": 30.5,\r\n    \"segundoValor\": 120.5,\r\n    \"comentario\": \"Mi signo vital\",\r\n    \"historiaMedicaId\": 1,\r\n    \"signoVitalCustomId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/signosVitalesPacientes",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"signosVitalesPacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signos Vitales Customs",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"minimo\": 50,\r\n    \"maximo\": 70,\r\n    \"segundoMinimo\":119.5,\r\n    \"segundoMaximo\": 121.5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/signosVitalesCustoms/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"signosVitalesCustoms",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signos Vitales Pacientes",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"valor\": 50.6,\r\n    \"segundoValor\": null,\r\n    \"comentario\": \"test-update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/signosVitalesPacientes/7",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"signosVitalesPacientes",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signos Vitales Pacientes",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"valor\": 50,\r\n    \"comentario\": \"test-update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/signosVitalesPacientes/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"signosVitalesPacientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signos Vitales Custom",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"valor\": 50,\r\n    \"comentario\": \"test-update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/signosVitalesCustoms/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"signosVitalesCustoms",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medicamento",
+			"item": [
+				{
+					"name": "Medicamentos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/medicamentos/all",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicamentos",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like Medicamentos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/medicamentos/all/Barosma",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicamentos",
+								"all",
+								"Barosma"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like Medicamentos Pages Number",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/medicamentos/calcio/pages/3",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicamentos",
+								"calcio",
+								"pages",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like Medicamentos Pages",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/medicamentos/amoxi/pages",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicamentos",
+								"amoxi",
+								"pages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Medicamentos Pages",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/medicamentos/all/pages",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicamentos",
+								"all",
+								"pages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Medicamentos Pages Number",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/medicamentos/all/pages/3",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicamentos",
+								"all",
+								"pages",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia - Medicamento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comentarios\": \"\",\r\n\t\"cantidad\": 10,\r\n    \"presentacion\": \"test\",\r\n\t\"historiaMedicaId\": 1,\r\n\t\"medicamentoProductoId\": 1726\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/agregarMedicamentos",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"agregarMedicamentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recordatorio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"esCronico\": false,\r\n    \"fechaInicio\": \"2024-05-08\",\r\n    \"fechaFinal\": \"2024-05-08\",\r\n    \"frecuencia\": 2,\r\n    \"tipoFrecuencia\": \"Diario\",\r\n    \"dosis\": 2,\r\n    \"reposicion\": 1,\r\n\t\"historiaMedicamentoId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/medicamentoRecordatorio",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicamentoRecordatorio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia - Medicamento",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Pastilla-Update\",\r\n    \"comentarios\": \"Update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/actualizarMedicamentos/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"actualizarMedicamentos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Historia - Medicamento",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/eliminarMedicamentos/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"eliminarMedicamentos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prescripcion",
+			"item": [
+				{
+					"name": "Prescripcion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pais\": \"Argentina\",\r\n    \"visitaMedicaId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/prescripciones",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prescripciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prescripcion",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/prescripciones/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prescripciones",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prescripciones",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/prescripciones/all",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prescripciones",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prescripciones With Documents",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/historiasMedicas/1/prescripcionesWithDocuments",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"historiasMedicas",
+								"1",
+								"prescripcionesWithDocuments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "prescripcion",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/prescripciones/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prescripciones",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Diagnostico",
+			"item": [
+				{
+					"name": "Diagnosticos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/diagnosticos/all",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"diagnosticos",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Diagnosticos Like",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/diagnosticos/all/tuberculosis",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"diagnosticos",
+								"all",
+								"tuberculosis"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vacuna",
+			"item": [
+				{
+					"name": "Vacuna",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Vacuna-1\",\r\n    \"descripcion\": \"Vacuna-1\",\r\n    \"obligatoria\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/vacunas",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vacunas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vacuna by tipo calendario",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Vacuna-1\",\r\n    \"descripcion\": \"Vacuna-1\",\r\n    \"obligatoria\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/vacunas/byTipoCalendario/infante",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vacunas",
+								"byTipoCalendario",
+								"infante"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vacuna by tipo calendario Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Vacuna-1\",\r\n    \"descripcion\": \"Vacuna-1\",\r\n    \"obligatoria\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/vacunas/byRangoEdad/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vacunas",
+								"byRangoEdad",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vacunas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{IP}}:8080/api/vacunas",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vacunas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vacuna - Calendario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rangoEdadId\": 15,\r\n    \"vacunaId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/calendarios/3/vacunas",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"calendarios",
+								"3",
+								"vacunas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Estudio y Receta",
+			"item": [
+				{
+					"name": "Estudio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\": \"Orden\",\r\n    \"url\": \"url\",\r\n    \"descripcion\": \"estudio-1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/prescripcion/1/crearEstudio",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prescripcion",
+								"1",
+								"crearEstudio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Estudio",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\": \"Orden\",\r\n    \"url\": \"url\",\r\n    \"descripcion\": \"estudio-1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/prescripciones/1/estudios/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prescripciones",
+								"1",
+								"estudios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Receta",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\": \"Orden\",\r\n    \"url\": \"url\",\r\n    \"descripcion\": \"estudio-1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/prescripciones/1/recetas/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prescripciones",
+								"1",
+								"recetas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Receta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descripcion\": \"receta-1\",\r\n    \"tipo\": \"Receta\",\r\n    \"url\": \"url\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/prescripcion/1/crearReceta",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prescripcion",
+								"1",
+								"crearReceta"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Turno",
+			"item": [
+				{
+					"name": "Turno",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fechaInicio\": \"\",\r\n\t\"direccion\": \"\",\r\n\t\"profesional\": \"\",\r\n\t\"especialidad\": \"\",\r\n\t\"institucion\": \"\",\r\n\t\"motivo\": \"\",\r\n\t\"googleId\": \"\",\r\n    \"historiaMedicaId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/turnos",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"turnos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Turno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fechaInicio\": \"\",\r\n\t\"direccion\": \"\",\r\n\t\"profesional\": \"\",\r\n\t\"especialidad\": \"\",\r\n\t\"institucion\": \"\",\r\n\t\"motivo\": \"\",\r\n\t\"googleId\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IP}}:8080/api/turnos/1",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"turnos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "activar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}:8080/api/turnos/1/activar",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"turnos",
+								"1",
+								"activar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desactivar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}:8080/api/turnos/1/desactivar",
+							"host": [
+								"{{IP}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"turnos",
+								"1",
+								"desactivar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Postman login google",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1MGY2ZTcwZWY0YjU0OGE1ZmQ5MTQyZWVjZDFmYjhmNTRkY2U5ZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2NzIyNDMyODU4MC0yYTFub3VzYWx1bzhmYmtxYWpqNHVrcDVjOHMzMXVzdC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImF1ZCI6IjY3MjI0MzI4NTgwLTJhMW5vdXNhbHVvOGZia3Fhamo0dWtwNWM4czMxdXN0LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAyMjY0MjEyOTM3MTg4NTY2MzkzIiwiZW1haWwiOiJnYWJyaWVsbG9wZXpwMzQzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiTnFJVWR4UVdRU2J0ZGloYU5NTDhiUSIsIm5hbWUiOiJHYWJyaWVsIEzDs3BleiBQw6lyZXoiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTFRlTXVKdG1Md0JlQm92QVdmT1NZQUhiZmpKOU9QQUdpSllNRmVMTEVsVFRmSk9nPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkdhYnJpZWwiLCJmYW1pbHlfbmFtZSI6IkzDs3BleiBQw6lyZXoiLCJpYXQiOjE3MjkxMDY4MjksImV4cCI6MTcyOTExMDQyOX0.ASe83voyuHHDQzzJd76uEQhbS5uZECg9DEcwbCYH-VdeO2qzbHcHUTxb0OW5POQ7MUCJNbmNiJgRmUwijz3nu4HTEJyKPm5qLNj8qaHsC9DL2myWs6JcvrUiMDPW2BIqG_txw9w9VXYRsEaNa7DDHKhBY2BF0bgU-oluHMX1w7ktgBSxO7ECixmizswj5YEsDxadat3cW-ZSiw2hf8eBXdOvN9CQgL6Cj0LdYgmjj591ZPchHZP8LTmoL0SvNjYhywkc2Cuy4f3f9b_55QogKqPIIJXnRPfpnA4vKD39HDKfWeY9_j0fSj6V0LwfdhJvgZANSOzSdy6hQ8d4DcsUQQ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code",
+							"value": "4%2F0AVG7fiQsa6YJjL3FF9mrgnoUgaPdrQhV_Vdyz7UXPvvgHmuwQWAU4RcEQTx2RHAITkSUIQ"
+						},
+						{
+							"key": "client_id",
+							"value": "67224328580-8oei1stptmdu5822ldq98in91kbd00i1.apps.googleusercontent.com"
+						},
+						{
+							"key": "client_secret",
+							"value": "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"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8080/login/oauth2/code/google"
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://oauth2.googleapis.com/token",
+					"protocol": "https",
+					"host": [
+						"oauth2",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Postman login google Copy",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1MGY2ZTcwZWY0YjU0OGE1ZmQ5MTQyZWVjZDFmYjhmNTRkY2U5ZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2NzIyNDMyODU4MC0yYTFub3VzYWx1bzhmYmtxYWpqNHVrcDVjOHMzMXVzdC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImF1ZCI6IjY3MjI0MzI4NTgwLTJhMW5vdXNhbHVvOGZia3Fhamo0dWtwNWM4czMxdXN0LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAyMjY0MjEyOTM3MTg4NTY2MzkzIiwiZW1haWwiOiJnYWJyaWVsbG9wZXpwMzQzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiTnFJVWR4UVdRU2J0ZGloYU5NTDhiUSIsIm5hbWUiOiJHYWJyaWVsIEzDs3BleiBQw6lyZXoiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTFRlTXVKdG1Md0JlQm92QVdmT1NZQUhiZmpKOU9QQUdpSllNRmVMTEVsVFRmSk9nPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkdhYnJpZWwiLCJmYW1pbHlfbmFtZSI6IkzDs3BleiBQw6lyZXoiLCJpYXQiOjE3MjkxMDY4MjksImV4cCI6MTcyOTExMDQyOX0.ASe83voyuHHDQzzJd76uEQhbS5uZECg9DEcwbCYH-VdeO2qzbHcHUTxb0OW5POQ7MUCJNbmNiJgRmUwijz3nu4HTEJyKPm5qLNj8qaHsC9DL2myWs6JcvrUiMDPW2BIqG_txw9w9VXYRsEaNa7DDHKhBY2BF0bgU-oluHMX1w7ktgBSxO7ECixmizswj5YEsDxadat3cW-ZSiw2hf8eBXdOvN9CQgL6Cj0LdYgmjj591ZPchHZP8LTmoL0SvNjYhywkc2Cuy4f3f9b_55QogKqPIIJXnRPfpnA4vKD39HDKfWeY9_j0fSj6V0LwfdhJvgZANSOzSdy6hQ8d4DcsUQQ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tokenId\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjczZTI1Zjk3ODkxMTljNzg3NWQ1ODA4N2E3OGFjMjNmNWVmMmVkYTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2NzIyNDMyODU4MC0yYTFub3VzYWx1bzhmYmtxYWpqNHVrcDVjOHMzMXVzdC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImF1ZCI6IjY3MjI0MzI4NTgwLTJhMW5vdXNhbHVvOGZia3Fhamo0dWtwNWM4czMxdXN0LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAyMjY0MjEyOTM3MTg4NTY2MzkzIiwiZW1haWwiOiJnYWJyaWVsbG9wZXpwMzQzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiWnJDTzZmZlFVaDBfMGJJNXMxZzI4USIsIm5hbWUiOiJHYWJyaWVsIEzDs3BleiBQw6lyZXoiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTFRlTXVKdG1Md0JlQm92QVdmT1NZQUhiZmpKOU9QQUdpSllNRmVMTEVsVFRmSk9nPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkdhYnJpZWwiLCJmYW1pbHlfbmFtZSI6IkzDs3BleiBQw6lyZXoiLCJpYXQiOjE3Mjk2NDIwNjksImV4cCI6MTcyOTY0NTY2OX0.Ecdql8TC-WCHuZ-rJ10jqa2pCibQfSjyJXkZLOkaHAmKLZxRciB3pA4atn3m6FhE0SYyxNcpC_Y44d1hMilWWIPlccOksfXj430g8Y6AkYpfVy6CUiRpzDaOcStVeUWcMExqZSv3u4MnGqoGE__YGIzLr4DAqmYwQPz9NBSUMiL2Ct9YAy-dGXwCZdJE1NZvJbGndlwh_exXE7Mp_wyVHxBkIP3LHoqhqhlcCwWUpGbz0FhTrMPtCRwtKrWKpxYSXd4D19tZHi2siIJb1OIyYlEiVpkls8WoIKKe7ynUGXh88KArTY4OThZX7W0Nt6xoLhYog2RZ-CkJrPqpDN6nnA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/login/google",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login",
+						"google"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Postman login google Copy",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1MGY2ZTcwZWY0YjU0OGE1ZmQ5MTQyZWVjZDFmYjhmNTRkY2U5ZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2NzIyNDMyODU4MC0yYTFub3VzYWx1bzhmYmtxYWpqNHVrcDVjOHMzMXVzdC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImF1ZCI6IjY3MjI0MzI4NTgwLTJhMW5vdXNhbHVvOGZia3Fhamo0dWtwNWM4czMxdXN0LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAyMjY0MjEyOTM3MTg4NTY2MzkzIiwiZW1haWwiOiJnYWJyaWVsbG9wZXpwMzQzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiTnFJVWR4UVdRU2J0ZGloYU5NTDhiUSIsIm5hbWUiOiJHYWJyaWVsIEzDs3BleiBQw6lyZXoiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTFRlTXVKdG1Md0JlQm92QVdmT1NZQUhiZmpKOU9QQUdpSllNRmVMTEVsVFRmSk9nPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkdhYnJpZWwiLCJmYW1pbHlfbmFtZSI6IkzDs3BleiBQw6lyZXoiLCJpYXQiOjE3MjkxMDY4MjksImV4cCI6MTcyOTExMDQyOX0.ASe83voyuHHDQzzJd76uEQhbS5uZECg9DEcwbCYH-VdeO2qzbHcHUTxb0OW5POQ7MUCJNbmNiJgRmUwijz3nu4HTEJyKPm5qLNj8qaHsC9DL2myWs6JcvrUiMDPW2BIqG_txw9w9VXYRsEaNa7DDHKhBY2BF0bgU-oluHMX1w7ktgBSxO7ECixmizswj5YEsDxadat3cW-ZSiw2hf8eBXdOvN9CQgL6Cj0LdYgmjj591ZPchHZP8LTmoL0SvNjYhywkc2Cuy4f3f9b_55QogKqPIIJXnRPfpnA4vKD39HDKfWeY9_j0fSj6V0LwfdhJvgZANSOzSdy6hQ8d4DcsUQQ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://accounts.google.com/o/oauth2/auth?client_id=67224328580-8oei1stptmdu5822ldq98in91kbd00i1.apps.googleusercontent.com&redirect_uri=http://localhost:8080/api/login/oauth2/code/google&response_type=code&scope=profile email&state=test",
+					"protocol": "https",
+					"host": [
+						"accounts",
+						"google",
+						"com"
+					],
+					"path": [
+						"o",
+						"oauth2",
+						"auth"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "67224328580-8oei1stptmdu5822ldq98in91kbd00i1.apps.googleusercontent.com"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8080/api/login/oauth2/code/google"
+						},
+						{
+							"key": "response_type",
+							"value": "code"
+						},
+						{
+							"key": "scope",
+							"value": "profile email"
+						},
+						{
+							"key": "state",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Postman login google Copy 2",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1MGY2ZTcwZWY0YjU0OGE1ZmQ5MTQyZWVjZDFmYjhmNTRkY2U5ZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2NzIyNDMyODU4MC0yYTFub3VzYWx1bzhmYmtxYWpqNHVrcDVjOHMzMXVzdC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImF1ZCI6IjY3MjI0MzI4NTgwLTJhMW5vdXNhbHVvOGZia3Fhamo0dWtwNWM4czMxdXN0LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAyMjY0MjEyOTM3MTg4NTY2MzkzIiwiZW1haWwiOiJnYWJyaWVsbG9wZXpwMzQzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiTnFJVWR4UVdRU2J0ZGloYU5NTDhiUSIsIm5hbWUiOiJHYWJyaWVsIEzDs3BleiBQw6lyZXoiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTFRlTXVKdG1Md0JlQm92QVdmT1NZQUhiZmpKOU9QQUdpSllNRmVMTEVsVFRmSk9nPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkdhYnJpZWwiLCJmYW1pbHlfbmFtZSI6IkzDs3BleiBQw6lyZXoiLCJpYXQiOjE3MjkxMDY4MjksImV4cCI6MTcyOTExMDQyOX0.ASe83voyuHHDQzzJd76uEQhbS5uZECg9DEcwbCYH-VdeO2qzbHcHUTxb0OW5POQ7MUCJNbmNiJgRmUwijz3nu4HTEJyKPm5qLNj8qaHsC9DL2myWs6JcvrUiMDPW2BIqG_txw9w9VXYRsEaNa7DDHKhBY2BF0bgU-oluHMX1w7ktgBSxO7ECixmizswj5YEsDxadat3cW-ZSiw2hf8eBXdOvN9CQgL6Cj0LdYgmjj591ZPchHZP8LTmoL0SvNjYhywkc2Cuy4f3f9b_55QogKqPIIJXnRPfpnA4vKD39HDKfWeY9_j0fSj6V0LwfdhJvgZANSOzSdy6hQ8d4DcsUQQ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://accounts.google.com/o/oauth2/auth?client_id=67224328580-8oei1stptmdu5822ldq98in91kbd00i1.apps.googleusercontent.com&redirect_uri=http://localhost:8080/api/login/oauth2/code/google&response_type=code&scope=profile email&state=test",
+					"protocol": "https",
+					"host": [
+						"accounts",
+						"google",
+						"com"
+					],
+					"path": [
+						"o",
+						"oauth2",
+						"auth"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "67224328580-8oei1stptmdu5822ldq98in91kbd00i1.apps.googleusercontent.com"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8080/api/login/oauth2/code/google"
+						},
+						{
+							"key": "response_type",
+							"value": "code"
+						},
+						{
+							"key": "scope",
+							"value": "profile email"
+						},
+						{
+							"key": "state",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Google People Api",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ya29.a0AWY7Ckma-S4QQ31u1FWoA9nFYpKa7eGEnoSHHooCcmaYyzacfLB8ispCo2slGHjSCN3mJPCA5CZQMsRs7MKowT3AAcuR-3b8l2bPNhh472A5QbkVVrwPzAB4hq4mkIUmMcy9qVSDIKJB7TbBNa9LXsFpmpKWaCgYKAZQSARASFQG1tDrpy810rptwzgXUHfJ0K5KGAw0163",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "https://people.googleapis.com/v1/people/102264212937188566393?personFields=genders%2Cbirthdays",
+					"protocol": "https",
+					"host": [
+						"people",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"v1",
+						"people",
+						"102264212937188566393"
+					],
+					"query": [
+						{
+							"key": "personFields",
+							"value": "genders%2Cbirthdays"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

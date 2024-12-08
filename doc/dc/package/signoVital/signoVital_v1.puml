@@ -1,0 +1,78 @@
+@startuml HistoriaMedica
+skinparam linetype ortho
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+BackgroundColor<<SinUso>> LightPink
+BorderColor<<SinUso>> Red
+ArrowColor SeaGreen
+
+}
+
+package domain{
+    class TipoSignoVital<<Entity>>{}
+    class SignoVitalCustom<<Entity>>{}
+    class SignoVitalPaciente<<Entity>>{}
+    class HistoriaMedica <<Entity>>{}
+}
+
+package repository{
+    interface TipoSignoVitalRepository{}
+    interface SignoVitalCustomRepository{}
+    interface SignoVitalPacienteRepository{}
+    interface HistoriaMedicaRepository{}
+}
+
+package service{
+    interface TipoSignoVitalService{}
+    class TipoSignoVitalServiceImpl{}
+
+    interface SignoVitalCustomService{}
+    class SignoVitalCustomServiceImpl{}
+
+    interface SignoVitalPacienteService{}
+    class SignoVitalPacienteServiceImpl{}
+
+    interface HistoriaMedicaService{}
+    class HistoriaMedicaServiceImpl{}
+}
+
+package controller.rest{
+    class SignoVitalPacienteControllerRest{}
+}
+
+/'DOMAIN'/
+
+SignoVitalPaciente --o HistoriaMedica
+SignoVitalCustom --o HistoriaMedica
+SignoVitalCustom --o SignoVitalPaciente
+TipoSignoVital --o SignoVitalCustom
+
+/'REPOSITORY'/
+
+TipoSignoVitalServiceImpl o-- TipoSignoVitalRepository
+SignoVitalCustomServiceImpl o-- SignoVitalCustomRepository
+SignoVitalPacienteServiceImpl o-- SignoVitalPacienteRepository
+HistoriaMedicaServiceImpl o-- HistoriaMedicaRepository
+
+/'SERVICE'/
+
+TipoSignoVitalService <|.. TipoSignoVitalServiceImpl
+SignoVitalCustomService <|.. SignoVitalCustomServiceImpl
+SignoVitalPacienteService <|.. SignoVitalPacienteServiceImpl
+HistoriaMedicaService <|.. HistoriaMedicaServiceImpl
+
+SignoVitalPacienteServiceImpl o-- HistoriaMedicaService
+SignoVitalPacienteServiceImpl o-- SignoVitalCustomService
+
+SignoVitalCustomServiceImpl o-- HistoriaMedicaService
+SignoVitalCustomServiceImpl o-- TipoSignoVitalService
+
+/'CONTROLLER REST'/
+
+SignoVitalPacienteControllerRest o-left- SignoVitalPacienteService
+SignoVitalPacienteControllerRest o-- TipoSignoVitalService
+SignoVitalPacienteControllerRest o-- SignoVitalCustomService
+
+
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+left to right direction
+
+ actor Admin
+ actor Paciente
+
+ package Login_con_Mail {
+  Admin -- (CU_6 - Login con Mail)
+  Paciente -- (CU_6 - Login con Mail)  
+  (CU_6 - Login con Mail) .> (CU_5 - Registro con Mail) : require
+
+  (CU_6 - Login con Mail) --> (Verificar contraseña)
+  (CU_6 - Login con Mail) --> (Autenticar usuario)
+
+  
+}
+@enduml

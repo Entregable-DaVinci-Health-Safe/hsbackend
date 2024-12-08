@@ -1,0 +1,79 @@
+@startuml
+
+class HistoriaMedica{
+    -paciente: Paciente
+    -documentos: List<Documento>
+    -visitasMedicas: List<VisitaMedica>
+}
+
+class Paciente{
+    -nombre: String
+    -apellido: String
+}
+
+class VisitaMedica{
+    -fechaVisita: Date
+    -profesional: Profesional
+    -centroSalud: CentroSalud
+    -atencionVirtual: Boolean
+    -diagnostico: diagnostico
+    -documentos: List<Documento>
+}
+
+class CentroSalud{
+    
+}
+
+class Documento{
+    -ruta: String
+}
+
+class Profesional{
+    -nombre: String
+    -especialidades: List<Especialidad>
+}
+
+Enum Especialidad{
+    ...
+    ...
+}
+
+class Diagnostico{
+    -nombre: String
+    -descripcion: String
+    -prescripciones: List<Prescripcion>
+}
+
+class Prescripcion{
+    -nombre: String
+    -tipoPrescripcion: TipoPrescripcion
+}
+
+Enum TipoPrescripcion{
+    ...
+    ...
+}
+
+class Receta{
+    -fechaEmision: Date
+    -medicamentoDescripcion: String
+    -estudioDescripcion: String
+    -indicacionMedica: String
+}
+
+HistoriaMedica o-- Paciente
+HistoriaMedica o-- Documento
+HistoriaMedica o-- VisitaMedica
+
+VisitaMedica o-- Documento
+VisitaMedica o-- Profesional
+VisitaMedica o-- Diagnostico
+
+Diagnostico o-- Prescripcion
+
+Prescripcion o-left- TipoPrescripcion
+Prescripcion o-right- Receta
+
+Profesional o-left- Especialidad
+
+@enduml

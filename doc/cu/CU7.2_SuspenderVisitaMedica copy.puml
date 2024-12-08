@@ -1,0 +1,9 @@
+@startuml
+left to right direction
+
+ actor Paciente
+  Paciente --> (CU_7-Editar Visita Medica)  
+
+    (CU_7-Editar Visita Medica) <-down. (CU_7-Registrar Visita Medica) : require
+
+@enduml

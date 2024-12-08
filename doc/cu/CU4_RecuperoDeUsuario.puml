@@ -1,0 +1,10 @@
+@startuml
+left to right direction
+
+ actor Paciente
+
+  Paciente -- (CU4_RecuperoDeUsuario) 
+
+	 (CU4_RecuperoDeUsuario) .left--> (CU5_RegistroConMail) : require
+
+@enduml

@@ -1,0 +1,74 @@
+@startuml Package de Usuario
+skinparam linetype ortho
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+}
+
+package domain{
+    abstract Usuario<<Entity>>{}
+    class Paciente <<Entity>>{}
+    class Profesional <<Entity>>{}
+    class UsuarioDireccion <<Entity>>{}
+    class UsuarioContacto <<Entity>>{}
+    class Localidad <<Entity>>{}
+    class Provincia <<Entity>>{}
+    class ObraSocial<<Entity>>{}
+    enum Especialidad{}
+}
+
+
+package service{
+    interface UsuarioService{}
+    class UsuarioServiceImpl{}
+
+    interface UsuarioContactoService{}
+    class UsuarioContactoServiceImpl{}
+
+    interface UsuarioDireccionService{}
+    class UsuarioDireccionServiceImpl{}
+
+    interface DireccionProvinciaService{}
+    class DireccionProvinciaServiceImpl{}
+
+    interface DireccionLocalidadService{}
+    class DireccionLocalidadServiceImpl{}
+
+    interface ObraSocialService{}
+    class ObraSocialServiceImpl{}
+
+}
+
+package controller{
+    class UsuarioController{}
+}
+
+Usuario <|.. Paciente
+Usuario <|.. Profesional
+Usuario o-left- UsuarioDireccion
+Usuario o-up- UsuarioContacto
+
+UsuarioDireccion o-- Localidad
+UsuarioDireccion o-- Provincia
+
+Provincia o-- Localidad
+
+Profesional o-- Especialidad
+
+Paciente o-- ObraSocial
+
+
+UsuarioService <|.. UsuarioServiceImpl
+UsuarioServiceImpl o-right- UsuarioDireccionService
+UsuarioServiceImpl o-left- UsuarioContactoService
+UsuarioServiceImpl o-- ObraSocialService
+
+UsuarioContactoService <|.. UsuarioContactoServiceImpl
+UsuarioDireccionService <|.. UsuarioDireccionServiceImpl
+UsuarioDireccionServiceImpl o-- DireccionLocalidadService
+UsuarioDireccionServiceImpl o-- DireccionProvinciaService
+ObraSocialService <|.. ObraSocialServiceImpl
+
+DireccionProvinciaService <|.. DireccionProvinciaServiceImpl
+DireccionLocalidadService <|.. DireccionLocalidadServiceImpl
+@enduml

@@ -1,0 +1,117 @@
+@startuml Package de la medicacion
+skinparam linetype ortho
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+}
+
+package domain{
+    class HistoriaMedica{}
+    class Medicamento{}
+    class TipoMedicamento{}
+    class UnidadMedida{}
+    class PresentacionMed{
+        - cantidad
+    }
+    class TipoPresentacion{}
+    class MedTipoMedPrestLink{}
+    class MedTipoMedMedidaLink{}
+}
+
+package repository{
+    interface MedicamentoRepository{}
+    interface TipoMedicamentoRepository{}
+    interface UnidadMedidaRepository{}
+    interface PresentacionMedRepository{}
+    interface TipoPresentacionRepository{}
+    interface MedTipoMedMedidaLinkRepository{}
+    interface MedTipoMedPrestLinkRepository{}
+}
+
+package service{
+    interface HistoriaMedicaService{}
+    class HistoriaMedicaServiceImpl{} 
+
+    interface MedicamentoService{}
+    class MedicamentoServiceImpl{}
+
+    interface TipoMedicamentoService{}
+    class TipoMedicamentoServiceImpl{}
+
+    interface UnidadMedidaService{}
+    class UnidadMedidaServiceImpl{}
+
+    interface PresentacionMedService{}
+    class PresentacionMedServiceImpl{}
+
+    interface TipoPresentacionService{}
+    class TipoPresentacionServiceImpl{}
+
+    interface MedTipoMedMedidaLinkService{}
+    class MedTipoMedMedidaLinkServiceImpl{}
+
+    interface MedTipoMedPrestLinkService{}
+    class MedTipoMedPrestLinkServiceImpl{}
+}
+
+package controller.rest{
+    class MedicamentoControllerRest{}
+
+}
+
+/'DOMAIN'/
+
+HistoriaMedica o-- Medicamento
+
+Medicamento o-- TipoMedicamento
+
+MedTipoMedPrestLink o-- Medicamento
+MedTipoMedPrestLink o-- PresentacionMed
+MedTipoMedPrestLink o-- TipoMedicamento
+
+MedTipoMedMedidaLink o-- Medicamento
+MedTipoMedMedidaLink o-- TipoMedicamento
+MedTipoMedMedidaLink o-- UnidadMedida
+
+PresentacionMed o-- TipoPresentacion
+
+'-------------------------------'/
+
+/'REPOSITORY'/
+
+MedicamentoServiceImpl o-- MedicamentoRepository
+TipoMedicamentoServiceImpl o-- TipoMedicamentoRepository
+UnidadMedidaServiceImpl o-- UnidadMedidaRepository
+PresentacionMedServiceImpl o-- PresentacionMedRepository
+TipoPresentacionServiceImpl o-- TipoPresentacionRepository
+MedTipoMedMedidaLinkServiceImpl o-- MedTipoMedMedidaLinkRepository
+MedTipoMedPrestLinkServiceImpl o-- MedTipoMedPrestLinkRepository
+
+'-------------------------------'/
+
+/'SERVICE'/
+HistoriaMedicaService <|.. HistoriaMedicaServiceImpl
+MedicamentoService <|.. MedicamentoServiceImpl
+TipoMedicamentoService <|.. TipoMedicamentoServiceImpl
+UnidadMedidaService <|.. UnidadMedidaServiceImpl
+PresentacionMedService <|.. PresentacionMedServiceImpl
+TipoPresentacionService <|.. TipoPresentacionServiceImpl
+MedTipoMedMedidaLinkService <|.. MedTipoMedMedidaLinkServiceImpl
+MedTipoMedPrestLinkService <|.. MedTipoMedPrestLinkServiceImpl
+
+HistoriaMedicaServiceImpl o-right- MedicamentoService
+
+MedicamentoServiceImpl o-- TipoMedicamentoService
+MedicamentoServiceImpl o-- MedTipoMedPrestLinkService
+MedicamentoServiceImpl o-- MedTipoMedMedidaLinkService
+MedicamentoServiceImpl o-- PresentacionMedService
+MedicamentoServiceImpl o-- UnidadMedidaService
+
+PresentacionMedServiceImpl o-- TipoPresentacionService
+
+/'-------------------------------'/
+
+
+MedicamentoControllerRest o-- MedicamentoService
+
+@enduml

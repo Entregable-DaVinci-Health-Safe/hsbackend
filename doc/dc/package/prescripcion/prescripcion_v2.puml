@@ -1,0 +1,99 @@
+@startuml Package de Prescripcion
+skinparam linetype ortho
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+}
+package domain{
+    class Prescripcion <<Entity>>{}
+    class ArgFactory{}
+    class OtraFactory{}
+    class ArgReceta<<Entity>>{}
+    class ArgEstudio<<Entity>>{}
+    class Adjunto <<Entity>>{}
+    class OtraReceta<<Entity>>{}
+    class OtroEstudio<<Entity>>{}
+    class Receta1{}
+    class Receta2{}
+    class Receta3{}
+    class Estudio1{}
+    class Estudio2{}
+    class Estudio3{}
+    enum PaisPrescripcion{}
+    enum TipoArgReceta{}
+    enum TipoArgEstudio{}
+    interface PrescripcionComponentFactory{}
+    interface ArgRecetaStrategy{}
+    interface ArgEstudioStrategy{}
+    abstract Receta <<Entity>>{}
+    abstract Estudio <<Entity>>{}
+}
+
+package service{
+    interface PrescripcionService{}
+    interface RecetaService{}
+    interface EstudioService{}
+    interface AdjuntoService{}
+    class PrescripcionServiceImpl{}
+    class RecetaServiceImpl{}
+    class EstudioServiceImpl{}
+    class AdjuntoServiceImpl{}
+}
+
+package controller{
+    class PrescripcionController{}
+}
+
+
+Prescripcion o-- PrescripcionComponentFactory
+Prescripcion o-left- PaisPrescripcion
+Prescripcion o-- Receta
+Prescripcion o-- Estudio
+
+PrescripcionComponentFactory <|.. ArgFactory
+PrescripcionComponentFactory <|.. OtraFactory
+
+ArgFactory o-- ArgEstudio
+ArgFactory o-- ArgReceta
+
+OtraFactory o-- OtraReceta
+OtraFactory o-- OtroEstudio
+
+ArgEstudio o-left- TipoArgEstudio
+ArgEstudio o-- Adjunto
+ArgEstudio o-- ArgEstudioStrategy
+
+ArgReceta o-left- TipoArgReceta
+ArgReceta o-- Adjunto
+ArgReceta o-- ArgRecetaStrategy
+
+Receta <|.. ArgReceta
+Receta <|.. OtraReceta
+
+Estudio <|.. ArgEstudio
+Estudio <|.. OtroEstudio
+
+ArgRecetaStrategy <|.. Receta1
+ArgRecetaStrategy <|.. Receta2
+ArgRecetaStrategy <|.. Receta3
+
+ArgEstudioStrategy <|.. Estudio1
+ArgEstudioStrategy <|.. Estudio2
+ArgEstudioStrategy <|.. Estudio3
+
+PrescripcionService <|.. PrescripcionServiceImpl
+
+RecetaService <|.. RecetaServiceImpl
+
+EstudioService <|.. EstudioServiceImpl
+
+AdjuntoService <|.. AdjuntoServiceImpl
+
+PrescripcionServiceImpl o-left- EstudioService
+PrescripcionServiceImpl o-right- RecetaService
+
+EstudioServiceImpl o-- AdjuntoService
+
+RecetaServiceImpl o-- AdjuntoService
+
+@enduml

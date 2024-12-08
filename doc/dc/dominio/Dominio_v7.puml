@@ -1,0 +1,237 @@
+@startuml HistoriaMedica
+skinparam linetype ortho
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+BackgroundColor<<SinUso>> LightPink
+BorderColor<<SinUso>> Red
+ArrowColor SeaGreen
+
+}
+
+
+package domain{
+
+    package calendario{
+        abstract Calendario <<Entity>>{}
+        class CalendarioAdulto <<Entity>>{}
+        class CalendarioEdadVacunaLink <<Entity>>{}
+        class CalendarioEmbarazada <<Entity>>{}
+        class CalendarioInfante <<Entity>>{}
+        enum EstadoVacuna <<SinUso>>{}
+        class RangoEdad <<Entity>>{}
+        class TipoCalendario <<Entity>>{}
+        class Vacuna <<Entity>>{}
+
+        package builders{
+            class CalendarioAdultoBuilder{}
+            interface CalendarioBuilder{}
+            class CalendarioDirector
+            class CalendarioEmbarazadaBuilder{}
+            class CalendarioInfanteBuilder{}
+        }
+    }
+
+    package historia{
+        class CentroSalud <<Entity>>{}
+        class HistoriaMedica <<Entity>>{}
+        enum TipoEntidad <<Entity>>{}
+        class VisitaMedica <<Entity>>{}
+        class GrupoFamiliar{}
+    }
+
+    package prescripcion{
+        class Prescripcion <<Entity>>{}
+        class ArgReceta<<Entity>>{}
+        class ArgEstudio<<Entity>>{}
+        class Adjunto <<SinUso>>{}
+        class OtraReceta<<SinUso>>{}
+        class OtroEstudio<<SinUso>>{}
+        class Receta1 <<SinUso>>{}
+        class Estudio1 <<SinUso>>{}
+
+        package factory{
+            class ArgFactory{}
+            class OtraFactory <<SinUso>>{}
+            interface PrescripcionComponentFactory{}
+        }
+
+        package grupoabstract{
+            abstract Receta <<Entity>>{}
+            abstract Estudio <<Entity>>{}
+        }
+
+        package strategy{
+            interface RecetaStrategy <<SinUso>>{}
+            interface EstudioStrategy <<SinUso>>{}
+        }
+
+        package tipoenum{
+            enum PaisPrescripcion{}
+            enum TipoArgReceta{}
+            enum TipoArgEstudio{}
+        }
+    }
+
+    package ubicacion{
+        class Direccion <<Entity>>{}
+        class DireccionLocalidad <<Entity>>{}
+        class DireccionProvincia <<Entity>>{}
+    }
+
+    package usuario{
+        class Contacto <<Entity>>{}
+        class Especialidad <<Entity>>{}
+        enum Genero{}
+        class Profesional <<Entity>>{}
+        abstract Usuario <<Entity>>{}
+        class UsuarioPaciente <<Entity>>{}
+        class UsuarioProfesional <<Entity>>{}
+    }
+
+    package medicamento{
+        class Medicamento <<Entity>>{}
+        class MedicamentoProducto <<Entity>>{}
+        class HistoriaMedicamento <<Entity>>{}
+    }
+
+    package autorizacion{
+        abstract AutorizacionComponent <<Entity>>{}
+        class Grupo <<Entity>>{}
+        class Rol <<Entity>>{}
+        class Permiso <<Entity>>{}
+        class Autorizacion <<Entity>>{} 
+    }
+}
+
+/'RELACION DEL PAQUETE USUARIO'/
+
+Usuario <|.up. UsuarioPaciente
+Usuario <|.. UsuarioProfesional
+Usuario o-right- Genero
+
+Especialidad -up-o Profesional
+
+Usuario o-- Contacto
+Contacto --o Profesional
+
+/'-------------------------------'/
+
+/'RELACION DEL PAQUETE DIRECCION'/
+
+Direccion o-- DireccionLocalidad
+Direccion o-- DireccionProvincia
+
+DireccionLocalidad o-- DireccionProvincia
+
+Direccion --o Usuario
+Direccion --o Profesional
+Direccion --o CentroSalud
+
+/'-------------------------------'/
+
+/'RELACION DEL PAQUETE HISTORIA'/
+
+HistoriaMedica o-- CentroSalud
+HistoriaMedica o-- VisitaMedica
+HistoriaMedica o-- UsuarioPaciente
+HistoriaMedica o-- Profesional
+HistoriaMedica o-up- Calendario
+HistoriaMedica o-- GrupoFamiliar
+
+VisitaMedica o-- CentroSalud
+VisitaMedica o-- Profesional
+VisitaMedica o-- Prescripcion
+
+CentroSalud o-- Profesional
+CentroSalud o-- Contacto
+
+TipoEntidad --o Contacto
+TipoEntidad --o Direccion
+
+/'-------------------------------'/
+
+/'RELACION DEL PAQUETE PRESCRIPCION'/
+
+Prescripcion o-- Estudio
+Prescripcion o-- Receta
+Prescripcion o-- PaisPrescripcion
+Prescripcion o-- PrescripcionComponentFactory
+
+PrescripcionComponentFactory <|.. ArgFactory
+PrescripcionComponentFactory <|.. OtraFactory
+
+ArgFactory o-- ArgEstudio
+ArgFactory o-- ArgReceta
+
+OtraFactory o-- OtraReceta
+OtraFactory o-- OtroEstudio
+
+TipoArgEstudio --o ArgEstudio
+TipoArgReceta --o ArgReceta
+
+Estudio <|.. ArgEstudio
+Receta <|.. ArgReceta
+
+ArgEstudio o-- EstudioStrategy
+ArgReceta o-- RecetaStrategy
+
+EstudioStrategy <|.. Estudio1
+RecetaStrategy <|.. Receta1
+
+
+/'-------------------------------'/
+
+/'RELACION DEL PAQUETE CALENDARIO'/
+
+Calendario <|.. CalendarioInfante
+Calendario <|.. CalendarioAdulto
+Calendario <|.. CalendarioEmbarazada
+Calendario o-- RangoEdad
+
+RangoEdad o-up- TipoCalendario
+
+CalendarioEdadVacunaLink o-- Calendario
+CalendarioEdadVacunaLink o-left- RangoEdad
+CalendarioEdadVacunaLink o-up- Vacuna
+
+/'-------------------------------'/
+
+/'RELACION DEL PAQUETE CALENDARIO BUILDERS'/
+
+CalendarioDirector o-- CalendarioBuilder
+
+CalendarioBuilder <|.. CalendarioInfanteBuilder
+CalendarioBuilder <|.. CalendarioAdultoBuilder
+CalendarioBuilder <|.. CalendarioEmbarazadaBuilder
+
+CalendarioInfanteBuilder o-- CalendarioInfante
+CalendarioAdultoBuilder o-- CalendarioAdulto
+CalendarioEmbarazadaBuilder o-- CalendarioEmbarazada
+/'-------------------------------'/
+
+/'RELACION DEL PAQUETE MEDICAMENTO'/
+
+HistoriaMedicamento o-- MedicamentoProducto
+Medicamento o-- MedicamentoProducto
+
+HistoriaMedica o-- HistoriaMedicamento
+/'-------------------------------'/
+
+/'RELACION DEL PAQUETE AUTORIZACION'/
+Usuario o-- AutorizacionComponent
+
+Autorizacion o-- AutorizacionComponent
+
+AutorizacionComponent <|.. Autorizacion
+AutorizacionComponent <|.. Grupo
+AutorizacionComponent <|.. Permiso
+AutorizacionComponent <|.. Rol
+
+Grupo o-- Permiso
+Grupo o-- Rol
+
+Rol o-right- Permiso
+/'-------------------------------'/
+
+@enduml

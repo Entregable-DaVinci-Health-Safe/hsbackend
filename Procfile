@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -jar target/dv-ds-20222c-g4-hce-0.0.1-SNAPSHOT.jar

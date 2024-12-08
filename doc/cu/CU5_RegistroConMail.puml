@@ -1,0 +1,19 @@
+@startuml
+left to right direction
+package Registro_con_Mail {
+    usecase "CU_5-Registro con mail" as CU_5
+    (Validar campos) as VC
+    (Validar usuario existente) as VU
+    (Codigo de Verificacion) as CV 
+
+    actor Paciente as PA
+    actor Admin as AD
+
+    AD -- CU_5
+    PA -- CU_5
+
+    CU_5 -.> VC : include
+    CU_5 -.> CV : include
+    CU_5 -.> VU : include
+}
+@enduml

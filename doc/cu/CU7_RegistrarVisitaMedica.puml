@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+
+ actor Paciente
+  Paciente -- (CU_7-Registrar Visita Medica)  
+
+    (CU_7-Registrar Visita Medica) .left-> (CU_8-Institucion de Salud) : require
+    (CU_7-Registrar Visita Medica) .down-> (CU_9-Profesional) : require
+    (CU_7-Registrar Visita Medica) .right-> (CU_3-Especialidad) : require
+
+@enduml

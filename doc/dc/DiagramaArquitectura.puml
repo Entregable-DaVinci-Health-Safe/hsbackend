@@ -1,0 +1,214 @@
+@startuml
+skinparam linetype ortho
+
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+}
+
+package service{
+    package autorizacion{
+        interface AutorizacionComponentService{}
+        class AutorizacionComponentServiceImpl{}
+    }
+
+    package calendario{
+        interface CalendarioEdadVacunaLinkService{}
+        class CalendarioEdadVacunaLinkServiceImpl{}
+
+        interface CalendarioService{}
+        class CalendarioServiceImpl{}
+
+        interface RangoEdadService{}
+        class RangoEdadServiceImpl{}
+
+        interface VacunaService{}
+        class VacunaServiceImpl{}
+
+        interface VacunaUsuarioService{}
+        class VacunaUsuarioServiceImpl{}
+    }
+
+    package grupofamiliar{
+        interface GrupoFamiliarService{}
+        class GrupoFamiliarServiceImpl{}
+
+        interface GrupoNotificacionService{}
+        class GrupoNotificacionServiceImpl{}
+    }
+
+    package medicamento{
+        interface HistoriaMedicamentoService{}
+        class HistoriaMedicamentoServiceImpl{}
+
+        interface MedicamentoProductoService{}
+        class MedicamentoProductoServiceImpl{}
+
+        interface MedicamentoRecordatorioService{}
+        class MedicamentoRecordatorioServiceImpl{}
+
+        interface MedicamentoService{}
+        class MedicamentoServiceImpl{}
+    }
+
+    package prescripcion{
+        interface AdjuntoService{}
+        class AdjuntoServiceImpl{}
+        
+        interface EstudioService{}
+        class EstudioServiceImpl{}
+
+        interface PrescripcionService{}
+        class PrescripcionServiceImpl{}
+
+        interface RecetaService{}
+        class RecetaServiceImpl{}
+    }
+
+    package profesional{
+        interface EspecialidadService{}
+        class EspecialidadServiceImpl{}
+
+        interface ProfesionalService{}
+        class ProfesionalServiceImpl{}
+    }
+
+    package signovital{
+        interface SignoVitalCustomService{}
+        class SignoVitalCustomServiceImpl{}
+
+        interface SignoVitalPacienteService{}
+        class SignoVitalPacienteServiceImpl{}
+
+        interface TipoSignoVitalService{}
+        class TipoSignoVitalServiceImpl{}
+    }
+
+    package usuario{
+        interface ContactoService{}
+        class ContactoServiceImpl{}
+
+        interface DireccionService{}
+        class DireccionServiceImpl{}
+
+        interface UsuarioService{}
+        class UsuarioServiceImpl{}
+
+        interface VerificacionCuentaService{}
+        class VerificacionCuentaServiceImpl{}
+    }
+
+    interface MailSmtpService{}
+    class MailSmtpServiceImpl{}
+
+    interface HistoriaMedicaService{}
+    class HistoriaMedicaServiceImpl{}
+
+    interface DiagnosticoService{}
+    class DiagnosticoServiceImpl{}
+
+    interface GoogleService{}
+    class GoogleServiceImpl{}
+
+    interface InstitucionSaludService{}
+    class InstitucionSaludServiceImpl{}
+
+    interface UserDetailsService{}
+    class JwtUserDetailsServiceImpl{}
+
+    interface TurnoService{}
+    class TurnoServiceImpl{}
+
+    interface VisitaMedicaService{}
+    class VisitaMedicaServiceImpl{}
+}
+
+AutorizacionComponentService <|.. AutorizacionComponentServiceImpl
+CalendarioEdadVacunaLinkService <|.. CalendarioEdadVacunaLinkServiceImpl
+CalendarioService <|.. CalendarioServiceImpl
+RangoEdadService <|.. RangoEdadServiceImpl
+VacunaService <|.. VacunaServiceImpl
+VacunaUsuarioService <|.. VacunaUsuarioServiceImpl
+GrupoFamiliarService <|.. GrupoFamiliarServiceImpl
+GrupoNotificacionService <|.. GrupoNotificacionServiceImpl
+MedicamentoRecordatorioService <|.. MedicamentoRecordatorioServiceImpl
+MedicamentoService <|.. MedicamentoServiceImpl
+MedicamentoProductoService <|.. MedicamentoProductoServiceImpl
+HistoriaMedicamentoService <|.. HistoriaMedicamentoServiceImpl
+AdjuntoService <|.. AdjuntoServiceImpl
+EstudioService <|.. EstudioServiceImpl
+PrescripcionService <|.. PrescripcionServiceImpl
+RecetaService <|.. RecetaServiceImpl
+EspecialidadService <|.. EspecialidadServiceImpl
+ProfesionalService <|.. ProfesionalServiceImpl
+SignoVitalCustomService <|.. SignoVitalCustomServiceImpl
+SignoVitalPacienteService <|.. SignoVitalPacienteServiceImpl
+TipoSignoVitalService <|.. TipoSignoVitalServiceImpl
+ContactoService <|.. ContactoServiceImpl
+DireccionService <|.. DireccionServiceImpl
+UsuarioService <|.. UsuarioServiceImpl
+VerificacionCuentaService <|.. VerificacionCuentaServiceImpl
+MailSmtpService <|.. MailSmtpServiceImpl
+HistoriaMedicaService <|.. HistoriaMedicaServiceImpl
+DiagnosticoService <|.. DiagnosticoServiceImpl
+GoogleService <|.. GoogleServiceImpl
+InstitucionSaludService <|.. InstitucionSaludServiceImpl
+UserDetailsService <|.. JwtUserDetailsServiceImpl
+TurnoService <|.. TurnoServiceImpl
+VisitaMedicaService <|.. VisitaMedicaServiceImpl
+
+
+CalendarioServiceImpl o-- RangoEdadService
+CalendarioServiceImpl o-- VacunaService
+CalendarioServiceImpl o-- VacunaUsuarioService
+CalendarioServiceImpl o-- CalendarioEdadVacunaLinkService
+
+GrupoFamiliarServiceImpl o-- GrupoNotificacionService
+GrupoFamiliarServiceImpl o-- AutorizacionComponentService
+GrupoFamiliarServiceImpl o-- MailSmtpService
+GrupoFamiliarServiceImpl o-- UsuarioService
+GrupoFamiliarServiceImpl o-- HistoriaMedicaService
+
+MedicamentoRecordatorioServiceImpl o-- HistoriaMedicamentoService
+HistoriaMedicamentoServiceImpl o-- MedicamentoProductoService
+HistoriaMedicamentoServiceImpl o-- HistoriaMedicaService
+
+PrescripcionServiceImpl o-- EstudioService
+PrescripcionServiceImpl o-- RecetaService
+PrescripcionServiceImpl o-- VisitaMedicaService
+
+ProfesionalServiceImpl o-- EspecialidadService
+ProfesionalServiceImpl o-- ContactoService
+ProfesionalServiceImpl o-- DireccionService
+ProfesionalServiceImpl o-- HistoriaMedicaService
+
+SignoVitalPacienteServiceImpl o-- SignoVitalCustomService
+SignoVitalPacienteServiceImpl o-- HistoriaMedicaService
+SignoVitalCustomServiceImpl o-- TipoSignoVitalService
+SignoVitalCustomServiceImpl o-- HistoriaMedicaService
+
+UsuarioServiceImpl o-- DireccionService
+UsuarioServiceImpl o-- ContactoService
+UsuarioServiceImpl o-- MailSmtpService
+UsuarioServiceImpl o-- AutorizacionComponentService
+UsuarioServiceImpl o-- VerificacionCuentaService
+
+VerificacionCuentaServiceImpl o-- MailSmtpService
+
+GoogleServiceImpl o-- UsuarioService
+GoogleServiceImpl o-- HistoriaMedicaService
+
+HistoriaMedicaServiceImpl o-- CalendarioService
+
+InstitucionSaludServiceImpl o-- ContactoService
+InstitucionSaludServiceImpl o-- DireccionService
+InstitucionSaludServiceImpl o-- ProfesionalService
+InstitucionSaludServiceImpl o-- HistoriaMedicaService
+
+TurnoServiceImpl o-- HistoriaMedicaService
+
+VisitaMedicaServiceImpl o-- HistoriaMedicaService
+VisitaMedicaServiceImpl o-- InstitucionSaludService
+VisitaMedicaServiceImpl o-- ProfesionalService
+VisitaMedicaServiceImpl o-- DiagnosticoService
+@enduml

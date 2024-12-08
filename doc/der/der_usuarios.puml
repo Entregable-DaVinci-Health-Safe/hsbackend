@@ -1,0 +1,108 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity "Usuarios" as Usuarios {
+    *id_usuarios: BIGINT <<generated>>
+    *usuarios_tipo: VARCHAR (50)
+    *perfiles: BIGINT
+    *vistaHome: <<FK>>
+    --
+    *nombres: VARCHAR (250)
+    *apellidos: VARCHAR (250)
+    diagnostico: INT
+    *mail: VARCHAR (45)
+    mailRecuperacion: VARCHAR (50)
+    *fecha_nacimiento: VARCHAR (45)
+    *tipo VARCHAR (45)
+    telefono: DATE ("dd-MM-yyyy")
+    direccion: VARCHAR (250)
+    ubicacion: <<FK>>
+    estado:  TINYINT(1)
+}
+
+entity "VistaHome" as VH {
+    *id_usuarios: <<FK>>
+    *componentes: <<FK>>
+}
+
+entity "Componentes" as CF {
+    idComponente: BIGINT <<generated>>
+    *nombre: VARCHAR (45)
+}
+
+entity "Provincias" as Provincias {
+    *id_pronvincia: BIGINT <<generated>>
+    --
+    nombre: VARCHAR (45)
+}
+
+entity "Localidades" as Localidades {
+    *id_localidad: BIGINT <<generated>>
+    --
+    nombre: VARCHAR (45)
+}
+
+entity "Ubicacion" as Ubicacion {
+    *id: BIGINT <<generated>>
+    --
+    provincia: <<FK>>
+    localidad: <<FK>>
+}
+
+entity "Paciente" as Paciente {
+    *id_paciente BIGINT <<generated>>
+    --
+    id_obra_social: <<FK>>
+}
+
+entity "Admin" as Admin {
+    *id_admin BIGINT <<generated>>
+    --
+
+}
+
+entity "Usuario_Perfiles" as Usuario_Perfiles {
+    *id_usuario_perfiles BIGINT <<generated>>
+    --
+    id_usuarios: <<FK>>
+    id_perfiles: <<FK>>
+}
+
+entity "Perfiles" as Perfiles {
+    *id_perfiles BIGINT <<generated>>
+    --
+    nombre: VARCHAR (45)
+}
+
+entity "Perfil_Permisos" as Perfil_Permisos {
+    *id_perfil_permisos BIGINT <<generated>>
+    --
+    id_permisos: <<FK>>
+    id_perfiles: <<FK>>
+}
+
+entity "Permisos" as Permisos {
+    *id_permisos BIGINT <<generated>>
+    --
+    codigo: VARCHAR (45)
+}
+
+Usuarios ||--{  Usuario_Perfiles
+Usuario_Perfiles ||--{ Perfiles
+Perfil_Permisos ||--{ Permisos
+Perfil_Permisos ||--{ Perfiles
+' Perfil_Permisos ||--{  Usuario_Perfiles
+
+Usuarios ||--|| VH
+VH ||--{  CF
+
+Paciente ||--{  Usuarios
+Admin ||--{  Usuarios
+
+Usuarios  ||--|| Ubicacion
+Ubicacion ||--|| Provincias
+Ubicacion ||--|| Localidades
+
+@enduml
+

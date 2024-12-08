@@ -1,0 +1,16 @@
+@startuml
+left to right direction
+
+actor Admin
+database database [
+Ingresa la consulta
+----
+El motor procesa
+----
+Se puebla la tabla 
+]
+
+Admin --> database
+
+
+@enduml

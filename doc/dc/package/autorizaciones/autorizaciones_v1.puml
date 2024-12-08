@@ -1,0 +1,88 @@
+@startuml Autorizaciones 
+skinparam linetype ortho
+
+package domain{
+    abstract AutorizacionComponent{
+        -codigo: String
+        -descripcion: String
+        -estado: Boolean
+    }
+
+    class Grupo{
+        -permisos: List<Permiso>
+        -roles: List<Rol>
+    }
+
+    class Rol{
+        -permisos: List<Permiso>
+    }
+
+    class Permiso{}
+
+    class Autorizacion{
+        -componentes: List<AutorizacionComponent>
+    } 
+
+    class Usuario{
+        -autorizacion: AutorizacionComponent
+    }
+}
+
+package repository{
+    interface AutorizacionRepository{}
+    interface GrupoRepository{}
+    interface RolRepository{}
+    interface PermisoRepository{}
+    interface UsuarioRepository{}
+    interface AutorizacionComponentRepository{}
+}
+
+package service{
+
+    interface AutorizacionComponentService{}
+    class AutorizacionComponentServiceImpl{}
+
+    interface UsuarioService{}
+    class UsuarioServiceImpl{}
+}
+
+package controller.rest{
+    class AutorizacionControllerRest{}
+}
+
+
+/'DOMINIO'/
+Usuario o-- AutorizacionComponent
+
+Autorizacion o-- AutorizacionComponent
+
+AutorizacionComponent <|.. Autorizacion
+AutorizacionComponent <|.. Grupo
+AutorizacionComponent <|.. Permiso
+AutorizacionComponent <|.. Rol
+
+Grupo o-- Permiso
+Grupo o-- Rol
+
+Rol o-right- Permiso
+
+/'REPOSITORY'/
+AutorizacionComponentServiceImpl o-- AutorizacionRepository
+AutorizacionComponentServiceImpl o-- AutorizacionComponentRepository
+AutorizacionComponentServiceImpl o-- GrupoRepository
+AutorizacionComponentServiceImpl o-- RolRepository
+AutorizacionComponentServiceImpl o-- PermisoRepository
+UsuarioServiceImpl o-- UsuarioRepository
+
+/'SERVICE'/
+AutorizacionComponentService <|.. AutorizacionComponentServiceImpl
+UsuarioService <|.. UsuarioServiceImpl
+
+UsuarioServiceImpl o-up- AutorizacionComponentService
+
+/'CONTROLLER REST'/
+
+AutorizacionControllerRest o-- AutorizacionComponentService
+
+
+@enduml

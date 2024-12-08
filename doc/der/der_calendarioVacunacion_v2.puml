@@ -1,0 +1,73 @@
+@startuml
+
+skinparam linetype ortho
+
+entity "calendarios" as cld{
+    *cld_id: bigint <<generated>> <<PK>>
+    *cld_tcl_id: varchar(255) NOT NULL <<FK>>
+}
+
+entity "calendario_infante" as cnñ{
+    *cld_id: bigint <<generated>> <<PK>>
+    *cld_id: bigint <<FK>>
+}
+
+entity "calendario_adultos" as cdt{
+    *cld_id: bigint <<generated>> <<PK>>
+    *cld_id: bigint <<FK>>
+}
+
+entity "calendario_embarazadas" as cbz{
+    *cld_id: bigint <<generated>> <<PK>>
+    *cld_id: bigint <<FK>>
+}
+
+entity "tipo_calendarios" as tcl{
+    *tcl: varchar(50) <<PK>>
+}
+
+entity "vacunas_rangoEdades" as vre{
+    *vre_id: bigint <<generated>> <<PK>>
+    *vre_ede_id: bigint <<FK>>
+    *vre_vcn_id: bigint <<FK>>
+}
+
+entity "vacunas" as vcn{
+    *vcn_id: bigint <<generated>> <<PK>>
+    *vcn_nombre: varchar(255) NOT NULL
+    *vcn_descripcion: varchar(255) NOT NULL
+    *vcn_estado: varchar(255) NOT NULL
+}
+
+entity "rango_edades" as ede{
+    *ede_id: bigint <<generated>> <<PK>>
+    *ede_nombre: varchar(255) NOT NULL
+}
+
+entity "edades_tipo_calendarios" as etc{
+    *etc_id: bigint <<generated>> <<PK>>
+    *etc_ede_id: bigint <<FK>>
+    *etc_tcl_id: varchar(50) <<FK>>
+}
+
+entity "calendarios_edades" as cle{
+    *cle_id: bigint <<generated>> <<PK>>
+    *cle_cld_id: bigint <<FK>>
+    *cle_ede_id: bigint <<FK>>
+}
+
+cld ||-up-|| cnñ
+cld ||-left-|| cdt
+cld ||-right-|| cbz
+cld ||--|| tcl
+
+cld ||--{ cle
+ede ||--{ cle
+
+tcl ||--{ etc
+ede ||--{ etc
+
+vre ||--|| ede
+vre ||--|| vcn
+
+@enduml

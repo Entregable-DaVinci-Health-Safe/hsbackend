@@ -1,0 +1,62 @@
+@startuml Package de Usuario
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+}
+
+package domain{
+    abstract Usuario<<Entity>>{}
+    abstract AutorizacionComponent
+    class Paciente <<Entity>>{}
+    class Profesional <<Entity>>{}
+    class Localidad <<Entity>>{}
+    class Provincia <<Entity>>{}
+    class AutorizacionComposite{}
+    class Grupo <<Entity>>{}
+    class Rol <<Entity>>{}
+    class Permiso <<Entity>>{}
+    class ObraSocial<<Entity>>{}
+    enum Especialidad{}
+}
+package repository{
+    interface UsuarioRepository{}
+    interface PacienteRepository{}
+    interface ProfesionalRepository{}
+    interface ObraSocialRepository{}
+    interface LocalidadRepository{}
+    interface ProvinciaRepository{}
+    interface GrupoRepository{}
+    interface PermisoRepository{}
+    interface RolRepository{}
+}
+
+package service{
+    interface UsuarioService{}
+    class UsuarioServiceImpl{}
+}
+
+Usuario <|.left. Paciente
+Usuario <|.. Profesional
+Usuario o-- Localidad
+Usuario o-right- AutorizacionComposite
+
+Profesional o-- Especialidad
+
+Paciente o-- ObraSocial
+
+Localidad o-- Provincia
+
+AutorizacionComposite o-- AutorizacionComponent
+
+AutorizacionComponent <|.. AutorizacionComposite
+AutorizacionComponent <|.. Grupo
+AutorizacionComponent <|.. Rol
+AutorizacionComponent <|.. Permiso
+
+Grupo o-- Rol
+Grupo o-- Permiso
+
+Permiso o-- Rol
+
+UsuarioService <|.. UsuarioServiceImpl
+@enduml

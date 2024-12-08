@@ -1,0 +1,69 @@
+@startuml Package de Grupo Familiar
+skinparam linetype ortho
+
+entity "usuarios" as usr {
+    *usr_id: bigint <<generated>> <<PK>>
+    *usr_uac_id: bigint <<FK>>
+}
+
+entity "usuarios_pacientes" as usr_pte{
+    *usr_id: bigint <<generated>> <<PK>>
+    *usr_id: bigint <<FK>>
+}
+
+entity "historias_medicas" as hta{
+    *hta_id: bigint <<generated>> <<PK>>
+    *hta_usr_id: bigint <<FK>>
+}
+
+entity "grupos_familiares" as gfm{
+    *gfm_id: bigint <<generated>> <<PK>>
+    *gfm_nombre: varchar(75)
+    *gfm_codigo: varchar(20)
+    *gfm_fecha_creado: bigint
+}
+
+entity "historias_familiares" as htf{
+    *htf_id: bigint  <<generated>> <<PK>>
+    *htf_hta_id: bigint <<FK>>
+    *htf_gfm_id: bigint <<FK>>
+}
+
+entity "admins_grupos_familiares" as adg{
+    *adg_id: bigint <<generated>> <<PK>>
+    *adg_gfm_id: bigint <<FK>>
+    *adg_usr_id: bigint <<FK>>
+}
+
+entity "usuarios_grupos_familiares" as ugf{
+    *ugf_id: bigint <<generated>> <<PK>>
+    *ugf_gfm_id: bigint <<FK>>
+    *ugf_usr_id: bigint <<FK>>
+}
+
+entity "grupos_notificaciones" as gnt{
+    *gnt_id: bigint <<PK>>
+    *gnt_fecha: bigint
+    *gnt_vista: TINYINT(1)
+    *gnt_aceptada: TINYINT(1)
+    *gnt_gfm_id: bigint <<FK>>
+    *gnt_usr_id: bigint <<FK>>
+
+}
+
+gfm }--|| adg
+usr }-right-|| adg
+
+gfm }--|| ugf
+usr }-up-|| ugf
+
+usr_pte ||--|| usr
+hta ||--|| usr_pte
+
+hta }--|| htf
+gfm }--|| htf
+
+gfm ||--{ gnt
+usr ||-left-{ gnt
+
+@enduml

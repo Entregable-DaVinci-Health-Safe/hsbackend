@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+
+ actor Paciente
+
+  Paciente -- (CU17_Recordatorio) 
+
+	 (CU17_Recordatorio) .down--> (CU_13_VisordeMedicaciónHabitual) : require
+	 (CU_13_VisordeMedicaciónHabitual) .left--> (CU14_AltaMedicacionHabitual) : require
+
+@enduml

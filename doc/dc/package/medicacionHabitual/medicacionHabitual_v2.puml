@@ -1,0 +1,75 @@
+@startuml Package de la medicacion
+skinparam linetype ortho
+skinparam class {
+BackgroundColor<<Entity>> LightBlue
+BorderColor<<Entity>> DarkGreen
+}
+
+package domain{
+    class HistoriaMedica{}
+    class Medicamento{}
+    class MedicamentoProducto{}
+    class HistoriaMedicamento{}
+}
+
+package repository{
+    interface MedicamentoRepository{}
+    interface MedicamentoProductoRepository{}
+    interface HistoriaMedicamentoRepository{}
+}
+
+package service{
+    interface HistoriaMedicaService{}
+    class HistoriaMedicaServiceImpl{} 
+
+    interface MedicamentoService{}
+    class MedicamentoServiceImpl{}
+
+    interface MedicamentoProductoService{}
+    class MedicamentoProductoServiceImpl{}
+
+    interface HistoriaMedicamentoService{}
+    class HistoriaMedicamentoServiceImpl{}
+
+}
+
+package controller.rest{
+    class MedicamentoControllerRest{}
+
+}
+
+/'DOMAIN'/
+
+HistoriaMedicamento o-- MedicamentoProducto
+HistoriaMedica o-- HistoriaMedicamento
+Medicamento o-- MedicamentoProducto
+
+'-------------------------------'/
+
+/'REPOSITORY'/
+
+MedicamentoServiceImpl o-- MedicamentoRepository
+MedicamentoProductoServiceImpl o-- MedicamentoProductoRepository
+HistoriaMedicamentoServiceImpl o-- HistoriaMedicamentoRepository
+
+
+'-------------------------------'/
+
+/'SERVICE'/
+HistoriaMedicaService <|.. HistoriaMedicaServiceImpl
+MedicamentoService <|.. MedicamentoServiceImpl
+MedicamentoProductoService <|.. MedicamentoProductoServiceImpl
+HistoriaMedicamentoService <|.. HistoriaMedicamentoServiceImpl
+
+MedicamentoServiceImpl o-right- MedicamentoProductoService
+HistoriaMedicamentoService --o MedicamentoServiceImpl
+
+HistoriaMedicaServiceImpl o-right- MedicamentoService
+
+
+/'-------------------------------'/
+
+
+MedicamentoControllerRest o-- MedicamentoService
+
+@enduml
